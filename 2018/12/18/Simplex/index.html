@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Simplex,最优化,线性规划,">
 
 
 
@@ -86,17 +86,20 @@
 
 
 
-<meta name="description" content="这是行间公式$$ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a} $$ 这是行内公式这里是行内公式 \(E = mc^2\) 这里是行内公式">
+<meta name="description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
+<meta name="keywords" content="Simplex,最优化,线性规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="caojiangxia">
-<meta property="og:url" content="http://yoursite.com/2018/12/13/MY/index.html">
+<meta property="og:title" content="Simplex-单纯形算法介绍">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/Simplex/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="这是行间公式$$ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a} $$ 这是行内公式这里是行内公式 \(E = mc^2\) 这里是行内公式">
+<meta property="og:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-13T09:52:45.713Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/Simplex/graph/Simpex-ExampleHuman.png">
+<meta property="og:updated_time" content="2018-12-18T15:57:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="caojiangxia">
-<meta name="twitter:description" content="这是行间公式$$ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a} $$ 这是行内公式这里是行内公式 \(E = mc^2\) 这里是行内公式">
+<meta name="twitter:title" content="Simplex-单纯形算法介绍">
+<meta name="twitter:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/18/Simplex/graph/Simpex-ExampleHuman.png">
 
 
 
@@ -126,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/13/MY/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/18/Simplex/">
 
 
 
 
 
-  <title> | caojiangxia</title>
+  <title>Simplex-单纯形算法介绍 | caojiangxia</title>
   
 
 
@@ -301,7 +304,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/MY/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/Simplex/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kuroyukihime">
@@ -318,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Simplex-单纯形算法介绍</h1>
         
 
         <div class="post-meta">
@@ -330,8 +333,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-13T17:15:17+08:00">
-                2018-12-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-18T23:57:27+08:00">
+                2018-12-18
               </time>
             
 
@@ -341,6 +344,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -348,7 +373,7 @@
 
           
           
-             <span id="/2018/12/13/MY/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2018/12/18/Simplex/" class="leancloud_visitors" data-flag-title="Simplex-单纯形算法介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,7 +398,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  38
+                  2.7k
                 </span>
               
 
@@ -398,8 +423,192 @@
       
 
       
-        <h1 id="这是行间公式"><a href="#这是行间公式" class="headerlink" title="这是行间公式"></a>这是行间公式</h1><p>$$ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a} $$</p>
-<h1 id="这是行内公式"><a href="#这是行内公式" class="headerlink" title="这是行内公式"></a>这是行内公式</h1><p>这里是行内公式 \(E = mc^2\) 这里是行内公式</p>
+        <h3 id="单纯形算法（Simplex）有什么用？"><a href="#单纯形算法（Simplex）有什么用？" class="headerlink" title="单纯形算法（Simplex）有什么用？"></a>单纯形算法（Simplex）有什么用？</h3><p>谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。</p>
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Energy</th>
+<th>Ca</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>燕麦</td>
+<td>110</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>牛奶</td>
+<td>160</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td>猪肉</td>
+<td>260</td>
+<td>14</td>
+<td>19</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典的线性优化问题，我们可以很轻松的写出目标函数和约束条件：</p>
+<p>​                                $min$   $$3X_1+9X_2+19X_3$$</p>
+<p>​                                $s.t.$    </p>
+<p>​                                      $110X_1+160X_2+260X_3&gt;=2000$</p>
+<p>​                                       $4X_1+8X_2+14X_3&gt;=55$</p>
+<p>​                                           $X_i&gt;=0，i=1,2,3$</p>
+<p>上述不等式表示的含义很简单，$min$表示最小化后面的目标函数，$s.t.$ 表示subject to的缩写，意思是受限于。</p>
+<p>针对这类问题，我们曾经学过的方法是图解法，画出可行域（阴影部分）（a），之后使用目标函数(b)在可行域上移动，之后靠<del>直觉</del>确定最优解。</p>
+<p><img src="graph\Simpex-ExampleHuman.png" alt=""></p>
+<p>但是计算机可没有人类的直觉！计算机求解这些问题的时候，需要更加通用的方法来求解。于是在二战时期，为了协助政府协调物资人员，前苏联的坎托诺维奇<del>强行</del>提出了Simplex算法。其实该算法的思想也是来自于图解法，我们观察上面的求解过程，可以很明显的发现，最优解一定是在顶点上的！！！！于是这个人就在想，我们是不是随便从一个顶点开始，之后每次迁移到这个顶点的相邻顶点上，对这个凸包每个点遍历一次就能得到答案了？事实确实也确实是这样的，而且可以更简单，实际上我们只需要随便从一个顶点开始，之后暴力这个点相邻的点，然后选择一个下降的方向迁移点就可以，直到当前的点的值最小，那么这个点就是最终的解。</p>
+<p>但是为什么可以这样做呢？按照我的理解，因为可行域是一个凸多边形，那么这个凸多边形的顶点结果是单调的，因为全局最优解只有一个。那么求解过程就好像下山一样，只要每次向下走就可以走到谷底，类似于梯度下降法在凸二次函数上每次沿着下降的方向走，一直迭代就能得到最优解。当然这些是在扯淡，实际上这玩意是被证明了的，而我没看。。。</p>
+<h3 id="单纯形算法适用的情况"><a href="#单纯形算法适用的情况" class="headerlink" title="单纯形算法适用的情况"></a>单纯形算法适用的情况</h3><p>标准的线性规划格式（也叫标准型）：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A*x&gt;=b$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n$</p>
+<p>其中$c$表示的就是每一类$x$的花费，$A$表示的是约束矩阵，$x$表示的是擦书的列向量，$x_i$表示的是每一类的量(针对于整数线性规划，要求$x_i$必须为整数，比如$x_i$表示的是人的数量或者物品的份数)</p>
+<p>但是有些时候我们可能碰到一些要最大化的最优化问题，比如我们固定钱数，怎么样买到的能量最多？这时候我们的优化目标变成了$max$，针对这类问题我们转换为标准形式的方式也很简单，$c*-1$ 就变为$min$ 了，同样的道理我们对$A$和$x$都可以这样干。</p>
+<ul>
+<li>目标函数是$max$的时候，我们将$c$取反</li>
+<li>$Ai*x&lt;=b$,我们将$A_i$和$b$取反</li>
+<li>$x&lt;=0$,我们将$x$取反</li>
+</ul>
+<h3 id="松弛型和单纯形"><a href="#松弛型和单纯形" class="headerlink" title="松弛型和单纯形"></a>松弛型和单纯形</h3><p>我们上面介绍了标准型，现在介绍一下松弛型，其实也是一个很简单的东西，由于我们上面都是不等式，实在是太烦了，于是我们想要把不等式优化成等式，于是我们将标准型构造成下面的形式：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A_i*x-x_{i+n}=b_i$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n+m$</p>
+<p>其中$m$表示约束的个数，由于之前的不等式都是$&gt;=$的情况，我们可以减去一个非负的变量使得等号成立。这就是松弛形。</p>
+<p>现在介绍单纯形，单纯形其实就是从松弛型过来的，它是为了单纯形算法求解简便一些而存在的，因为它可以导出单纯形表，一般写成如下形式：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$  </p>
+<p>​                                              $x_{i+n}=b_i-A_ix$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n+m$</p>
+<p>其中我们称左边的变量为<strong>基本变量</strong>，右边的变量称为<strong>非基本变量</strong>，我们很显然有一组<strong>基础解</strong>，就是令<strong>非基本变量为零</strong>，这时候<strong>基本变量</strong>的值都为其对应的$b_i$。我们一般情况下可以认为基础解就是前面说的可行解区域的一个顶点（因为原本就是边界）。</p>
+<p>而单纯形表的初始形式很简单，举个例子</p>
+<p>​                                        $min$    $-x_1-14x_2-6x_3$</p>
+<p>​                                        $s.t.$        </p>
+<p>​                                                $x_1+x_2+x_3+x_4$                $=4$</p>
+<p>​                                                $x_1$                              $+x_5$             $=2$</p>
+<p>​                                                        $x_3$                $+x_6$    $=3$</p>
+<p>当前的例子的<strong>基本变量</strong>为${x_4,x_5,x_6}$,<strong>非基本变量</strong>为${x_1,x_2,x_3}$。</p>
+<p>其单纯形表的形式为:</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>-1</th>
+<th>-14</th>
+<th>-6</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>人话解释，第一行表示的是目标函数的系数，但是其中第0个位置表示的是当前目标函数取当前<strong>基础解</strong>作为解之后求得的值的相反数。后面的每一行表示的都是约束条件$b_i=a_{i1}x_1+a_{i2}x_2+…+a_{i(n+m)}x_{n+m}$</p>
+<p>我们在使用单纯形法进行求解的时候，首先找到第一个目标函数中系数为负的<strong>非基本变量</strong>$y$，将其增大（这个过程相当于我们在凸包上沿着边缘走到另一个顶点），但是我们怎么确定这个<strong>非基本变量</strong>$y$最大能增大多少呢？这个其实很简单，只需要令除当前变量的其他变量为0，剩下$b_i$和$y$，我们可以对每个包含$y$的约束条件进行计算约束。找到使其最紧(即在当前的约束条件中让$y$的最大取值最小)的那一个约束即可，再使用当前约束条件下的<strong>基本变量</strong>与其进行替换即可。由于我们每次可以使约束z向更小的方向迁移，这使得我们的算法不会陷入死循环。</p>
+<p>注意，假如对于非基本变量$y$不存在限制最紧的约束条件，那么该组线性规划无解，因为可以无限增大。</p>
+<p>再次注意我们的规则<strong>(Bland规则)</strong>：</p>
+<ol>
+<li><p>找到第一个目标函数中系数为负的<strong>非基本变量</strong></p>
+</li>
+<li><p>找到限制最紧的约束条件</p>
+</li>
+<li><p>使用当前约束条件下的<strong>基本变量</strong>(也叫替入变量)与<strong>非基本变量</strong>（也叫替出变量）进行替换</p>
+</li>
+</ol>
+<p>我们对上述单纯形表进行一次示范操作：</p>
+<p>首先我们看到第一个非基本变量$x_1$的系数为负数。那么我们开始对$x_1$进行增大。</p>
+<p>对于第一个约束条件有$x_1=4$</p>
+<p>对于第二个约束条件有$x_1=2$</p>
+<p>对于第三个约束条件有$x_1=3$</p>
+<p>由于第二个约束是最紧的，那么我们选择第二个约束中的$x_5$作为替出变量，此时有单纯形表的变化为</p>
+<table>
+<thead>
+<tr>
+<th>2</th>
+<th>0</th>
+<th>-14</th>
+<th>-6</th>
+<th>0</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>由于我们在替出时将$x_1=2-x_5$带入，很明显可以将单纯形表进行转换。如果没有想清楚的话我们可以手动带入一下即可。</p>
+<p>一直重复这个操作，直到所有的<strong>非基本变量</strong>的系数都大于零（顶点无法再迁移），那么程序就求出了最优解。</p>
+<p>注意，本文其实未完待续，因为其实在实现算法中间存在很多细节，但本文的目的是让读者对该算法有个系统的了解，明白算法的原由，至于一些具体的细节，读者可以参考<a href="https://www.hrwhisper.me/introduction-to-simplex-algorithm/" target="_blank" rel="noopener">链接</a>进行进一步的了解！</p>
+<p>给出一份Simplex的模板与其应用，所求解的题目链接：<a href="http://www.baidu.com/link?url=EkB7BXLORqw4cPoU0YyMnMlh4K8w524lNmhTJmi-oZj2_zKuCYkSl1dVEaGnhKxKDLcKy9DcdAd9MZTWSs84-q" target="_blank" rel="noopener"><em>BZOJ</em> 1061</a>：</p>
+<p>注意！！该模板求解的是：</p>
+<p>​                                        $max$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A*x&lt;=b$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n$<br>这类问题，稍稍转换一下就好了。之所以选择这个作为模板，是因为这份模板直接省去了替出变量，节省了大量空间，而且极其富有技巧性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1005</span>, maxm = <span class="number">10005</span>;</span><br><span class="line"><span class="keyword">const</span> DB inf = <span class="number">0x3f3f3f3f3f3f3f3f</span>, eps = <span class="number">1e-7</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line">DB b[maxm], c[maxn], cof[maxm][maxn], ans;<span class="comment">//约束、目标函数的系数、约束矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pivot</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">	b[id] /= cof[id][pos];<span class="comment">//首先归一化</span></span><br><span class="line">	cof[id][pos] = <span class="number">1</span> / cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span>(i != pos) cof[id][i] *= cof[id][pos];<span class="comment">//归一化</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="keyword">if</span>(i != id &amp;&amp; <span class="built_in">fabs</span>(cof[i][pos]) &gt; eps) &#123;<span class="comment">//当前约束条件包含约束最紧的变量</span></span><br><span class="line">		b[i] -= cof[i][pos] * b[id];<span class="comment">//搞死小圆(高斯消元)的方法更新变量的系数和b的值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) <span class="keyword">if</span>(j != pos) cof[i][j] -= cof[i][pos] * cof[id][j];</span><br><span class="line">		cof[i][pos] = -cof[i][pos] * cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ans += c[pos] * b[id];<span class="comment">//对c进行消元</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span>(i != pos) c[i] -= c[pos] * cof[id][i];</span><br><span class="line">	c[pos] = -c[pos] * cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> DB <span class="title">simplex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> pos, id;</span><br><span class="line">		<span class="keyword">for</span>(pos = <span class="number">1</span>; pos &lt;= n; pos++) <span class="keyword">if</span>(c[pos] &gt; eps) <span class="keyword">break</span>;<span class="comment">//找到第一个系数大于0的变量，进行增大</span></span><br><span class="line">		<span class="keyword">if</span>(pos == n + <span class="number">1</span>) <span class="keyword">return</span> ans;<span class="comment">//找不到了结束，返回答案</span></span><br><span class="line"></span><br><span class="line">		DB tmp = inf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="keyword">if</span>(cof[i][pos] &gt; eps &amp;&amp; b[i] / cof[i][pos] &lt; tmp)</span><br><span class="line">			tmp = b[i] / cof[i][pos], id = i;<span class="comment">//找到约束最紧的那个约束条件</span></span><br><span class="line">		<span class="keyword">if</span>(tmp == inf) <span class="keyword">return</span> inf;</span><br><span class="line">		pivot(id, pos);<span class="comment">//进行顶点的迁移（旋转）</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;c[i]);<span class="comment">//其实将min改为max问题，可以直接采用结论，求对偶问题即可。</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> x, y; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;x, &amp;y);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = x; j &lt;= y; j++) cof[i][j] = <span class="number">1</span>;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;b[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, LL(simplex() + <span class="number">0.5</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -452,31 +661,21 @@
 	</div>
     <footer class="post-footer">
       
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/12/13/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/14/tree/" rel="prev" title="tree">
-                tree <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+        <div class="post-tags">
+          
+            <a href="/tags/Simplex/" rel="tag"># Simplex</a>
+          
+            <a href="/tags/最优化/" rel="tag"># 最优化</a>
+          
+            <a href="/tags/线性规划/" rel="tag"># 线性规划</a>
+          
         </div>
+      
+
+      
+      
+      
+
       
 
       
@@ -555,7 +754,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -577,7 +776,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -640,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#这是行间公式"><span class="nav-number">1.</span> <span class="nav-text">这是行间公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这是行内公式"><span class="nav-number">2.</span> <span class="nav-text">这是行内公式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单纯形算法（Simplex）有什么用？"><span class="nav-number">1.</span> <span class="nav-text">单纯形算法（Simplex）有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单纯形算法适用的情况"><span class="nav-number">2.</span> <span class="nav-text">单纯形算法适用的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#松弛型和单纯形"><span class="nav-number">3.</span> <span class="nav-text">松弛型和单纯形</span></a></li></ol></div>
             
 
           </div>
