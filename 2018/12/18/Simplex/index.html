@@ -94,12 +94,12 @@
 <meta property="og:site_name" content="caojiangxia">
 <meta property="og:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/Simplex/graph/Simpex-ExampleHuman.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/Simplex/Simpex-ExampleHuman.png">
 <meta property="og:updated_time" content="2018-12-18T15:57:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Simplex-单纯形算法介绍">
 <meta name="twitter:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/18/Simplex/graph/Simpex-ExampleHuman.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/18/Simplex/Simpex-ExampleHuman.png">
 
 
 
@@ -462,7 +462,7 @@
 <p>​                                           $X_i&gt;=0，i=1,2,3$</p>
 <p>上述不等式表示的含义很简单，$min$表示最小化后面的目标函数，$s.t.$ 表示subject to的缩写，意思是受限于。</p>
 <p>针对这类问题，我们曾经学过的方法是图解法，画出可行域（阴影部分）（a），之后使用目标函数(b)在可行域上移动，之后靠<del>直觉</del>确定最优解。</p>
-<p><img src="graph\Simpex-ExampleHuman.png" alt=""></p>
+<p><img src="/2018/12/18/Simplex/Simpex-ExampleHuman.png" alt=""></p>
 <p>但是计算机可没有人类的直觉！计算机求解这些问题的时候，需要更加通用的方法来求解。于是在二战时期，为了协助政府协调物资人员，前苏联的坎托诺维奇<del>强行</del>提出了Simplex算法。其实该算法的思想也是来自于图解法，我们观察上面的求解过程，可以很明显的发现，最优解一定是在顶点上的！！！！于是这个人就在想，我们是不是随便从一个顶点开始，之后每次迁移到这个顶点的相邻顶点上，对这个凸包每个点遍历一次就能得到答案了？事实确实也确实是这样的，而且可以更简单，实际上我们只需要随便从一个顶点开始，之后暴力这个点相邻的点，然后选择一个下降的方向迁移点就可以，直到当前的点的值最小，那么这个点就是最终的解。</p>
 <p>但是为什么可以这样做呢？按照我的理解，因为可行域是一个凸多边形，那么这个凸多边形的顶点结果是单调的，因为全局最优解只有一个。那么求解过程就好像下山一样，只要每次向下走就可以走到谷底，类似于梯度下降法在凸二次函数上每次沿着下降的方向走，一直迭代就能得到最优解。当然这些是在扯淡，实际上这玩意是被证明了的，而我没看。。。</p>
 <h3 id="单纯形算法适用的情况"><a href="#单纯形算法适用的情况" class="headerlink" title="单纯形算法适用的情况"></a>单纯形算法适用的情况</h3><p>标准的线性规划格式（也叫标准型）：</p>
@@ -744,7 +744,7 @@
               <img class="site-author-image" itemprop="image" src="/images/lotus.jpg" alt="Kuroyukihime">
             
               <p class="site-author-name" itemprop="name">Kuroyukihime</p>
-              <p class="site-description motion-element" itemprop="description">一只NLP、ML萌新，欢迎探讨学术问题鸭。</p>
+              <p class="site-description motion-element" itemprop="description">一只NLP、ML萌新，欢迎探讨问题。</p>
           </div>
 
           <nav class="site-state motion-element">
