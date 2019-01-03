@@ -399,7 +399,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2k
+                  2.2k
                 </span>
               
 
@@ -440,7 +440,7 @@
 <li><p>输出独立性假设<br>$$<br>P(o_1..o_i|q_1…q_i)=\prod_tP(o_t|q_t)<br>$$</p>
 </li>
 </ol>
-<p>其实这里的<strong>链</strong>就表示了是一阶的！所以满足上面的性质</p>
+<p>其实这里的隐马尔可夫链中的<strong>链</strong>就表示假设了是一阶的！我们假设满足上面的性质。</p>
 <h2 id="现在我们考虑一个场景"><a href="#现在我们考虑一个场景" class="headerlink" title="现在我们考虑一个场景"></a>现在我们考虑一个场景</h2><p>假如我们面对一堆<strong>过去</strong>的数据，过去的数据当中只有自然生长下的海藻的每天的状态。</p>
 <p>我们也有一些<strong>最近</strong>的数据，最近的数据中有海藻的状态和每天的天气情况。</p>
 <p>现在我们给定天气的转移矩阵，天气对海藻状态影响的矩阵。我们希望根据这些数据，去预测过去的天气。</p>
@@ -463,31 +463,32 @@
 <tr>
 <th></th>
 <th>雨</th>
-<th>云</th>
+<th>阴</th>
 <th>晴</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>雨</td>
-<td>0.4</td>
-<td>0.3</td>
-<td>0.3</td>
+<td>0.625</td>
+<td>0.125</td>
+<td>0.25</td>
 </tr>
 <tr>
 <td>阴</td>
-<td>0.2</td>
-<td>0.6</td>
-<td>0.2</td>
+<td>0.375</td>
+<td>0.25</td>
+<td>0.375</td>
 </tr>
 <tr>
 <td>晴</td>
-<td>0.1</td>
-<td>0.1</td>
-<td>0.8</td>
+<td>0.25</td>
+<td>0.25</td>
+<td>0.5</td>
 </tr>
 </tbody>
 </table>
+<p><strong>注意</strong>：上表表示的是<strong>今天</strong>的天气分别是雨，阴，晴的情况下，<strong>明天</strong>的天气是雨，阴，晴的概率分布。</p>
 <p>天气对海藻干湿的影响(后面简称为B):</p>
 <table>
 <thead>
@@ -523,9 +524,10 @@
 </tr>
 </tbody>
 </table>
+<p><strong>注意</strong>：上表表示的是<strong>今天</strong>的天气分别是雨，阴，晴的情况下，<strong>今天</strong>的海藻出现干，稍干，潮湿，湿润的概率分布。</p>
 <h3 id="建立模型"><a href="#建立模型" class="headerlink" title="建立模型"></a>建立模型</h3><p>我们的任务是根据观察序列去推测状态序列。</p>
 <p>首先我们根据之前的信息：构建<strong>状态集合</strong>$s$，<strong>状态转移矩阵</strong>$A$，<strong>初始状态概率分布</strong>$\pi$，<strong>观察集合</strong>$ss$，<strong>状态对观测的影响矩阵</strong>$B$</p>
-<p>对于我们这个题目而言，状态集合$s$为(晴，阴，雨)，观察集合$ss$为(干，稍干，潮湿，湿润)</p>
+<p>对于我们这个题目而言，状态集合$s$为(晴，阴，雨)，观察集合$ss$为(干，稍干，潮湿，湿润)，<strong>请务必注意这个地方！</strong></p>
 <p>那么我们可以得到五元组模型:$(s,ss,\pi,A,B)$，通常我们将模型简写为三元组:$\lambda =(\pi,A,B)$。</p>
 <p>对于上述三元组，只有$\pi$是未知的，这个东西怎么统计出来呢？其实很简单，由于我们包含最近的数据，我们根据最近的天气可以统计出来每种天气出现的概率，那么这个分布就是$\pi$，公式表示为：<br>$$<br>\pi_i=P(q_1=s_i)<br>$$<br>当然这仅仅是对于这个任务是这样计算的，别的任务可能会不一样。上述公式表示的就是说第$i$种情况出现的概率</p>
 <p>比如说统计后大概长成这个样子：</p>
@@ -547,7 +549,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>我们现在已知观察序列$O=o_1….o_n$，模型$\lambda =(\pi,A,B)$ 。现在我们需要求给定模型与观察序列的情况下求状态序列$Q$。有我们需要以下概率最大：<br>$$<br>P(O|Q,\lambda )<br>$$<br>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda $来说，希望找到一个状态序列$Q$使得观察序列O发生的可能性最大。</p>
+<h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>我们现在已知观察序列$O=o_1….o_n$，模型$\lambda =(\pi,A,B)$ 。现在我们需要求给定模型与观察序列的情况下求状态序列$Q$。有我们需要以下概率最大：<br>$$<br>P(O|Q,\lambda )<br>$$<br>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda ​$来说，希望找到一个状态序列$Q​$使得观察序列O发生的可能性最大。</p>
 <p>我们假设$Q=q_1…q_n$</p>
 <p>我们把上面的式子打开，有：<br>$$<br>P(O|Q,\lambda )=\pi_{q_1}A_{q_1q_2}A_{q_2q_3}…A_{q_{n-1}q_n}B_{q_1o_1}B_{q_2o_2}…B_{q_no_n}<br>$$<br>对上面的式子我们很简单的可以想到枚举每一种$Q$，对每一种都进行计算，之后输出使得$P(O|Q,\lambda )$最大的那个$Q$就可以了。但是这当然是不可以的，因为这个是指级别的，$n$大的话这个方法就凉了。</p>
 <p>解释一下上面的公式：</p>
@@ -560,14 +562,14 @@
 <h5 id="前向算法思想："><a href="#前向算法思想：" class="headerlink" title="前向算法思想："></a>前向算法思想：</h5><p>假设我们已知了对于$o_1…o_{n-1}o_n$最优的状态序列肯定是$o_1…o_{n-1}$的一个序列转移过来的，等于说我们对当前的一层计算来说，对于每个节点只需要考虑前面一层的结果就可以了。即有<br>$$<br>dp_{iq_i}=\max_{k\in s} dp_{(i-1)k}A_{k(q_j)}B_{q_jo_i}<br>$$<br>$dp$表示计算的结果，$q_i$表示当前层的状态，$k$表示枚举前一层的状态，从观察状态集合中枚举。$max$表示存储后面式子的最大值。</p>
 <h5 id="算法流程："><a href="#算法流程：" class="headerlink" title="算法流程："></a>算法流程：</h5><p><img src="/2018/12/26/HMM/sample-1-2.png" alt=""></p>
 <p>C++的代码，写起来很简单，每种语言都可以按照这个方式写。但是为了保证精度，我们一般是取$log$的，这份代码的结果应该会很差！</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">viterbi</span><span class="params">(<span class="keyword">int</span> O[],<span class="keyword">double</span> PI[],<span class="keyword">double</span> A[][],<span class="keyword">double</span> B[][])</span></span>&#123;<span class="comment">//传观察序列和模型</span></span><br><span class="line">    <span class="keyword">int</span> i,j,back;</span><br><span class="line">    <span class="keyword">int</span> path[][]；</span><br><span class="line">    <span class="keyword">double</span> dp[][],MX；</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//初始化</span></span><br><span class="line">        dp[<span class="number">1</span>][i]=PI[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            MX=<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">for</span>(k=<span class="number">1</span>;k&lt;=n;k++)&#123;<span class="comment">//枚举前一层</span></span><br><span class="line">                <span class="keyword">if</span>(MX&lt;dp[i<span class="number">-1</span>][k]*A[k][j])&#123;</span><br><span class="line">                    MX=dp[i<span class="number">-1</span>][k]*A[k][j];<span class="comment">//找到最大的</span></span><br><span class="line">                    back=k;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            path[i][j]=back;<span class="comment">//计算结果</span></span><br><span class="line">            dp[i][j]=MX*B[j][O[i]];<span class="comment">//用于回溯</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一个简单例子"><a href="#一个简单例子" class="headerlink" title="一个简单例子"></a>一个简单例子</h4><p>为了结果看起来比较正常，我们把初始分布$\pi$ 设的极端一点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">viterbi</span><span class="params">(<span class="keyword">int</span> O[],<span class="keyword">double</span> PI[],<span class="keyword">double</span> A[][],<span class="keyword">double</span> B[][])</span></span>&#123;<span class="comment">//传观察序列和模型</span></span><br><span class="line">    <span class="keyword">int</span> i,j,back;</span><br><span class="line">    <span class="keyword">int</span> path[][]；</span><br><span class="line">    <span class="keyword">double</span> dp[][],MX；</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//初始化</span></span><br><span class="line">        dp[<span class="number">1</span>][i]=PI[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            MX=<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">for</span>(k=<span class="number">1</span>;k&lt;=n;k++)&#123;<span class="comment">//枚举前一层</span></span><br><span class="line">                <span class="keyword">if</span>(MX&lt;dp[i<span class="number">-1</span>][k]*A[k][j])&#123;</span><br><span class="line">                    MX=dp[i<span class="number">-1</span>][k]*A[k][j];<span class="comment">//找到最大的</span></span><br><span class="line">                    back=k;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            path[i][j]=back;<span class="comment">//用于回溯</span></span><br><span class="line">            dp[i][j]=MX*B[j][O[i]];<span class="comment">//计算结果存起来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一个简单例子"><a href="#一个简单例子" class="headerlink" title="一个简单例子"></a>一个简单例子</h4><p>为了结果看起来比较正常，我们把初始分布$\pi$ 设的极端一点，同时我们再次召唤之前的表。</p>
 <table>
 <thead>
 <tr>
 <th></th>
 <th>晴</th>
-<th>云</th>
+<th>阴</th>
 <th>雨</th>
 </tr>
 </thead>
@@ -577,6 +579,72 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
+</tr>
+</tbody>
+</table>
+<p>天气状态转移矩阵$A$：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>雨</th>
+<th>阴</th>
+<th>晴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>雨</td>
+<td>0.625</td>
+<td>0.125</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>阴</td>
+<td>0.375</td>
+<td>0.25</td>
+<td>0.375</td>
+</tr>
+<tr>
+<td>晴</td>
+<td>0.25</td>
+<td>0.25</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+<p>天气对海藻干湿的影响$B$:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>干</th>
+<th>稍干</th>
+<th>潮湿</th>
+<th>湿润</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>晴</td>
+<td>0.60</td>
+<td>0.20</td>
+<td>0.15</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>阴</td>
+<td>0.25</td>
+<td>0.25</td>
+<td>0.25</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>雨</td>
+<td>0.05</td>
+<td>0.10</td>
+<td>0.35</td>
+<td>0.50</td>
 </tr>
 </tbody>
 </table>
@@ -751,7 +819,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="attention,">
+  <meta name="keywords" content="Heap,">
 
 
 
@@ -86,44 +86,25 @@
 
 
 
-<meta name="description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
-<meta name="keywords" content="attention">
+<meta name="description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
+<meta name="keywords" content="Heap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="attention机制总结">
-<meta property="og:url" content="http://yoursite.com/2018/12/24/Attention/index.html">
+<meta property="og:title" content="Binomial堆">
+<meta property="og:url" content="http://yoursite.com/2019/01/03/Binomial/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
+<meta property="og:description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/main.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/small.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/small-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/small-3.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/small-4.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/formula.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/Scaled-Attention.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-3.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-4.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-5.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-1-6.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-2-1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-2-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-3-1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-3-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-3-3.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-3-4.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-4.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-3-5.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-5.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/sample-5-2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/slide.gif">
-<meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/slide-2.gif">
-<meta property="og:updated_time" content="2018-12-24T12:46:38.000Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-4.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-5.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/03/Binomial/sample-2-1.png">
+<meta property="og:updated_time" content="2019-01-03T04:10:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="attention机制总结">
-<meta name="twitter:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/24/Attention/main.png">
+<meta name="twitter:title" content="Binomial堆">
+<meta name="twitter:description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/03/Binomial/sample-1-1.png">
 
 
 
@@ -153,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/24/Attention/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/03/Binomial/">
 
 
 
 
 
-  <title>attention机制总结 | caojiangxia</title>
+  <title>Binomial堆 | caojiangxia</title>
   
 
 
@@ -328,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/Attention/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/Binomial/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kuroyukihime">
@@ -345,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">attention机制总结</h1>
+          <h1 class="post-title" itemprop="name headline">Binomial堆</h1>
         
 
         <div class="post-meta">
@@ -357,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-24T20:46:38+08:00">
-                2018-12-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-03T12:10:41+08:00">
+                2019-01-03
               </time>
             
 
@@ -380,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
                   </a>
                 </span>
 
@@ -397,7 +378,7 @@
 
           
           
-             <span id="/2018/12/24/Attention/" class="leancloud_visitors" data-flag-title="attention机制总结">
+             <span id="/2019/01/03/Binomial/" class="leancloud_visitors" data-flag-title="Binomial堆">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -422,7 +403,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  3.1k
+                  1.3k
                 </span>
               
 
@@ -447,118 +428,83 @@
       
 
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一个句子哦我们可以映射为$x\in R^{n*d}$。通过这个操作，我们可以将语言化作向量表示，这是一个很好的建模方式。</p>
-<p>我们为了处理这些信息主要分为以下几个思路：</p>
-<ol>
-<li>RNN 可以很好的获得时序信息</li>
-<li>CNN 可以很好的获得全局信息</li>
-<li>Attention google提出的全新思想，在各大模型上都有提升</li>
-</ol>
-<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>第一个思路是RNN，思想是很简单的，进行递归式的信息提取：<br>$$<br>y_t=f(y_{t-1},x_t)<br>$$<br>由于我们在每一步进行计算的时候都需要依赖上一步计算的结果，这导致了RNN无法并行计算，这是这个模型原本就存在的缺陷，但是RNN可以很好的学习到<strong>时序信息</strong>。相应的，我们很难获取到全局信息，倘若我们想得到全局信息，我们一般使用双向RNN或者双向LSTM。</p>
-<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>第二个思路是CNN，思想也是十分简单的，进行窗口式的扫描，对于尺度为3的卷积：<br>$$<br>y_t=f(x_{t-1},x_t,x_{t+1})<br>$$<br>由于CNN的每一步进行计算的时候是独立的，故我们可以很方便的进行并行计算。其实通过这一步我们只能获取到局部的信息，但是我们通过堆叠的方式增大<strong>感受野</strong>，使得模型能够获得很好的全局信息！但是相应的，CNN的时序信息获取效果不如RNN。</p>
-<h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><p>Google在2017年的论文Attention is All You Need提供了第三个思路，这个想法也也是十分简单的，一般而言我们记作：<br>$$<br>y_t=f(q_t,K,V)<br>$$<br>其中$K$与$V$相同的时候，我们称作self-attention。计算方式在文章后续会详叙。</p>
-<h2 id="Transformer注意力机制"><a href="#Transformer注意力机制" class="headerlink" title="Transformer注意力机制"></a>Transformer注意力机制</h2><p><img src="/2018/12/24/Attention/main.png" alt=""></p>
-<p>上图看起来十分复杂，我们简化一下。</p>
-<p><img src="/2018/12/24/Attention/small.png" alt=""></p>
-<p>这其实就是一个Seq2Seq模型，我们左边把一个encoder输入进去，右边就decoder得到输出。由于上图有两个部分，我们不妨将其中的的部分再打开看看：</p>
-<p><img src="/2018/12/24/Attention/small-2.png" alt=""></p>
-<p>我们随之而来的问题就是这个encoder是如何把信息传递给右边的呢？因为这个图和上面的压根就不一样好吗？我们再将图片打开拓展:</p>
-<p><img src="/2018/12/24/Attention/small-3.png" alt=""></p>
-<p>意思就是说对于每一层的encoder的输出，我们会和decoder的输入进行结合。</p>
-<p>我们再取一种的一层做详细展示：</p>
-<p><img src="/2018/12/24/Attention/small-4.png" alt=""></p>
-<p>我们可以看到在解码层的做了两次attention，我们在第二次的attention时使用了左边的encoder传递过来的信息。上面这张图我觉得有点小问题，也许是我理解错误。。我认为左边的encoder端上面应该是没有箭头的。</p>
-<h2 id="传统Attention-机制"><a href="#传统Attention-机制" class="headerlink" title="传统Attention 机制"></a>传统Attention 机制</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Attention的翻译过来就是注意力，这表示了人类的偏好，我们在观察一个图片的时候，往往对图像的某一部分有更集中的偏好，就是所谓的”抢镜”。对某一部分有更高的关注度，这使得我们对图片有一个更加准确的感受。</p>
-<p>我们拓展到文本中，例如我们在进行翻译任务的时候，翻译当前词的时候一般是对序列的局部信息有偏好，但是对于每个单词而言，对原序列的关注程度肯定是不一样的。attention就是使用最简单的方法实现这个功能。</p>
-<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>我们再次召唤前面的公式:<br>$$<br>y_t=f(q_t,K,V)<br>$$<br>我们简述一下这个$f$是如何进行计算的。</p>
-<p><img src="/2018/12/24/Attention/formula.png" alt=""></p>
-<p>我们输入一组$K$与$V$与查询$Q$，首先我们对每个$K_i$与$Q$计算相似度得到$S_i$,之后将$S$通过softmax函数进行归一化得到分布$a$，之后我们计算$a$与$V$的加权和得到对于查询$Q$的attention向量Att-V。</p>
-<p>其中对于$f(Q,K_i)$(都为列向量的话)的计算方式主要分为以下几种：</p>
+        <h1 id="Binomial-堆是什么？"><a href="#Binomial-堆是什么？" class="headerlink" title="Binomial 堆是什么？"></a>Binomial 堆是什么？</h1><p>首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。</p>
+<h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质</p>
 <ul>
-<li>点乘 dot product : $f(Q,K)=Q^TK$</li>
-<li>权重 general : $f(Q,K)=Q^TWK$</li>
-<li>拼接 concat ：$f(Q,K)=W[Q^T;K]$</li>
-<li>神经网络 perceptron ：$f(Q,K)=V^T\tanh (WQ+UK)$</li>
+<li>树高$\lceil \log n \rceil$</li>
+<li>插入节点时间复杂度$O(\log n)$</li>
+<li>访问根节点(优先级最高的节点)时间复杂度$O(1)$</li>
+<li>删除根节点时间复杂度$O(\log n)$</li>
+<li>合并两棵树时间复杂度：<ul>
+<li>自底向上合并时间复杂度为$O(n)$</li>
+<li>自顶向下合并时间复杂度为$O(n\log n)$</li>
 </ul>
-<p>对于$Q$,$K$与$V$相同的情况下，我们也称作为<strong>自注意力机制</strong>，希望寻找文本中内在的联系。也就是说，在序列内部做Attention，寻找序列内部的联系。Google论文的主要贡献之一是它表明了内部注意力在机器翻译（甚至是一般的Seq2Seq任务）的序列编码上是相当重要的。</p>
-<p>传统模型有一个非常明显的缺点，就是无法获得时序信息，就算我们吧顺序打乱，我们算出来的结果一样是不变的，这个就有点不太合理了！当然我们一般使用attention去辅助RNN和CNN，由于RNN和CNN已经包括了时序信息，可能会好一些。</p>
-<h2 id="transformer中的Attention机制"><a href="#transformer中的Attention机制" class="headerlink" title="transformer中的Attention机制"></a>transformer中的Attention机制</h2><p>在transformer当中的Attention机制与传统的attention机制还是有很大区别的。分别叫做 Scaled Dot-Product Attention 和 Multi-Head Attention。</p>
-<h3 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h3><p>其结构图如下图所示：</p>
-<p><img src="/2018/12/24/Attention/Scaled-Attention.png" alt=""></p>
-<blockquote>
-<p>首先第一个问题,$Q,K,V$从哪里来？按照我的理解，对于我们输入的句子$x=(x_1,x_2,…x_n)$，这一步可以是原本的词向量，也可以是对于输入的词向量做线性变化，例如$Q=xW^q,K=xW^k,V=xW^v$，例如：</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-1.png" alt=""></p>
-<blockquote>
-<p>我们对于input的词向量Thinking Machines，通过三个矩阵$W^q,W^k,W^v$，得到$Q,K,V$,于是我们依次遍历$Q_i$，计算每个的$Q_i$的注意力向量。</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-2.png" alt=""></p>
-<blockquote>
-<p>首先对于$q_1$,我们采用dot product进行计算相似度$S_i$</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-3.png" alt=""></p>
-<blockquote>
-<p>之后我们将$S_i$ 除以$\sqrt{d_k}$其中$d_k$表示$K$的维度，加上这个是为了防止内积太大，如果内积过大，会导致softmax进入饱和区，就没有<strong>注意力</strong>这个作用了。接下来我们通过softmax计算概率分布。</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-4.png" alt=""></p>
-<blockquote>
-<p>最后我们计算加权和得到对于$q_1$的注意力向量$z_1$。直以递归下去，我们可以对每个$q$进行相同的操作即可。听上去这一步好像很麻烦，其实我们用矩阵表示的话，就很简单且简约了：</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-5.png" alt=""></p>
-<blockquote>
-<p>首先输入词向量$X$(行向量)，计算$Q,K,V$ </p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-1-6.png" alt=""></p>
-<blockquote>
-<p>这一步就更加直观了，但是我们需要好好理解一下$QK^T$ 这一个计算过程，这一步实际上是计算了一个word2word的attention矩阵。例如我们对”I have a dream”计算的话</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-2-1.png" alt=""></p>
-<blockquote>
-<p>其中每个格子$grid_{ij}$ 表示的是第$i$个单词和第$j$个单词的相似度，这肯定是一个对称矩阵啦！现在我们回到transformer的结构图当中，可以很明显的看到有的self-attention前面加上了masked，这又是什么意思呢？</p>
-</blockquote>
-<p><img src="/2018/12/24/Attention/sample-2-2.png" alt=""></p>
-<blockquote>
-<p>简单来说就是为了防止程序看见未来的信息，而用灰色区域(0.0)覆盖上。</p>
-</blockquote>
-<h3 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h3><p>多头的意思就很简单了，就是将工作重复做几次而已。论文中倒是画的很吓人的样子。<strong>所谓“多头”（Multi-Head），就是只多做几次同样的事情（参数不共享），然后把结果拼接</strong>。</p>
-<p><img src="/2018/12/24/Attention/sample-3-1.png" alt=""></p>
-<blockquote>
-<p>我们重复几次，将得到的$Z$矩阵进行拼接即可</p>
-</blockquote>
-<p>首先我们对输入的$X$进行计算多次</p>
-<p><img src="/2018/12/24/Attention/sample-3-2.png" alt=""></p>
-<p>将计算完的结果拼接$Z_0+Z_1+….+Z_n$，之后使用一个线性变换为指定维度的$Z$</p>
-<p><img src="/2018/12/24/Attention/sample-3-3.png" alt=""></p>
-<p>整个的框架如下：</p>
-<p><img src="/2018/12/24/Attention/sample-3-4.png" alt=""></p>
-<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>然而，我们经过思考之后，可以发现这个计算方式和传统的一样啊，我就算位置变了，对attention的计算结果不变。这个问题就很严重了，很有可能我们在机器翻译的任务当中，我们确实算出来了翻译结果应该包含了哪些单词，但是结果很有是<strong>乱序</strong>的，那么就没法用了。transformer为了解决这个问题，祭出了Position Embedding这个东西。Google是直接给出了一个公式来构造Position Embedding。<br>$$<br>PE_{2i}(p)=\sin(p/10000^{2i/d_{pos}})\<br>PE_{2i+1}(p)=\cos(p/10000^{2i/d_{pos}})<br>$$<br>这里的意思是将position为$p$的位置映射为一个$d_{pos}$维的位置向量，这个向量的第$i$个元素的数值就是$PE_i(p)$。Google在论文中说到他们比较过直接训练出来的位置向量和上述公式计算出来的位置向量，<strong>效果是接近的</strong>。那么为了减少计算复杂度，我们何必自己再训练呢?</p>
-<p>原文中提到采用这个公式的另一个原因的是sin和cos，满足一些良好的性质:<br>$$<br>\sin(a+b)=\sin(a)\cos(b)-\cos(a)\sin(b)\<br>\cos(a+b)=\cos(a)\cos(b)-\sin(a)\sin(b)<br>$$<br>这使得位置为p+k的向量可能可以使用位置为p的向量线性表出。<br>$$<br>PE_{2i}(p+k)=\sin((p+k)/10000^{2i/d_{pos}})=\\sin(p/10000^{2i/d_{pos}})\cos(k/10000^{2i/d_{pos}})-\cos(p/10000^{2i/d_{pos}})\sin(k/10000^{2i/d_{pos}})<br>$$<br>由于$k$是定值，而$\sin(p/10000^{2i/d_{pos}})$和$\cos(p/10000^{2i/d_{pos}})$确实是知道的，所以确实为线性表出提供了可能性吧。。</p>
-<p>我们在input输入的时候加入位置信息，同时我们在decoder的输入过程中也加入了位置信息。</p>
-<p><img src="/2018/12/24/Attention/sample-4.png" alt=""></p>
-<h3 id="Position-wise-Feed-forward-Networks"><a href="#Position-wise-Feed-forward-Networks" class="headerlink" title="Position-wise Feed-forward Networks"></a>Position-wise Feed-forward Networks</h3><p>在进行了Attention操作之后，encoder和decoder中的每一层都包含了一个全连接前向网络，对每个position的向量分别进行相同的操作，包括两个线性变换和一个ReLU激活输出：<br>$$<br>FFN(x)=max(0,xW_1+b_1)W_2+b_2<br>$$<br>值得注意的是encoder的每一层的$W_1$和$W_2$都不相同。</p>
-<h3 id="The-Residuals"><a href="#The-Residuals" class="headerlink" title="The Residuals"></a>The Residuals</h3><p>由于transformer的结构十分复杂，训练的时候很容易出现梯度消失，导致网络难以训练，文章采用的思想借鉴了何恺明的<strong>残差</strong>网络的思想，在每一次操作之后为了保证损失能够尽量回传，每层的输入会和输出进行叠加。</p>
-<p><img src="/2018/12/24/Attention/sample-3-5.png" alt=""></p>
-<p>其中的Add&amp;Normalize就是叠加过程。公式记作：<br>$$<br>output=LayerNorm(x+Sublayer(x))<br>$$<br>但是这也带来一个小问题，就是每次sublayer输出的结果的为维度和原输入的维度应该一样，带来了一些限制。</p>
-<h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p>在文章中encoder有6层，而其中的每一层包含两个sub-layer</p>
-<ol>
-<li>第一个sub-layer是多头自注意力机制，用来计算文本内部的关联</li>
-<li>第二个是全连接Position-wise Feed-forward Networks</li>
-</ol>
-<p><img src="/2018/12/24/Attention/sample-5.png" alt=""></p>
-<h2 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h2><p>文章中decoder也是6层，其中的每一层包含三个sub-layer</p>
-<ol>
-<li>第一个sub-layer是masked多头自注意力机制，原因很简单啊后面的结果还没生成呢！</li>
-<li>第二个sub-layer是多头注意力机制，将decoder和encoder结合，注意计算的时候$K,V$是由encoder提供的，decoder提供的是$Q$</li>
-<li>第三个是一个全链接网络Position-wise Feed-forward Networks</li>
-</ol>
-<h2 id="The-Final-Linear-and-Softmax-Layer"><a href="#The-Final-Linear-and-Softmax-Layer" class="headerlink" title="The Final Linear and Softmax Layer"></a>The Final Linear and Softmax Layer</h2><p><img src="/2018/12/24/Attention/sample-5-2.png" alt=""></p>
-<p>最后一层就比较简单了，简单来说就是首先把decoder的第6层输出经过一个神经网络对每个单词的可能性计算一个权值，再经过一个softmax是为了反向传播的时候有一个误差回传，使得整个网络能够训练。</p>
-<p>这里还需要注意的是，每次输出的结果，都要像RNN一样作为输入传给decoder，依次输出结果。</p>
-<h2 id="transformer动画演示过程"><a href="#transformer动画演示过程" class="headerlink" title="transformer动画演示过程"></a>transformer动画演示过程</h2><h3 id="首先encoder的过程"><a href="#首先encoder的过程" class="headerlink" title="首先encoder的过程"></a>首先encoder的过程</h3><p><img src="/2018/12/24/Attention/slide.gif" alt=""></p>
-<h3 id="接着就是decoder的过程"><a href="#接着就是decoder的过程" class="headerlink" title="接着就是decoder的过程"></a>接着就是decoder的过程</h3><p><img src="/2018/12/24/Attention/slide-2.gif" alt=""></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">jalammar’s blog</a></p>
-<p><a href="https://kexue.fm/archives/4765" target="_blank" rel="noopener">苏剑林</a>《《Attention is All You Need》浅读（简介+代码） 》</p>
-
+</li>
+</ul>
+<p>虽然说二叉堆具有查找上极其优良的性质，但是在<strong>合并</strong>的时候（<del>虽然一般情况下用不到合并这个操作</del>），时间复杂度却没有达到$O(\log n)$级别。这就使得有些人在想，我们可不可以<strong>放松</strong>一下访问根节点的时间到$O(\log n)$，但是<strong>加速</strong>合并两棵树呢？于是Binomial 堆就被提出来了，同时比预想的更加强大！</p>
+<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>由于我们要加速合并，那么肯定是有<strong>好几棵树</strong>同时存在才需要合并，所以<strong>Binomial 堆的本质思想就与二叉堆有很大不同</strong>。Binomial 堆是由<strong>森林</strong>构成的，而二叉堆是<strong>一棵树</strong>。所以这也导致了<strong>合并</strong>这个需求在Binomial  堆中是如此的重要。</p>
+<p>但是Binomial 又是什么意思呢？直观上我们只知道Binomial 表示$2^0,2^1,2^2,…,2^n$这样的数目。但是这和森林有什么关系呢？实际上这恰恰是Binomial 堆的精髓所在，它表示的是森林中每棵树的节点数为$2^k$这么多，同时我们也称当前这棵树为$B_k$。本文中介绍<strong>小根Binomial 堆</strong>，如果不懂什么是小根，<a href="https://caojiangxia.github.io/2019/01/02/heap/#more" target="_blank" rel="noopener">那么请移步我的另一篇文章</a>。</p>
+<p>Binomial 堆简单的例子，表示的是0阶，1阶，2阶，3阶，4阶，5阶树的结构：</p>
+<p><img src="/2019/01/03/Binomial/sample-1-1.png" alt=""></p>
+<p><img src="/2019/01/03/Binomial/sample-1-2.png" alt=""></p>
+<p><img src="/2019/01/03/Binomial/sample-1-3.png" alt=""></p>
+<p><img src="/2019/01/03/Binomial/sample-1-4.png" alt=""></p>
+<p><strong>一般的结构形式</strong>：</p>
+<p><img src="/2019/01/03/Binomial/sample-1-5.png" alt=""></p>
+<p><strong>注意:</strong></p>
+<p>通过上面的描述，我们可以对每棵数得到几个很明显的性质：</p>
+<ul>
+<li>$|B_k|=2^k$</li>
+<li>$height(B_k)=k$</li>
+<li>$degree(B_k)=k$</li>
+<li>对于一棵树的每一个节点来说，其第$i$个儿子的度为$i-1$</li>
+</ul>
+<p>对于总节点为$n$的Binomial 堆而言，其具有以下几个性质：</p>
+<ul>
+<li>最多有$\lfloor \log n \rfloor +1$棵树，很明显，其实就是n在二进制下有多少个1就有多少棵数</li>
+<li>树高最高为$\log n$，因为二进制下最高位一定为$\log n$位</li>
+</ul>
+<p><strong>也许这里会有疑惑，但是请务必仔细想想为什么会有这种性质。</strong></p>
+<h3 id="合并条件-Union"><a href="#合并条件-Union" class="headerlink" title="合并条件-Union"></a>合并条件-Union</h3><p>我们规定Binomial 堆中不允许出现结构相同的两棵数，换句话说，假如森林中出现了阶数相同的两棵树，我们需要进行合并。我们合并的方式也很简单，将根节点的值更大的树作为儿子连上根节点的值更小的树。</p>
+<p>一个简单的例子：</p>
+<p><img src="/2019/01/03/Binomial/sample-2-1.png" alt=""></p>
+<p>请注意这是一个递归过程。我们每次合并之后都需要再检查，其实这里本质上就是二进制的进位操作。由于最坏的情况下我们需要进位$\log n$次，所以这一步的复杂度<strong>最坏</strong>为$O(\log n)$。<strong>但是这一步均摊下来其实是很快的</strong>，因为其实二进制的进位操作并不会每次都是最坏情况，而且也不可能出每次都是最坏情况，这一步经过证明<del>我不会</del>，<strong>平均</strong>的时间复杂度为$O(1)$。</p>
+<h3 id="插入节点-Insert"><a href="#插入节点-Insert" class="headerlink" title="插入节点-Insert"></a>插入节点-Insert</h3><p>我们在插入一个节点的时候，想法也是非常简单的，我们首先将其视为$B_0$（也就是单个节点的树），并将其加入到森林中，之后我们使用上一步讲到的合并条件，该步复杂度与合并条件相同,时间复杂度为$O(1)$。</p>
+<h3 id="提取最小值-Top"><a href="#提取最小值-Top" class="headerlink" title="提取最小值-Top"></a>提取最小值-Top</h3><p>提取最小值，我们采用最简单的方法，对森林中每棵树的根节点进行一次遍历，找到根最小的节点的值返回即可。由于最多有$\lfloor \log n \rfloor +1$棵树，故时间复杂度为$O(\log n)$。</p>
+<h3 id="删除最小值-Pop"><a href="#删除最小值-Pop" class="headerlink" title="删除最小值-Pop"></a>删除最小值-Pop</h3><p>首先我们通过上一步的方法，定位到最小值点在森林的哪一个树中，之后我们将根节点移除，那么此时它应该分裂成了一些更小的树，由于$B_k$这样的一棵树可以分裂为$B_0,B_1,B_2,…,B_{k-1}$这样的一些子树，由于$k$最大为$\log n$,故我们最多插入$\log n$次，每次插入的时间为$O(1)$，故该步的时间复杂度为$O(\log n+\log n)=O(\log n)$。</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>二叉树</th>
+<th>Binomial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Union</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>O(log n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Top</td>
+<td>O(1)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Pop</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://bioinfo.ict.ac.cn/~dbu/AlgorithmCourses/Lectures/Lec7-Heap.pdf" target="_blank" rel="noopener">国科大-算法设计-卜东波</a></p>
+<h1 id="Binomial-dui"><a href="#Binomial-dui" class="headerlink" title="Binomial dui"></a>Binomial dui</h1>
       
     </div>
     
@@ -612,7 +558,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/attention/" rel="tag"># attention</a>
+            <a href="/tags/Heap/" rel="tag"># Heap</a>
           
         </div>
       
@@ -625,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/18/Simplex/" rel="next" title="Simplex-单纯形算法介绍">
-                <i class="fa fa-chevron-left"></i> Simplex-单纯形算法介绍
+              <a href="/2019/01/02/heap/" rel="next" title="二叉堆">
+                <i class="fa fa-chevron-left"></i> 二叉堆
               </a>
             
           </div>
@@ -634,10 +580,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/26/HMM/" rel="prev" title="隐马尔可夫模型详述">
-                隐马尔可夫模型详述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -803,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">1.1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN"><span class="nav-number">1.2.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention"><span class="nav-number">1.3.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer注意力机制"><span class="nav-number">1.4.</span> <span class="nav-text">Transformer注意力机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传统Attention-机制"><span class="nav-number">1.5.</span> <span class="nav-text">传统Attention 机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算方式"><span class="nav-number">1.5.2.</span> <span class="nav-text">计算方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transformer中的Attention机制"><span class="nav-number">1.6.</span> <span class="nav-text">transformer中的Attention机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scaled-Dot-Product-Attention"><span class="nav-number">1.6.1.</span> <span class="nav-text">Scaled Dot-Product Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Head-Attention"><span class="nav-number">1.6.2.</span> <span class="nav-text">Multi-Head Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-Embedding"><span class="nav-number">1.6.3.</span> <span class="nav-text">Position Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-wise-Feed-forward-Networks"><span class="nav-number">1.6.4.</span> <span class="nav-text">Position-wise Feed-forward Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Residuals"><span class="nav-number">1.6.5.</span> <span class="nav-text">The Residuals</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoder"><span class="nav-number">1.7.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoder"><span class="nav-number">1.8.</span> <span class="nav-text">Decoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Final-Linear-and-Softmax-Layer"><span class="nav-number">1.9.</span> <span class="nav-text">The Final Linear and Softmax Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transformer动画演示过程"><span class="nav-number">1.10.</span> <span class="nav-text">transformer动画演示过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先encoder的过程"><span class="nav-number">1.10.1.</span> <span class="nav-text">首先encoder的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接着就是decoder的过程"><span class="nav-number">1.10.2.</span> <span class="nav-text">接着就是decoder的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.11.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Binomial-堆是什么？"><span class="nav-number">1.</span> <span class="nav-text">Binomial 堆是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉堆"><span class="nav-number">1.1.</span> <span class="nav-text">二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想"><span class="nav-number">1.2.</span> <span class="nav-text">思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#合并条件-Union"><span class="nav-number">1.2.1.</span> <span class="nav-text">合并条件-Union</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入节点-Insert"><span class="nav-number">1.2.2.</span> <span class="nav-text">插入节点-Insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取最小值-Top"><span class="nav-number">1.2.3.</span> <span class="nav-text">提取最小值-Top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除最小值-Pop"><span class="nav-number">1.2.4.</span> <span class="nav-text">删除最小值-Pop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比"><span class="nav-number">1.2.5.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Binomial-dui"><span class="nav-number">2.</span> <span class="nav-text">Binomial dui</span></a></li></ol></div>
             
 
           </div>
