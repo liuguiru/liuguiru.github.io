@@ -89,7 +89,7 @@
 <meta name="description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
 <meta name="keywords" content="attention">
 <meta property="og:type" content="article">
-<meta property="og:title" content="attention机制总结">
+<meta property="og:title" content="transformer模型详解">
 <meta property="og:url" content="http://yoursite.com/2018/12/24/Attention/index.html">
 <meta property="og:site_name" content="caojiangxia">
 <meta property="og:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
@@ -121,7 +121,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/24/Attention/slide-2.gif">
 <meta property="og:updated_time" content="2018-12-24T12:46:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="attention机制总结">
+<meta name="twitter:title" content="transformer模型详解">
 <meta name="twitter:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/24/Attention/main.png">
 
@@ -159,7 +159,7 @@
 
 
 
-  <title>attention机制总结 | caojiangxia</title>
+  <title>transformer模型详解 | caojiangxia</title>
   
 
 
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">attention机制总结</h1>
+          <h1 class="post-title" itemprop="name headline">transformer模型详解</h1>
         
 
         <div class="post-meta">
@@ -397,7 +397,7 @@
 
           
           
-             <span id="/2018/12/24/Attention/" class="leancloud_visitors" data-flag-title="attention机制总结">
+             <span id="/2018/12/24/Attention/" class="leancloud_visitors" data-flag-title="transformer模型详解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -447,7 +447,7 @@
       
 
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一个句子哦我们可以映射为$x\in R^{n*d}$。通过这个操作，我们可以将语言化作向量表示，这是一个很好的建模方式。</p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一个句子我们可以映射为$x\in R^{n*d}$。通过这个操作，我们可以将语言化作向量表示，这是一个很好的建模方式。</p>
 <p>我们为了处理这些信息主要分为以下几个思路：</p>
 <ol>
 <li>RNN 可以很好的获得时序信息</li>
@@ -481,7 +481,7 @@
 <li>神经网络 perceptron ：$f(Q,K)=V^T\tanh (WQ+UK)$</li>
 </ul>
 <p>对于$Q$,$K$与$V$相同的情况下，我们也称作为<strong>自注意力机制</strong>，希望寻找文本中内在的联系。也就是说，在序列内部做Attention，寻找序列内部的联系。Google论文的主要贡献之一是它表明了内部注意力在机器翻译（甚至是一般的Seq2Seq任务）的序列编码上是相当重要的。</p>
-<p>传统模型有一个非常明显的缺点，就是无法获得时序信息，就算我们吧顺序打乱，我们算出来的结果一样是不变的，这个就有点不太合理了！当然我们一般使用attention去辅助RNN和CNN，由于RNN和CNN已经包括了时序信息，可能会好一些。</p>
+<p>传统模型有一个非常明显的缺点，就是无法获得时序信息，就算我们把顺序打乱，我们算出来的结果一样是不变的，这个就有点不太合理了！当然我们一般使用attention去辅助RNN和CNN，由于RNN和CNN已经包括了时序信息，可能会好一些。</p>
 <h2 id="transformer中的Attention机制"><a href="#transformer中的Attention机制" class="headerlink" title="transformer中的Attention机制"></a>transformer中的Attention机制</h2><p>在transformer当中的Attention机制与传统的attention机制还是有很大区别的。分别叫做 Scaled Dot-Product Attention 和 Multi-Head Attention。</p>
 <h3 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h3><p>其结构图如下图所示：</p>
 <p><img src="/2018/12/24/Attention/Scaled-Attention.png" alt=""></p>
