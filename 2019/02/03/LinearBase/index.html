@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="LinearBase,codeforces,">
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="一只NLP、ML萌新，欢迎探讨问题。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="caojiangxia">
-<meta property="og:url" content="http://yoursite.com/tags/Simplex/index.html">
+<meta name="description" content="线性基我们在碰到XOR问题的时候，通常难以下笔，因为XOR问题的解法通常不直观，直观上难以建模。线性基就是由此而提出，我们知道XOR拥有一些完美的性质，于是我们可以轻易的把一堆数压缩成64个数，可以保证这64个数的异或结果的值域与原数组的值域一样。而这个压缩的过程就是线性基的构造过程，理解起来也很简单。 构造方法首先我们申请一个数组$base[64]$，对于$base[i]$而言存储的是二进制中最">
+<meta name="keywords" content="LinearBase,codeforces">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性基基础">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/LinearBase/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta property="og:description" content="线性基我们在碰到XOR问题的时候，通常难以下笔，因为XOR问题的解法通常不直观，直观上难以建模。线性基就是由此而提出，我们知道XOR拥有一些完美的性质，于是我们可以轻易的把一堆数压缩成64个数，可以保证这64个数的异或结果的值域与原数组的值域一样。而这个压缩的过程就是线性基的构造过程，理解起来也很简单。 构造方法首先我们申请一个数组$base[64]$，对于$base[i]$而言存储的是二进制中最">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-03T06:37:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="caojiangxia">
-<meta name="twitter:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta name="twitter:title" content="线性基基础">
+<meta name="twitter:description" content="线性基我们在碰到XOR问题的时候，通常难以下笔，因为XOR问题的解法通常不直观，直观上难以建模。线性基就是由此而提出，我们知道XOR拥有一些完美的性质，于是我们可以轻易的把一堆数压缩成64个数，可以保证这64个数的异或结果的值域与原数组的值域一样。而这个压缩的过程就是线性基的构造过程，理解起来也很简单。 构造方法首先我们申请一个数组$base[64]$，对于$base[i]$而言存储的是二进制中最">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Simplex/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/03/LinearBase/">
 
 
 
 
 
-  <title>Tag: Simplex | caojiangxia</title>
+  <title>线性基基础 | caojiangxia</title>
   
 
 
@@ -150,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -286,52 +288,248 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Simplex<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/03/LinearBase/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/18/Simplex/" itemprop="url">
-              
-                <span itemprop="name">Simplex-单纯形算法介绍</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">线性基基础</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T23:57:27+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-03T14:37:34+08:00">
+                2019-02-03
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/03/LinearBase/" class="leancloud_visitors" data-flag-title="线性基基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  750
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="线性基"><a href="#线性基" class="headerlink" title="线性基"></a>线性基</h1><p>我们在碰到XOR问题的时候，通常难以下笔，因为XOR问题的解法通常不直观，直观上难以建模。线性基就是由此而提出，我们知道XOR拥有一些完美的性质，于是我们可以轻易的把一堆数压缩成64个数，可以保证这64个数的异或结果的值域与原数组的值域一样。而这个压缩的过程就是线性基的构造过程，理解起来也很简单。</p>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>首先我们申请一个数组$base[64]$，对于$base[i]$而言存储的是二进制中最高位的1在第$i$位的数。64是因为计算机能存储的最高位为64。</p>
+<p>我们对原数组中每一个数$x$，从高位到低位遍历，若当前最高位$i$为1，我们检查$base[i]$是否有值，有值的话，我们令$x=x$^ $base[i]$，否则我们令$base[i]=x$</p>
+<h2 id="构造代码"><a href="#构造代码" class="headerlink" title="构造代码"></a>构造代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> base[<span class="number">100</span>];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;a);</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">32</span>; j&gt;=<span class="number">0</span>; j--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a&amp;(<span class="number">1L</span>L&lt;&lt;j)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(base[j]) &#123;</span><br><span class="line">                a^=base[j];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                base[j]=a;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线性基的性质"><a href="#线性基的性质" class="headerlink" title="线性基的性质"></a>线性基的性质</h2><p>线性基的任何一个非空子集都不会使得其$xor​$和为0，证明方法使用反证法即可。这个性质可以保证线性基的算法的合法性。</p>
+<h2 id="来解决一些问题吧"><a href="#来解决一些问题吧" class="headerlink" title="来解决一些问题吧"></a>来解决一些问题吧</h2><h3 id="异或最大值问题"><a href="#异或最大值问题" class="headerlink" title="异或最大值问题"></a>异或最大值问题</h3><p>给我们一堆数，我们希望知道哪些数相互异或后结果最大，输出最大的值即可。</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>我们使用首先构造线性基，初始化$ans=0$，之后对于线性基从高位向低位扫，若当前的$base[i]$与ans异或后结果更大，那么就异或。否则跳过这一位即可。</p>
+<h3 id="异或判断问题"><a href="#异或判断问题" class="headerlink" title="异或判断问题"></a>异或判断问题</h3><p>给我们一堆数，再给我们一个数$x$，判断$x$是否可以由这些数的一个子集异或得到。</p>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><p>我们首先构造线性基，之后对于$x$，我们只需要对于$x$从高位到低位每个1与$base[i]$异或即可，若最后$x$的值为0，那么就可以被构造出来，否则无法被构造出来。其实意是也是很简单的，就相当于插入过程，如果$x$不需要导出新的$base[i]$，说明$x$无用，那么就一定可以被构造出来。否则需要导出新的$base[i]$来辅助构造$x$。</p>
+<h3 id="CF1011G"><a href="#CF1011G" class="headerlink" title="CF1011G"></a><a href="https://codeforces.com/contest/1101/problem/G" target="_blank" rel="noopener">CF1011G</a></h3><p>将原数组分为几段，每段内异或得到一个值，且任何一些连续段的异或值都不为0，最多能够划分多少段？</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h3><p>这个题目用到了上文介绍到的性质，线性基的任何一个非空子集都不会使得其$xor$和为0。于是本题的答案就是构造线性基的结果中,$base[i]$不为0的个数。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LinearBase/" rel="tag"># LinearBase</a>
+          
+            <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/ProblemSet/" rel="next" title="小问题集合-长期更新">
+                <i class="fa fa-chevron-left"></i> 小问题集合-长期更新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +537,13 @@
 
 
           
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
 
         </div>
         
@@ -358,8 +563,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -451,6 +665,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性基"><span class="nav-number">1.</span> <span class="nav-text">线性基</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造方法"><span class="nav-number">1.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造代码"><span class="nav-number">1.2.</span> <span class="nav-text">构造代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性基的性质"><span class="nav-number">1.3.</span> <span class="nav-text">线性基的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来解决一些问题吧"><span class="nav-number">1.4.</span> <span class="nav-text">来解决一些问题吧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异或最大值问题"><span class="nav-number">1.4.1.</span> <span class="nav-text">异或最大值问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">1.4.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异或判断问题"><span class="nav-number">1.4.3.</span> <span class="nav-text">异或判断问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-1"><span class="nav-number">1.4.4.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CF1011G"><span class="nav-number">1.4.5.</span> <span class="nav-text">CF1011G</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法-2"><span class="nav-number">1.4.6.</span> <span class="nav-text">解法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -587,6 +817,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -627,6 +861,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
