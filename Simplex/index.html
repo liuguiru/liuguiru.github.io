@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Simplex,最优化,线性规划,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
+<meta name="keywords" content="Simplex,最优化,线性规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simplex-单纯形算法介绍">
+<meta property="og:url" content="https://caojiangxia.github.io/Simplex/index.html">
+<meta property="og:site_name" content="caojiangxia">
+<meta property="og:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://caojiangxia.github.io/Simplex/Simpex-ExampleHuman.png">
+<meta property="og:updated_time" content="2018-12-18T15:57:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simplex-单纯形算法介绍">
+<meta name="twitter:description" content="单纯形算法（Simplex）有什么用？谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。    Food Energy Ca Price     燕麦 110 4 3   牛奶 160 8 9   猪肉 260 14 19    现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典">
+<meta name="twitter:image" content="https://caojiangxia.github.io/Simplex/Simpex-ExampleHuman.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caojiangxia.github.io/Simplex/">
+
+
+
+
+
+  <title>Simplex-单纯形算法介绍 | caojiangxia</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">caojiangxia</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/Simplex/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Simplex-单纯形算法介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-18T23:57:27+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Simplex/" class="leancloud_visitors" data-flag-title="Simplex-单纯形算法介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="单纯形算法（Simplex）有什么用？"><a href="#单纯形算法（Simplex）有什么用？" class="headerlink" title="单纯形算法（Simplex）有什么用？"></a>单纯形算法（Simplex）有什么用？</h1><p>谈到单纯形算法，我们不得不提线性规划，所谓线性规划，就是在满足一定约束下优化目标函数。下面引用几个例子来进行简单介绍。</p>
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Energy</th>
+<th>Ca</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>燕麦</td>
+<td>110</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>牛奶</td>
+<td>160</td>
+<td>8</td>
+<td>9</td>
+</tr>
+<tr>
+<td>猪肉</td>
+<td>260</td>
+<td>14</td>
+<td>19</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们需要55个单位的Ca和2000个单位的Energy，问我们应该怎么购买最合适。这就是一类最经典的线性优化问题，我们可以很轻松的写出目标函数和约束条件：</p>
+<p>​                                $min$   $$3X_1+9X_2+19X_3$$</p>
+<p>​                                $s.t.$    </p>
+<p>​                                      $110X_1+160X_2+260X_3&gt;=2000$</p>
+<p>​                                       $4X_1+8X_2+14X_3&gt;=55$</p>
+<p>​                                           $X_i&gt;=0，i=1,2,3$</p>
+<p>上述不等式表示的含义很简单，$min$表示最小化后面的目标函数，$s.t.$ 表示subject to的缩写，意思是受限于。</p>
+<p>针对这类问题，我们曾经学过的方法是图解法，画出可行域（阴影部分）（a），之后使用目标函数(b)在可行域上移动，之后靠<del>直觉</del>确定最优解。</p>
+<p><img src="/Simplex/Simpex-ExampleHuman.png" alt=""></p>
+<p>但是计算机可没有人类的直觉！计算机求解这些问题的时候，需要更加通用的方法来求解。于是在二战时期，为了协助政府协调物资人员，前苏联的坎托诺维奇<del>强行</del>提出了Simplex算法。其实该算法的思想也是来自于图解法，我们观察上面的求解过程，可以很明显的发现，最优解一定是在顶点上的！！！！于是这个人就在想，我们是不是随便从一个顶点开始，之后每次迁移到这个顶点的相邻顶点上，对这个凸包每个点遍历一次就能得到答案了？事实确实也确实是这样的，而且可以更简单，实际上我们只需要随便从一个顶点开始，之后暴力这个点相邻的点，然后选择一个下降的方向迁移点就可以，直到当前的点的值最小，那么这个点就是最终的解。</p>
+<p>但是为什么可以这样做呢？按照我的理解，因为可行域是一个凸多边形(为什么是凸的？其实画一画，就知道了。不可能是凹的，可行域一定是凸的！！)，那么这个凸多边形的顶点结果是单调的，因为全局最优解只有一个。那么求解过程就好像下山一样，只要每次向下走就可以走到谷底，类似于梯度下降法在凸二次函数上每次沿着下降的方向走，一直迭代就能得到最优解。当然这些是在扯淡，实际上这玩意是被证明了的，而我没看。。。</p>
+<h2 id="单纯形算法适用的情况"><a href="#单纯形算法适用的情况" class="headerlink" title="单纯形算法适用的情况"></a>单纯形算法适用的情况</h2><p>标准的线性规划格式（也叫标准型）：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A*x&lt;=b$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n$</p>
+<p>其中$c$表示的就是每一类$x$的花费，$A$表示的是约束矩阵，$x$表示的是擦书的列向量，$x_i$表示的是每一类的量(针对于整数线性规划，要求$x_i$必须为整数，比如$x_i$表示的是人的数量或者物品的份数)</p>
+<p>但是有些时候我们可能碰到一些要最大化的最优化问题，比如我们固定钱数，怎么样买到的能量最多？这时候我们的优化目标变成了$max$，针对这类问题我们转换为标准形式的方式也很简单，$c*-1$ 就变为$min$ 了，同样的道理我们对$A$和$x$都可以这样干。</p>
+<ul>
+<li>目标函数是$max$的时候，我们将$c$取反</li>
+<li>$Ai*x&gt;=b$,我们将$A_i$和$b$取反</li>
+<li>$x&lt;=0$,我们将$x$取反</li>
+</ul>
+<h2 id="松弛型"><a href="#松弛型" class="headerlink" title="松弛型"></a>松弛型</h2><p>我们上面介绍了标准型，现在介绍一下松弛型，其实也是一个很简单的东西，由于我们上面都是不等式，实在是太烦了，于是我们想要把不等式优化成等式，于是我们将标准型构造成下面的形式：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A_i*x+x_{i+n}=b_i$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n+m$</p>
+<p>其中$m$表示约束的个数，由于之前的不等式都是$&gt;=$的情况，我们可以减去一个非负的变量使得等号成立。这就是松弛形。</p>
+<h2 id="单纯形"><a href="#单纯形" class="headerlink" title="单纯形"></a>单纯形</h2><p>现在介绍单纯形，单纯形其实就是从松弛型过来的，它是为了单纯形算法求解简便一些而存在的，因为它可以导出单纯形表，一般写成如下形式：</p>
+<p>​                                        $min$   $c^Tx$</p>
+<p>​                                        $s.t.$  </p>
+<p>​                                              $x_{i+n}=b_i-A_ix$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n+m$</p>
+<p>其中我们称左边的变量为<strong>基本变量</strong>，右边的变量称为<strong>非基本变量</strong>，我们很显然有一组<strong>基础解</strong>，就是令<strong>非基本变量为零</strong>，这时候<strong>基本变量</strong>的值都为其对应的$b_i$。我们一般情况下可以认为基础解就是前面说的可行解区域的一个顶点（因为原本就是边界）。</p>
+<p>而单纯形表的初始形式很简单，举个例子</p>
+<p>​                                        $min$    $-x_1-14x_2-6x_3$</p>
+<p>​                                        $s.t.$        </p>
+<p>​                                                $x_1+x_2+x_3+x_4$                $=4$</p>
+<p>​                                                $x_1$                              $+x_5$             $=2$</p>
+<p>​                                                        $x_3$                $+x_6$    $=3$</p>
+<p>当前的例子的<strong>基本变量</strong>为${x_4,x_5,x_6}$,<strong>非基本变量</strong>为${x_1,x_2,x_3}$。</p>
+<p>其单纯形表的形式为:</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>-1</th>
+<th>-14</th>
+<th>-6</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>人话解释，第一行表示的是目标函数的系数，但是其中第0个位置表示的是当前目标函数取当前<strong>基础解</strong>作为解之后求得的值的相反数。后面的每一行表示的都是约束条件$b_i=a_{i1}x_1+a_{i2}x_2+…+a_{i(n+m)}x_{n+m}$</p>
+<h2 id="求解步骤"><a href="#求解步骤" class="headerlink" title="求解步骤"></a>求解步骤</h2><p>我们在使用单纯形法进行求解的时候，首先找到第一个目标函数中系数为负的<strong>非基本变量</strong>$y$，将其增大（这个过程相当于我们在凸包上沿着边缘走到另一个顶点），但是我们怎么确定这个<strong>非基本变量</strong>$y$最大能增大多少呢？这个其实很简单，只需要令除当前变量的其他变量为0，剩下$b_i$和$y$，我们可以对每个包含$y$的约束条件进行计算约束。找到使其最紧(即在当前的约束条件中让$y$的最大取值最小)的那一个约束即可，再使用当前约束条件下的<strong>基本变量</strong>与其进行替换即可。由于我们每次可以使约束z向更小的方向迁移，这使得我们的算法不会陷入死循环。</p>
+<p>注意，假如对于非基本变量$y$不存在限制最紧的约束条件，那么该组线性规划无解，因为可以无限增大。</p>
+<p>再次注意我们的规则<strong>(Bland规则)</strong>：</p>
+<ol>
+<li><p>找到第一个目标函数中系数为负的<strong>非基本变量</strong></p>
+</li>
+<li><p>找到限制最紧的约束条件</p>
+</li>
+<li><p>使用当前约束条件下的<strong>基本变量</strong>(也叫替入变量)与<strong>非基本变量</strong>（也叫替出变量）进行替换</p>
+</li>
+</ol>
+<p>我们对上述单纯形表进行一次示范操作：</p>
+<p>首先我们看到第一个非基本变量$x_1$的系数为负数。那么我们开始对$x_1$进行增大。</p>
+<p>对于第一个约束条件有$x_1=4$</p>
+<p>对于第二个约束条件有$x_1=2$</p>
+<p>对于第三个约束条件有$x_1=3$</p>
+<p>由于第二个约束是最紧的，那么我们选择第二个约束中的$x_5$作为替出变量，此时有单纯形表的变化为</p>
+<table>
+<thead>
+<tr>
+<th>2</th>
+<th>0</th>
+<th>-14</th>
+<th>-6</th>
+<th>0</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>-1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>由于我们在替出时将$x_1=2-x_5$带入，很明显可以将单纯形表进行转换。如果没有想清楚的话我们可以手动带入一下即可。</p>
+<p>一直重复这个操作，直到所有的<strong>非基本变量</strong>的系数都大于零（顶点无法再迁移），那么程序就求出了最优解。</p>
+<p>注意，本文其实未完待续，因为其实在实现算法中间存在很多细节，但本文的目的是让读者对该算法有个系统的了解，明白算法的原由，至于一些具体的细节，读者可以参考<a href="https://www.hrwhisper.me/introduction-to-simplex-algorithm/" target="_blank" rel="noopener">链接</a>进行进一步的了解！</p>
+<h2 id="单纯形Simplex模板"><a href="#单纯形Simplex模板" class="headerlink" title="单纯形Simplex模板"></a>单纯形Simplex模板</h2><p>给出一份Simplex的模板与其应用，所求解的题目链接：<a href="http://www.baidu.com/link?url=EkB7BXLORqw4cPoU0YyMnMlh4K8w524lNmhTJmi-oZj2_zKuCYkSl1dVEaGnhKxKDLcKy9DcdAd9MZTWSs84-q" target="_blank" rel="noopener"><em>BZOJ</em> 1061</a>：</p>
+<p>注意！！该模板求解的是：</p>
+<p>​                                        $max$   $c^Tx$</p>
+<p>​                                        $s.t.$   </p>
+<p>​                                             $A*x&gt;=b$</p>
+<p>​                                                     $x_i&gt;=0，i=1,2,3…,n$<br>这类问题，稍稍转换一下就好了。之所以选择这个作为模板，是因为这份模板直接省去了替出变量，节省了大量空间，而且极其富有技巧性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> DB;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1005</span>, maxm = <span class="number">10005</span>;</span><br><span class="line"><span class="keyword">const</span> DB inf = <span class="number">0x3f3f3f3f3f3f3f3f</span>, eps = <span class="number">1e-7</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line">DB b[maxm], c[maxn], cof[maxm][maxn], ans;<span class="comment">//约束、目标函数的系数、约束矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pivot</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">	b[id] /= cof[id][pos];<span class="comment">//首先归一化</span></span><br><span class="line">	cof[id][pos] = <span class="number">1</span> / cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span>(i != pos) cof[id][i] *= cof[id][pos];<span class="comment">//归一化</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="keyword">if</span>(i != id &amp;&amp; <span class="built_in">fabs</span>(cof[i][pos]) &gt; eps) &#123;<span class="comment">//当前约束条件包含约束最紧的变量</span></span><br><span class="line">		b[i] -= cof[i][pos] * b[id];<span class="comment">//搞死小圆(高斯消元)的方法更新变量的系数和b的值</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) <span class="keyword">if</span>(j != pos) cof[i][j] -= cof[i][pos] * cof[id][j];</span><br><span class="line">		cof[i][pos] = -cof[i][pos] * cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ans += c[pos] * b[id];<span class="comment">//对c进行消元</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span>(i != pos) c[i] -= c[pos] * cof[id][i];</span><br><span class="line">	c[pos] = -c[pos] * cof[id][pos];<span class="comment">//将变量直接改变为松弛变量，技巧的地方</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> DB <span class="title">simplex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> pos, id;</span><br><span class="line">		<span class="keyword">for</span>(pos = <span class="number">1</span>; pos &lt;= n; pos++) <span class="keyword">if</span>(c[pos] &gt; eps) <span class="keyword">break</span>;<span class="comment">//找到第一个系数大于0的变量，进行增大</span></span><br><span class="line">		<span class="keyword">if</span>(pos == n + <span class="number">1</span>) <span class="keyword">return</span> ans;<span class="comment">//找不到了结束，返回答案</span></span><br><span class="line"></span><br><span class="line">		DB tmp = inf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="keyword">if</span>(cof[i][pos] &gt; eps &amp;&amp; b[i] / cof[i][pos] &lt; tmp)</span><br><span class="line">			tmp = b[i] / cof[i][pos], id = i;<span class="comment">//找到约束最紧的那个约束条件</span></span><br><span class="line">		<span class="keyword">if</span>(tmp == inf) <span class="keyword">return</span> inf;</span><br><span class="line">		pivot(id, pos);<span class="comment">//进行顶点的迁移（旋转）</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;c[i]);<span class="comment">//其实将min改为max问题，可以直接采用结论，求对偶问题即可。</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> x, y; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;x, &amp;y);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = x; j &lt;= y; j++) cof[i][j] = <span class="number">1</span>;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf"</span>, &amp;b[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, LL(simplex() + <span class="number">0.5</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.hrwhisper.me/introduction-to-simplex-algorithm/" target="_blank" rel="noopener"><a href="https://www.hrwhisper.me/author/hrsay/" target="_blank" rel="noopener">hrwhisper</a></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Simplex/" rel="tag"># Simplex</a>
+          
+            <a href="/tags/最优化/" rel="tag"># 最优化</a>
+          
+            <a href="/tags/线性规划/" rel="tag"># 线性规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Attention/" rel="prev" title="transformer模型详解">
+                transformer模型详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/lotus.jpg" alt="Kuroyukihime">
+            
+              <p class="site-author-name" itemprop="name">Kuroyukihime</p>
+              <p class="site-description motion-element" itemprop="description">一只NLP、ML萌新，欢迎探讨问题。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caojiangxia" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/caojiangxia" target="_blank" title="codeforces">
+                      
+                        <i class="fa fa-fw fa-globe"></i>codeforces</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/yexiaohhjk" title="MrYx" target="_blank">MrYx</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单纯形算法（Simplex）有什么用？"><span class="nav-number">1.</span> <span class="nav-text">单纯形算法（Simplex）有什么用？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单纯形算法适用的情况"><span class="nav-number">1.1.</span> <span class="nav-text">单纯形算法适用的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#松弛型"><span class="nav-number">1.2.</span> <span class="nav-text">松弛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单纯形"><span class="nav-number">1.3.</span> <span class="nav-text">单纯形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解步骤"><span class="nav-number">1.4.</span> <span class="nav-text">求解步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单纯形Simplex模板"><span class="nav-number">1.5.</span> <span class="nav-text">单纯形Simplex模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.6.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuroyukihime</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("T7KcjJJp64BnMKCS46V2ucUm-gzGzoHsz", "DOkoBoCTAtTujSpi8QoEaXPi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <div class="bg_content">
+  <canvas id="canvas"></canvas>
+  </div>
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+
