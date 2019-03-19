@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="KMP,">
 
 
 
@@ -86,16 +86,21 @@
 
 
 
-<meta name="description" content="一只NLP、ML萌新，欢迎探讨问题。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="caojiangxia">
-<meta property="og:url" content="https://caojiangxia.github.io/tags/Prime/index.html">
+<meta name="description" content="KMP字符串匹配算法学过计算机的人应该都会知道knuth这个人吧？这个人太传奇了，直到今天，他还活着！！在他那个年代，他一生发明过许多算法。而KMP算法几乎是由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现的，于是后人为了念起来顺口纪念这三个人，取三个人的名字的首字母按字典序排序对该算法进行命名。 字符串匹配为了了解KMP算法，我们首先需要知道什么是字符串匹配，简单来说，给你">
+<meta name="keywords" content="KMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMP字符串匹配">
+<meta property="og:url" content="https://caojiangxia.github.io/KMP/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta property="og:description" content="KMP字符串匹配算法学过计算机的人应该都会知道knuth这个人吧？这个人太传奇了，直到今天，他还活着！！在他那个年代，他一生发明过许多算法。而KMP算法几乎是由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现的，于是后人为了念起来顺口纪念这三个人，取三个人的名字的首字母按字典序排序对该算法进行命名。 字符串匹配为了了解KMP算法，我们首先需要知道什么是字符串匹配，简单来说，给你">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://caojiangxia.github.io/KMP/sample-1.png">
+<meta property="og:image" content="https://caojiangxia.github.io/KMP/sample-2.png">
+<meta property="og:updated_time" content="2019-03-19T11:53:03.221Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="caojiangxia">
-<meta name="twitter:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta name="twitter:title" content="KMP字符串匹配">
+<meta name="twitter:description" content="KMP字符串匹配算法学过计算机的人应该都会知道knuth这个人吧？这个人太传奇了，直到今天，他还活着！！在他那个年代，他一生发明过许多算法。而KMP算法几乎是由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现的，于是后人为了念起来顺口纪念这三个人，取三个人的名字的首字母按字典序排序对该算法进行命名。 字符串匹配为了了解KMP算法，我们首先需要知道什么是字符串匹配，简单来说，给你">
+<meta name="twitter:image" content="https://caojiangxia.github.io/KMP/sample-1.png">
 
 
 
@@ -125,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://caojiangxia.github.io/tags/Prime/">
+  <link rel="canonical" href="https://caojiangxia.github.io/KMP/">
 
 
 
 
 
-  <title>Tag: Prime | caojiangxia</title>
+  <title>KMP字符串匹配 | caojiangxia</title>
   
 
 
@@ -150,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -286,52 +291,275 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Prime<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/KMP/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/Prime/" itemprop="url">
-              
-                <span itemprop="name">素数/质数</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">KMP字符串匹配</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-24T19:27:58+08:00" content="2019-02-24">
-          02-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T09:46:39+08:00">
+                2019-03-19
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/KMP/" class="leancloud_visitors" data-flag-title="KMP字符串匹配">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="KMP字符串匹配算法"><a href="#KMP字符串匹配算法" class="headerlink" title="KMP字符串匹配算法"></a>KMP字符串匹配算法</h1><p>学过计算机的人应该都会知道knuth这个人吧？这个人太传奇了，直到今天，他还活着！！在他那个年代，他一生发明过许多算法。而KMP算法几乎是由D.E.Knuth，J.H.Morris和V.R.Pratt同时发现的，于是后人为了<del>念起来顺口</del>纪念这三个人，取三个人的名字的首字母按字典序排序对该算法进行命名。</p>
+<h1 id="字符串匹配"><a href="#字符串匹配" class="headerlink" title="字符串匹配"></a>字符串匹配</h1><p>为了了解KMP算法，我们首先需要知道什么是字符串匹配，简单来说，给你两个字符串$A,B$，问你$A$中是不是有一个子串和$B$恰好一样。</p>
+<p>首先对于这个问题，我们可以很简单的得到一个暴力算法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> A,B;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;A&gt;&gt;B)&#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i+B.size()&lt;A.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A.substr(i,B.size())==B)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i+B.size()==A.size())<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显这个算法的复杂度是$O((n-m)*m)$级别的，其中$n,m$分别为字符串$A,B$的长度。</p>
+<p>但是我们怎么如何改进算法呢？</p>
+<h2 id="上述算法的问题所在"><a href="#上述算法的问题所在" class="headerlink" title="上述算法的问题所在"></a>上述算法的问题所在</h2><p>首先我们举一个特殊的例子，看看算法到底在哪里冗余了。</p>
+<p><img src="/KMP/sample-1.png" alt=""></p>
+<p>我们可以看到，每次我们都向后匹配一位，直到最后停下来。不过这中间真的没有问题吗？其实我们可以很简单的就能发现下面的问题。</p>
+<p>对于第一次匹配：</p>
+<p>我们发现aba都是匹配的，但是接下来b和c并不能进行匹配。这个时候我们向后移动一位。</p>
+<p>对于第二次匹配：</p>
+<p>a和b不匹配，我们向后移动一位。</p>
+<p><strong>我们可不可以避免这种情况的发生呢？</strong>因为我们通过第一次匹配已经知道了$A$中接下来连续的是ba这个串开头的，我们仅仅移动移动一步的话。还是会导致失配(就是当前的两个字符不匹配了)。我们可不可以跳过b，直接移动两位呢？显然我们人是可以很轻松的做到这一点的，等于说上述算法还有改进的空间！</p>
+<h2 id="对于失配的情况我们应该如何移动？"><a href="#对于失配的情况我们应该如何移动？" class="headerlink" title="对于失配的情况我们应该如何移动？"></a>对于失配的情况我们应该如何移动？</h2><p>我们知道了aba匹配，但是下一步的字母我们不匹配，通过上面的分析可以知道我们应该直接跳过b，开始对a的匹配。</p>
+<p>对于作为高智商的我们，现在有几个问题，请思考下面的问题：</p>
+<p>对于ac匹配的情况，我们应该跳过几步呢？</p>
+<p>对于ababa匹配的情况，我们应该跳过几步呢？同时现在是什么字符和$A​$进行匹配呢？</p>
+<p>对于ababc匹配的情况，我们应该跳过几步呢？同时现在是什么字符和$A$进行匹配呢？</p>
+<p>对于abcabc匹配的情况，我们应该跳过几步呢？同时现在是什么字符和$A$进行匹配呢？</p>
+<p>请思考之后，把答案记在心里，再继续往下看，想必会有更加深刻的理解！</p>
+<p><strong>答案</strong></p>
+<p>对于ac匹配的情况下，我们需要直接跳过c。使用a和$A$串进行匹配。</p>
+<p>对于ababa匹配的情况下，我们应该跳过b，同时使用第二个b与$A$串进行匹配</p>
+<p>对于ababc匹配的情况下，我们应该跳过babc，同时使用第一个a与$A$串进行匹配</p>
+<p>对于abcabc匹配的情况下，我们应该跳过bc，同时使用第二个a与$A$串进行匹配</p>
+<p>上面的是不是很神奇？是不是感受到了我们原来还可以这样玩？有些东西只有思考之后才能感受到它们的乐趣！</p>
+<h2 id="跳过的规律是什么呢？"><a href="#跳过的规律是什么呢？" class="headerlink" title="跳过的规律是什么呢？"></a>跳过的规律是什么呢？</h2><p>通过上面的分析，我们可以知道我们在发现失配的时候，我们可以更加智能的跳过一些字符，同时从$B$中间的某个位置开始匹配。但是这个是什么规律呢？我们应该遵从什么原则来确定跳动的位置呢？</p>
+<p>对于我们应该跳到哪里去，这里我直接给出答案，就是<strong>最长前缀后缀匹配的长度</strong>。</p>
+<p>首先回到上面的几种情况。</p>
+<p>对于ac来说：没有前缀和后缀能匹配上，所以长度是0，同时0也是a的下标。</p>
+<p>对于ababa来说：我们能得到的最长前缀是abab，最长后缀是baba，但是两者不匹配。但是aba和aba是匹配的，所以我们可以跳到3这个位置，这个位置也就是第二个b的下标。</p>
+<p>对于ababc来说：我们找不到任何一个前缀和后缀能匹配。所以我们跳到0，也就是第一个a的下标。</p>
+<p>对于abcabc来说：由于最长的匹配是abc和abc，所以我们可以跳到长度为3的这个位置，这个位置也就是第二个a的下标。</p>
+<h2 id="NEXT数组"><a href="#NEXT数组" class="headerlink" title="NEXT数组"></a>NEXT数组</h2><p>通过上面的分析，我们是不是可以更加清楚的对上面的跳动有个了解了？那么我们这个时候需要用一个数组来记录每个位置失配之后，指导我们应该如何进行跳动，这个数组就叫做next数组。这个数组就是KMP算法的最重要的发现。我后面会直接给出实现代码，很简单。 </p>
+<p>不过我还是要做一些说明，因为NEXT数组为了方便使用，我们其实是错位了一次，即NEXT数组是向右移位了一次。</p>
+<p><img src="/KMP/sample-2.png" alt=""></p>
+<p>上面表示原字符串，下面表示的是当位置$i$发生了失配，那么我们应该跳去哪个位置进行比较，由于第一个位置发生失配的时候，我们可以直接往后走，所以使用-1进行标记。</p>
+<h2 id="匹配代码"><a href="#匹配代码" class="headerlink" title="匹配代码"></a>匹配代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> nxt[<span class="number">10005</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_nxt</span><span class="params">(<span class="built_in">string</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    nxt[<span class="number">0</span>]=<span class="number">-1</span>;nxt[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>; x[i]; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(x[i]==x[nxt[i]]) &#123;</span><br><span class="line">            nxt[i+<span class="number">1</span>]=nxt[i]+<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            nxt[i+<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(<span class="built_in">string</span> A,<span class="built_in">string</span> B)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j,k;</span><br><span class="line">    get_nxt(B);<span class="comment">//对模板串求next数组</span></span><br><span class="line">    k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; A[i]; i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(k&amp;&amp;(A[i]!=B[k]))&#123;</span><br><span class="line">            k=nxt[k];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(A[i]==B[k]) k++;</span><br><span class="line">        <span class="keyword">if</span>(k==B.size()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">1000005</span>];</span><br><span class="line"><span class="built_in">string</span> A,B;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j,T,n,m,x;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">        B=s;<span class="comment">//被查找的串，也称模板串</span></span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s);</span><br><span class="line">        A=s;<span class="comment">//主串</span></span><br><span class="line">        <span class="keyword">if</span>(KMP(A,B)) <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强烈建议读者看完后自己手写一次，相信会有很大收获！给出一道例题<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1686" target="_blank" rel="noopener">HDU1686</a>，修改上面的代码就能AC啦！</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/KMP/" rel="tag"># KMP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Editdistance/" rel="next" title="编辑距离问题">
+                <i class="fa fa-chevron-left"></i> 编辑距离问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +567,13 @@
 
 
           
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
 
         </div>
         
@@ -358,8 +593,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -451,6 +695,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KMP字符串匹配算法"><span class="nav-number">1.</span> <span class="nav-text">KMP字符串匹配算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串匹配"><span class="nav-number">2.</span> <span class="nav-text">字符串匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#上述算法的问题所在"><span class="nav-number">2.1.</span> <span class="nav-text">上述算法的问题所在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于失配的情况我们应该如何移动？"><span class="nav-number">2.2.</span> <span class="nav-text">对于失配的情况我们应该如何移动？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳过的规律是什么呢？"><span class="nav-number">2.3.</span> <span class="nav-text">跳过的规律是什么呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NEXT数组"><span class="nav-number">2.4.</span> <span class="nav-text">NEXT数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配代码"><span class="nav-number">2.5.</span> <span class="nav-text">匹配代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -587,6 +847,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -627,6 +891,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
