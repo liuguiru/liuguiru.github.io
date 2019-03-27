@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash$$hash[i]=(hash[i-1]*p+s[i])\%mod$$ 其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然">
+<meta name="description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash hash[i]=(hash[i-1]*p+s[i])\%mod其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然也可以使">
 <meta name="keywords" content="HASH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hash的一些应用">
 <meta property="og:url" content="https://caojiangxia.github.io/Hashsubstring/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash$$hash[i]=(hash[i-1]*p+s[i])\%mod$$ 其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然">
+<meta property="og:description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash hash[i]=(hash[i-1]*p+s[i])\%mod其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然也可以使">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-03-27T02:38:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hash的一些应用">
-<meta name="twitter:description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash$$hash[i]=(hash[i-1]*p+s[i])\%mod$$ 其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然">
+<meta name="twitter:description" content="Hash的一些应用在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。 本文定义一种更简单的hash方式-单hash hash[i]=(hash[i-1]*p+s[i])\%mod其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。 当然也可以使">
 
 
 
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  748
+                  747
                 </span>
               
 
@@ -422,19 +422,22 @@
 
       
         <h1 id="Hash的一些应用"><a href="#Hash的一些应用" class="headerlink" title="Hash的一些应用"></a>Hash的一些应用</h1><p>在前面我们了解到了进制hash和多重hash。但是这些并不能让我们能够解题，因为这些实在是太浅了。我们本文讨论如何解决一些实际问题。</p>
-<h2 id="本文定义一种更简单的hash方式-单hash"><a href="#本文定义一种更简单的hash方式-单hash" class="headerlink" title="本文定义一种更简单的hash方式-单hash"></a>本文定义一种更简单的hash方式-单hash</h2><p>$$<br>hash[i]=(hash[i-1]*p+s[i])\%mod<br>$$</p>
-<p>其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。</p>
-<h3 id="当然也可以使用双hash使用二元组来表示结果"><a href="#当然也可以使用双hash使用二元组来表示结果" class="headerlink" title="当然也可以使用双hash使用二元组来表示结果"></a>当然也可以使用双hash使用二元组来表示结果</h3><p>$$<br>hash1[i]=(hash1[i-1]*p+s[i])\%mod1  \\</p>
-<p>hash2[i]=(hash2[i-1]*p+s[i])\%mod2<br>$$</p>
-<p>我们仅仅使用两个不同的$mod$即可，最后结果使用一个二元组表示答案$&lt;hash1[n],hash2[n]&gt;​$。这种方式冲突的概率几乎是0。</p>
+<h2 id="本文定义一种更简单的hash方式-单hash"><a href="#本文定义一种更简单的hash方式-单hash" class="headerlink" title="本文定义一种更简单的hash方式-单hash"></a>本文定义一种更简单的hash方式-单hash</h2><script type="math/tex; mode=display">
+hash[i]=(hash[i-1]*p+s[i])\%mod</script><p>其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。</p>
+<h3 id="当然也可以使用双hash使用二元组来表示结果"><a href="#当然也可以使用双hash使用二元组来表示结果" class="headerlink" title="当然也可以使用双hash使用二元组来表示结果"></a>当然也可以使用双hash使用二元组来表示结果</h3><script type="math/tex; mode=display">
+hash1[i]=(hash1[i-1]*p+s[i])\%mod1\\hash2[i]=(hash2[i-1]*p+s[i])\%mod2</script><p>我们仅仅使用两个不同的$mod$即可，最后结果使用一个二元组表示答案$<hash1[n],hash2[n]>$。这种方式冲突的概率几乎是0。</hash1[n],hash2[n]></p>
 <h2 id="我们如何获取子串的hash值"><a href="#我们如何获取子串的hash值" class="headerlink" title="我们如何获取子串的hash值"></a>我们如何获取子串的hash值</h2><p>如果我们存储了一个字符串的各个位置的hash值，那么我们可以$O(1)$的获取到子串的hash值。</p>
-<p>我们可以举一个简单的例子：<br>$$<br>hash[1]=s_1 \\</p>
-<p>hash[2]=s_1*p+s_2 \\</p>
-<p>hash[3]=s_1<em>p^2+s_2</em>p+s_3 \\</p>
-<p>hash[4]=s_1<em>p^3+s_2</em>p^2+s_3<em>p+s_4<br>$$<br>假如我们需要$s_3s_4​$的hash值的话，我们其实可以通过$hash[4]​$和$hash[2]​$的值计算得到结果，我们其实可以很简单的发现值其实就是:<br>$$<br>hash[4]-hash[2]</em>p^{4-3+1}<br>$$<br>我们可以通过一个预处理把$p^x$都存储起来，需要的时候直接访问就行了。</p>
-<p>其实就是相当于求$l-r$区间的值，结果就是:<br>$$<br>hash[r]-hash[l-1]*p^{r-l+1}<br>$$<br>由于我们之前每次对hash值取mod,且中间是<strong>减号</strong>。</p>
-<p><strong>那么我们的结果应该是：</strong><br>$$<br>((hash[r]-hash[l-1]*p^{r-l+1})\%mod+mod)\%mod<br>$$</p>
-<h3 id="一些经典问题"><a href="#一些经典问题" class="headerlink" title="一些经典问题"></a>一些经典问题</h3><h4 id="题型一"><a href="#题型一" class="headerlink" title="题型一"></a>题型一</h4><p>给两个串$s_1,s_2$，问$s_2$是否在$s_1$中出现，且出现了几次。</p>
+<p>我们可以举一个简单的例子：</p>
+<script type="math/tex; mode=display">
+hash[1]=s_1\\hash[2]=s_1*p+s_2\\hash[3]=s_1*p^2+s_2*p+s_3\\hash[4]=s_1*p^3+s_2*p^2+s_3*p+s_4</script><p>假如我们需要$s_3s_4$的hash值的话，我们其实可以通过$hash[4]$和$hash[2]$的值计算得到结果，我们其实可以很简单的发现值其实就是:</p>
+<script type="math/tex; mode=display">
+hash[4]-hash[2]*p^{4-3+1}</script><p>我们可以通过一个预处理把$p^x$都存储起来，需要的时候直接访问就行了。</p>
+<p>其实就是相当于求$l-r​$区间的值，结果就是:</p>
+<script type="math/tex; mode=display">
+hash[r]-hash[l-1]*p^{r-l+1}</script><p>由于我们之前每次对hash值取mod,且中间是<strong>减号</strong>。</p>
+<p><strong>那么我们的结果应该是：</strong></p>
+<script type="math/tex; mode=display">
+((hash[r]-hash[l-1]*p^{r-l+1})\%mod+mod)\%mod</script><h3 id="一些经典问题"><a href="#一些经典问题" class="headerlink" title="一些经典问题"></a>一些经典问题</h3><h4 id="题型一"><a href="#题型一" class="headerlink" title="题型一"></a>题型一</h4><p>给两个串$s_1,s_2$，问$s_2$是否在$s_1$中出现，且出现了几次。</p>
 <h4 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h4><p>我们可以$O(n)$的构造所有的长度等于$s_2$的子串的Unordered_map值放入map中进行统计。最后根据$s_2$的hash值输出答案即可。</p>
 <h4 id="题型二"><a href="#题型二" class="headerlink" title="题型二"></a>题型二</h4><p>给定n个字符串，之后给一个大文章$S​$，问哪些字符串在其中出现了。</p>
 <p>文章串长度$|s|&lt;1e5​$，n个单词串总长不超过$1e6​$且$n&lt;1e4​$。</p>

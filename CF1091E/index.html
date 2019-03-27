@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  981
+                  258
                 </span>
               
 
@@ -424,11 +424,17 @@
         <h1 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h1><p>给我们$n$个点的度数$a_1,a_2,…,a_n$,同时还有一个点的度$x$尚未确定。我们希望$a_1,a_2,…,a_n,x$构成的点度序列能够形成一个简单图，所谓简单图就是无自环，重边的无向图，连通性无需保证。要求从小到大输出$x$的所有可能解。若没有任何解输出$-1$。</p>
 <h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
 <li><p><strong>Havel–Hakimi algorithm</strong></p>
-<p>给定一个点度序列$a_1,a_2,…,a_n$能够形成一个简单图的充要条件是:<br>$$<br>a_2-1,a_3-1,…,a_{a_1+1}-1,a+{a_1+2},..,a_n<br>$$<br>构成一个简单图。即我们可以根据这个进行递归。</p>
+<p>给定一个点度序列$a_1,a_2,…,a_n$能够形成一个简单图的充要条件是:</p>
+<script type="math/tex; mode=display">
+a_2-1,a_3-1,...,a_{a_1+1}-1,a+{a_1+2},..,a_n</script><p>构成一个简单图。即我们可以根据这个进行递归。</p>
 <p><del>人话解释</del>：每次拿一个点度最大的$a_1$出来，将剩余的前$a_1$个点度减一即可。注意，这里每次都是要排序的。故递归求解的话时间复杂度是$n^2logn$的</p>
 </li>
 <li><p><strong>Erdős–Gallai theorem</strong></p>
-<p>给定一个点度序列$a_1,a_2,…,a_n$能够形成一个简单图的充要条件是:<br>$$<br>\sum_{i-1}^ka_i&lt;=(k(k-1)+\sum_{j=k+1}^n\min(a_j,k))<br>$$<br><strong>同时点度和和需要为偶数</strong>：<br>$$<br>\sum_i^na_i=even<br>$$<br>这个定理就比较晦涩了，而且很强大，直接不需要递归了，我们只需要对每个$k$维护一下值就行了。这个判断一次的复杂度就直接变成了$n$级别的复杂度。<strong>故本题只用这个结论</strong></p>
+<p>给定一个点度序列$a_1,a_2,…,a_n$能够形成一个简单图的充要条件是:</p>
+<script type="math/tex; mode=display">
+\sum_{i-1}^ka_i<=(k(k-1)+\sum_{j=k+1}^n\min(a_j,k))</script><p><strong>同时点度和和需要为偶数</strong>：</p>
+<script type="math/tex; mode=display">
+\sum_i^na_i=even</script><p>这个定理就比较晦涩了，而且很强大，直接不需要递归了，我们只需要对每个$k$维护一下值就行了。这个判断一次的复杂度就直接变成了$n$级别的复杂度。<strong>故本题只用这个结论</strong></p>
 </li>
 </ol>
 <h2 id="题目想法"><a href="#题目想法" class="headerlink" title="题目想法"></a>题目想法</h2><p>很显然，我们只需要找一个上界和一个下界，中间的点度是一个公差为2的等差数列。现在问题变成了怎么找到上界和下界。</p>
@@ -1346,26 +1352,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

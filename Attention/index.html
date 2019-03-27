@@ -454,9 +454,17 @@
 <li>CNN 可以很好的获得全局信息</li>
 <li>Attention google提出的全新思想，在各大模型上都有提升</li>
 </ol>
-<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>第一个思路是RNN，思想是很简单的，进行递归式的信息提取：<br>$$<br>y_t=f(y_{t-1},x_t)<br>$$<br>由于我们在每一步进行计算的时候都需要依赖上一步计算的结果，这导致了RNN无法并行计算，这是这个模型原本就存在的缺陷，但是RNN可以很好的学习到<strong>时序信息</strong>。相应的，我们很难获取到全局信息，倘若我们想得到全局信息，我们一般使用双向RNN或者双向LSTM。</p>
-<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>第二个思路是CNN，思想也是十分简单的，进行窗口式的扫描，对于尺度为3的卷积：<br>$$<br>y_t=f(x_{t-1},x_t,x_{t+1})<br>$$<br>由于CNN的每一步进行计算的时候是独立的，故我们可以很方便的进行并行计算。其实通过这一步我们只能获取到局部的信息，但是我们通过堆叠的方式增大<strong>感受野</strong>，使得模型能够获得很好的全局信息！但是相应的，CNN的时序信息获取效果不如RNN。</p>
-<h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><p>Google在2017年的论文Attention is All You Need提供了第三个思路，这个想法也也是十分简单的，一般而言我们记作：<br>$$<br>y_t=f(q_t,K,V)<br>$$<br>对于全局过程我们记作：<br>$$<br>y=f(Q,K,V)<br>$$<br>其中$Q,K$与$V$相同的时候，我们称作self-attention。计算方式在文章后续会详叙。</p>
+<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>第一个思路是RNN，思想是很简单的，进行递归式的信息提取：</p>
+<script type="math/tex; mode=display">
+y_t=f(y_{t-1},x_t)</script><p>由于我们在每一步进行计算的时候都需要依赖上一步计算的结果，这导致了RNN无法并行计算，这是这个模型原本就存在的缺陷，但是RNN可以很好的学习到<strong>时序信息</strong>。相应的，我们很难获取到全局信息，倘若我们想得到全局信息，我们一般使用双向RNN或者双向LSTM。</p>
+<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><p>第二个思路是CNN，思想也是十分简单的，进行窗口式的扫描，对于尺度为3的卷积：</p>
+<script type="math/tex; mode=display">
+y_t=f(x_{t-1},x_t,x_{t+1})</script><p>由于CNN的每一步进行计算的时候是独立的，故我们可以很方便的进行并行计算。其实通过这一步我们只能获取到局部的信息，但是我们通过堆叠的方式增大<strong>感受野</strong>，使得模型能够获得很好的全局信息！但是相应的，CNN的时序信息获取效果不如RNN。</p>
+<h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><p>Google在2017年的论文Attention is All You Need提供了第三个思路，这个想法也也是十分简单的，一般而言我们记作：</p>
+<script type="math/tex; mode=display">
+y_t=f(q_t,K,V)</script><p>对于全局过程我们记作：</p>
+<script type="math/tex; mode=display">
+y=f(Q,K,V)</script><p>其中$Q,K$与$V$相同的时候，我们称作self-attention。计算方式在文章后续会详叙。</p>
 <h2 id="Transformer注意力机制"><a href="#Transformer注意力机制" class="headerlink" title="Transformer注意力机制"></a>Transformer注意力机制</h2><p><img src="/Attention/main.png" alt=""></p>
 <p>上图看起来十分复杂，我们简化一下。</p>
 <p><img src="/Attention/small.png" alt=""></p>
@@ -470,7 +478,9 @@
 <p>我们可以看到在解码层的做了两次attention，我们在第二次的attention时使用了左边的encoder传递过来的信息。上面这张图我觉得有点小问题，也许是我理解错误。。我认为左边的encoder端上面应该是没有箭头的。</p>
 <h2 id="传统Attention-机制"><a href="#传统Attention-机制" class="headerlink" title="传统Attention 机制"></a>传统Attention 机制</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Attention的翻译过来就是注意力，这表示了人类的偏好，我们在观察一个图片的时候，往往对图像的某一部分有更集中的偏好，就是所谓的”抢镜”。对某一部分有更高的关注度，这使得我们对图片有一个更加准确的感受。</p>
 <p>我们拓展到文本中，例如我们在进行翻译任务的时候，翻译当前词的时候一般是对序列的局部信息有偏好，但是对于每个单词而言，对原序列的关注程度肯定是不一样的。attention就是使用最简单的方法实现这个功能。</p>
-<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>我们再次召唤前面的公式:<br>$$<br>y_t=f(q_t,K,V)<br>$$<br>我们简述一下这个$f$是如何进行计算的。</p>
+<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>我们再次召唤前面的公式:</p>
+<script type="math/tex; mode=display">
+y_t=f(q_t,K,V)</script><p>我们简述一下这个$f$是如何进行计算的。</p>
 <p><img src="/Attention/formula.png" alt=""></p>
 <p>我们输入一组$K$与$V$与查询$Q$，首先我们对每个$K_i$与$Q$计算相似度得到$S_i$,之后将$S$通过softmax函数进行归一化得到分布$a$，之后我们计算$a$与$V$的加权和得到对于查询$Q$的attention向量Att-V。</p>
 <p>其中对于$f(Q,K_i)$(都为列向量的话)的计算方式主要分为以下几种：</p>
@@ -531,16 +541,27 @@
 <p><img src="/Attention/sample-3-3.png" alt=""></p>
 <p>整个的框架如下：</p>
 <p><img src="/Attention/sample-3-4.png" alt=""></p>
-<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>然而，我们经过思考之后，可以发现这个计算方式和传统的一样啊，我就算位置变了，对attention的计算结果不变。这个问题就很严重了，很有可能我们在机器翻译的任务当中，我们确实算出来了翻译结果应该包含了哪些单词，但是结果很有是<strong>乱序</strong>的，那么就没法用了。transformer为了解决这个问题，祭出了Position Embedding这个东西。Google是直接给出了一个公式来构造Position Embedding。<br>$$<br>PE_{2i}(p)=\sin(p/10000^{2i/d_{pos}})\\<br>PE_{2i+1}(p)=\cos(p/10000^{2i/d_{pos}})<br>$$<br>这里的意思是将position为$p$的位置映射为一个$d_{pos}$维的位置向量，这个向量的第$i$个元素的数值就是$PE_i(p)$。Google在论文中说到他们比较过直接训练出来的位置向量和上述公式计算出来的位置向量，<strong>效果是接近的</strong>。那么为了减少计算复杂度，我们何必自己再训练呢?</p>
-<p>原文中提到采用这个公式的另一个原因的是sin和cos，满足一些良好的性质:<br>$$<br>\sin(a+b)=\sin(a)\cos(b)-\cos(a)\sin(b)<br>$$<br>$$<br>\cos(a+b)=\cos(a)\cos(b)-\sin(a)\sin(b)<br>$$</p>
-<p>这使得位置为p+k的向量可能可以使用位置为p的向量线性表出。<br>$$<br>PE_{2i}(p+k)=\sin((p+k)/10000^{2i/d_{pos}})=<br>$$<br>$$<br>\sin(p/10000^{2i/d_{pos}})\cos(k/10000^{2i/d_{pos}})-\cos(p/10000^{2i/d_{pos}})\sin(k/10000^{2i/d_{pos}})<br>$$</p>
-<p>由于$k$是定值，而$\sin(p/10000^{2i/d_{pos}})$和$\cos(p/10000^{2i/d_{pos}})$确实是知道的，所以确实为线性表出提供了可能性吧。。</p>
+<h3 id="Position-Embedding"><a href="#Position-Embedding" class="headerlink" title="Position Embedding"></a>Position Embedding</h3><p>然而，我们经过思考之后，可以发现这个计算方式和传统的一样啊，我就算位置变了，对attention的计算结果不变。这个问题就很严重了，很有可能我们在机器翻译的任务当中，我们确实算出来了翻译结果应该包含了哪些单词，但是结果很有是<strong>乱序</strong>的，那么就没法用了。transformer为了解决这个问题，祭出了Position Embedding这个东西。Google是直接给出了一个公式来构造Position Embedding。</p>
+<script type="math/tex; mode=display">
+PE_{2i}(p)=\sin(p/10000^{2i/d_{pos}})\\
+PE_{2i+1}(p)=\cos(p/10000^{2i/d_{pos}})</script><p>这里的意思是将position为$p$的位置映射为一个$d_{pos}$维的位置向量，这个向量的第$i$个元素的数值就是$PE_i(p)$。Google在论文中说到他们比较过直接训练出来的位置向量和上述公式计算出来的位置向量，<strong>效果是接近的</strong>。那么为了减少计算复杂度，我们何必自己再训练呢?</p>
+<p>原文中提到采用这个公式的另一个原因的是sin和cos，满足一些良好的性质:</p>
+<script type="math/tex; mode=display">
+\sin(a+b)=\sin(a)\cos(b)-\cos(a)\sin(b)</script><script type="math/tex; mode=display">
+\cos(a+b)=\cos(a)\cos(b)-\sin(a)\sin(b)</script><p>这使得位置为p+k的向量可能可以使用位置为p的向量线性表出。</p>
+<script type="math/tex; mode=display">
+PE_{2i}(p+k)=\sin((p+k)/10000^{2i/d_{pos}})=</script><script type="math/tex; mode=display">
+\sin(p/10000^{2i/d_{pos}})\cos(k/10000^{2i/d_{pos}})-\cos(p/10000^{2i/d_{pos}})\sin(k/10000^{2i/d_{pos}})</script><p>由于$k$是定值，而$\sin(p/10000^{2i/d<em>{pos}})$和$\cos(p/10000^{2i/d</em>{pos}})$确实是知道的，所以确实为线性表出提供了可能性吧。。</p>
 <p>我们在input输入的时候加入位置信息，同时我们在decoder的输入过程中也加入了位置信息。</p>
 <p><img src="/Attention/sample-4.png" alt=""></p>
-<h3 id="Position-wise-Feed-forward-Networks"><a href="#Position-wise-Feed-forward-Networks" class="headerlink" title="Position-wise Feed-forward Networks"></a>Position-wise Feed-forward Networks</h3><p>在进行了Attention操作之后，encoder和decoder中的每一层都包含了一个全连接前向网络，对每个position的向量分别进行相同的操作，包括两个线性变换和一个ReLU激活输出：<br>$$<br>FFN(x)=max(0,xW_1+b_1)W_2+b_2<br>$$<br>值得注意的是encoder的每一层的$W_1$和$W_2$都不相同。</p>
+<h3 id="Position-wise-Feed-forward-Networks"><a href="#Position-wise-Feed-forward-Networks" class="headerlink" title="Position-wise Feed-forward Networks"></a>Position-wise Feed-forward Networks</h3><p>在进行了Attention操作之后，encoder和decoder中的每一层都包含了一个全连接前向网络，对每个position的向量分别进行相同的操作，包括两个线性变换和一个ReLU激活输出：</p>
+<script type="math/tex; mode=display">
+FFN(x)=max(0,xW_1+b_1)W_2+b_2</script><p>值得注意的是encoder的每一层的$W_1$和$W_2$都不相同。</p>
 <h3 id="The-Residuals"><a href="#The-Residuals" class="headerlink" title="The Residuals"></a>The Residuals</h3><p>由于transformer的结构十分复杂，训练的时候很容易出现梯度消失，导致网络难以训练，文章采用的思想借鉴了何恺明的<strong>残差</strong>网络的思想，在每一次操作之后为了保证损失能够尽量回传，每层的输入会和输出进行叠加。</p>
 <p><img src="/Attention/sample-3-5.png" alt=""></p>
-<p>其中的Add&amp;Normalize就是叠加过程。公式记作：<br>$$<br>output=LayerNorm(x+Sublayer(x))<br>$$<br>但是这也带来一个小问题，就是每次sublayer输出的结果的为维度和原输入的维度应该一样，带来了一些限制。</p>
+<p>其中的Add&amp;Normalize就是叠加过程。公式记作：</p>
+<script type="math/tex; mode=display">
+output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，就是每次sublayer输出的结果的为维度和原输入的维度应该一样，带来了一些限制。</p>
 <h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p>在文章中encoder有6层，而其中的每一层包含两个sub-layer</p>
 <ol>
 <li>第一个sub-layer是多头自注意力机制，用来计算文本内部的关联</li>
@@ -1462,26 +1483,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

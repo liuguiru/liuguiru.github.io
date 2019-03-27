@@ -467,7 +467,7 @@
 <p>左边是我们当前的残余网络，中间的图表示的就是从源点$s$到$t$中经过的分层后的形状。其中相同颜色的节点表示的是到$s$的距离相同，也就是节点的深度$d$相同，由于我们每次找的是$s - t$的最短路这样的话，我们每次最优的<strong>增广路</strong>肯定是不含相同颜色的，因为若含相同颜色，肯定不是最短的路径了。同样的，最右边的图表示去掉与$t$相同颜色的点，<strong>同时将不同层的边补齐，同时也想想为什么相同层不补齐呢？</strong>。</p>
 <p>现在我们考虑这样一个情况。</p>
 <p><img src="/MaxFlow/sample-2-2.png" alt=""></p>
-<p>我们找到了一条$s - t$的增广路，但是限制最紧的边为$u-v$这条边，那么我们在建立完反向边之后，$v$在分层图中肯定是向后延伸或者不变的，于是我们得到$d_{f’}(v)&gt;=d_f(v)$。但是如果红色的边想再次做限制最紧的点的话，$v$的层次肯定比$u$的层次低一级，于是当这条边再做限制最紧的边时，必然满足$d_{f’’’}(u)&gt;=d_f(u)+2$,$d_{f’’’}(v)&gt;=d_f(v)+2$。等于说，完成这样的一次交换，$u$和$v$的层次都向后延伸了2。由于层次大于等于汇点$t$的层次的话，这个点肯定就不在最短路上了，同时$t$的层次最大就是$V$。那么前面的操作最多只有$\frac V 2$次。相当于每条边最多只有$\frac V  2$次机会做<strong>限制最紧的边</strong>。</p>
+<p>我们找到了一条$s - t$的增广路，但是限制最紧的边为$u-v$这条边，那么我们在建立完反向边之后，$v$在分层图中肯定是向后延伸或者不变的，于是我们得到$d<em>{f’}(v)&gt;=d_f(v)$。但是如果红色的边想再次做限制最紧的点的话，$v$的层次肯定比$u$的层次低一级，于是当这条边再做限制最紧的边时，必然满足$d</em>{f’’’}(u)&gt;=d<em>f(u)+2$,$d</em>{f’’’}(v)&gt;=d_f(v)+2$。等于说，完成这样的一次交换，$u$和$v$的层次都向后延伸了2。由于层次大于等于汇点$t$的层次的话，这个点肯定就不在最短路上了，同时$t$的层次最大就是$V$。那么前面的操作最多只有$\frac V 2$次。相当于每条边最多只有$\frac V  2$次机会做<strong>限制最紧的边</strong>。</p>
 <h3 id="时间复杂度的计算"><a href="#时间复杂度的计算" class="headerlink" title="时间复杂度的计算"></a>时间复杂度的计算</h3><p>那么对于每条边而言，这一部分的时间复杂度为$O(\frac V 2 E)$。同时我们每次BFS找最短路的时间复杂度为$O(E)$。那么总的时间复杂度就是$O(VE^2)$。通过上面的分析，实际上这个复杂度也是虚高的，通常不需要跑这么久，而且对于某些图跑的比Dinic还要快，但是为什么会快一些呢？如果后面你的Dinic你真正理解的话就再回头想想为什么。</p>
 <h2 id="Dinic算法"><a href="#Dinic算法" class="headerlink" title="Dinic算法"></a>Dinic算法</h2><p>这个算法是真的牛逼，因为EdmondKarp算法其实是Dinic的副产物。通过上面的介绍，我们可以知道，EK算法每次BFS得到最短路径，之后计算的结果就抛弃了，马上构建反向边，在残余网络中重新计算。但是实际上，我们可以利用之前的结果，我们可以通过一次BFS得到每个节点的深度，之后补上相邻层的边之后得到一个分层网络。我们通过上面的分析，$s - t$的增广路的最短路的长度肯定是每次肯定是非递减的！<del>虽然直观上也是这样</del>，那么这也就意味着，我们构建一次分层网络，可以直接把当前分层网络的最短路全部构建反向边，<strong>因为不这样做，下次我们找到的最短路还是这些增广路，因为它们已经是最短的了！！！(仔细想想和Dijkstra算法的思想有共同之处啊)</strong>我们通过这样做，简单来说我们一次BFS的结果找到了多条路径。</p>
 <p><img src="/MaxFlow/sample-2-3.png" alt=""></p>
@@ -1379,26 +1379,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

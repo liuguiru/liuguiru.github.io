@@ -424,7 +424,7 @@
         <h1 id="Unordered-map-amp-set"><a href="#Unordered-map-amp-set" class="headerlink" title="Unordered_map &amp; set"></a>Unordered_map &amp; set</h1><p>C++11发布后，出现了一些更加有用的容器，性能超过了STL中自带的容器，我们常用的有unordered_map,unordered_set,unordered_multiset。我们主要介绍一下unordered_multiset，通过我们前一篇文章的介绍，我们知道map和set是按照红黑树实现的，且内部按照键值排序的，即内部依然是有序的，这就导致了我们的查询是$O(\log n)$，但是我们很多时候都不需要这些<strong>多余</strong>的性质，于是出现了<strong>unordered</strong>这样的关键字，表示内部是无序的，这种数据结构本质借助了hash的思想。实现了$O(1)$ 的查询。map相当于java中的TreeMap，unordered_map相当于HashMap。无论从查找、插入上来说，unordered_map的效率都优于hash_map，更优于map；而空间复杂度方面，hash_map最低，unordered_map次之，map最大。</p>
 <h2 id="unordered-map与map的对比："><a href="#unordered-map与map的对比：" class="headerlink" title="unordered_map与map的对比："></a>unordered_map与map的对比：</h2><p>　　存储时是根据key的hash值判断元素是否相同，即unordered_map内部元素是无序的，而map中的元素是按照二叉搜索树存储（用红黑树实现），进行中序遍历会得到有序遍历。所以使用时map的key需要定义operator&lt;。而unordered_map需要定义hash_value函数并且重载operator==。但是很多系统内置的数据类型都自带这些。</p>
 <p>　　总结：结构体用map重载&lt;运算符，结构体用unordered_map重载==运算符。</p>
-<h2 id="unordered-map与hash-map对比："><a href="#unordered-map与hash-map对比：" class="headerlink" title="unordered_map与hash_map对比："></a>unordered_map与hash_map对比：</h2><p>　　unordered_map原来属于boost分支和std::tr1中，而hash_map属于非标准容器。<br>　　unordered_map感觉速度和hash_map差不多，但是支持string做key，也可以使用复杂的对象作为key。<br>　　unordered_map编译时gxx需要添加编译选项：–std=c++11</p>
+<h2 id="unordered-map与hash-map对比："><a href="#unordered-map与hash-map对比：" class="headerlink" title="unordered_map与hash_map对比："></a>unordered_map与hash_map对比：</h2><p>　　unordered_map原来属于boost分支和std::tr1中，而hash_map属于非标准容器。<br>　　unordered_map感觉速度和hash_map差不多，但是支持string做key，也可以使用复杂的对象作为key。<br>　　unordered_map编译时gxx需要添加编译选项：—std=c++11</p>
 <h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*//不支持C++11的时候</span></span><br><span class="line"><span class="comment">#include&lt;tr1/unordered_set&gt;</span></span><br><span class="line"><span class="comment">#include&lt;tr1/unordered_map&gt;</span></span><br><span class="line"><span class="comment">#include&lt;bits/stdc++.h&gt;</span></span><br><span class="line"><span class="comment">using namespace std;</span></span><br><span class="line"><span class="comment">using namespace tr1;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"><span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt; ms;</span><br><span class="line"><span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; ii;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    s.insert(<span class="number">6</span>);</span><br><span class="line">    ms.insert(<span class="number">7</span>);</span><br><span class="line">    ii[<span class="number">34</span>]=<span class="number">178</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ii[<span class="number">34</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过上面的代码，我们可以看到，和正常的使用方式一样，只不过效率更高了。但是由于内部是由hash实现的，所以肯定有投机取巧的素数可以卡掉unordered_map。$x=126271$就是一个神奇的素数，若将其和其的倍数插入到unordered_map当中，就会相当慢，甚至不如一般的map。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.luogu.org/blog/yihan/unordered" target="_blank" rel="noopener">洛谷日报</a></p>
@@ -1333,26 +1333,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

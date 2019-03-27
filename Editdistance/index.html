@@ -434,9 +434,15 @@
 <p>ca -&gt; a-&gt; ab -&gt; abc</p>
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>对于这个问题，我们直接进行分析不太好下手，暴力都不好实现，此时我们考虑动态规划算法。</p>
 <p>我们定义状态$DP[i][j]$表示$A$串走到第$i$位，$B$串走到第$j$位，此时使它们相同的时候最少的操作次数。</p>
-<p>对于第1种操作：在A中增加一个字符，此时对应的状态转移函数为：<br>$$<br>DP[i][j]=DP[i][j-1]+1<br>$$<br><strong>如何理解：</strong>我们在$A$的第$i$位后增加一个字符，相当于我们增加的字符等于$B[j]$，此时我们只需要考虑$A$串前$i$位和$B$串前$j-1$位的距离即可。</p>
-<p>对于第2种操作：在A中减少一个字符，此时对应的状态转移函数为：<br>$$<br>DP[i][j]=DP[i-1][j]+1<br>$$<br><strong>如何理解：</strong>我们将第$i​$位删去，那么我们很轻松的可以想到转移方程。</p>
-<p>对于第3种操作：在A中修改一个字符，此时对应的状态转移函数为：<br>$$<br>DP[i][j]=DP[i-1][j-1]+(A[i]!=B[j])<br>$$<br><strong>如何理解：</strong>我们将第$i$位修改，这时候如果$A[i]==B[j]$时，那么我们无需修改，已经是最优了。但是不同时我们需要将操作次数加1，使得$A[i]=B[j]$</p>
+<p>对于第1种操作：在A中增加一个字符，此时对应的状态转移函数为：</p>
+<script type="math/tex; mode=display">
+DP[i][j]=DP[i][j-1]+1</script><p><strong>如何理解：</strong>我们在$A$的第$i$位后增加一个字符，相当于我们增加的字符等于$B[j]$，此时我们只需要考虑$A$串前$i$位和$B$串前$j-1$位的距离即可。</p>
+<p>对于第2种操作：在A中减少一个字符，此时对应的状态转移函数为：</p>
+<script type="math/tex; mode=display">
+DP[i][j]=DP[i-1][j]+1</script><p><strong>如何理解：</strong>我们将第$i​$位删去，那么我们很轻松的可以想到转移方程。</p>
+<p>对于第3种操作：在A中修改一个字符，此时对应的状态转移函数为：</p>
+<script type="math/tex; mode=display">
+DP[i][j]=DP[i-1][j-1]+(A[i]!=B[j])</script><p><strong>如何理解：</strong>我们将第$i$位修改，这时候如果$A[i]==B[j]$时，那么我们无需修改，已经是最优了。但是不同时我们需要将操作次数加1，使得$A[i]=B[j]$</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j,n,m,cnt,pre,ans;</span><br><span class="line">    <span class="built_in">string</span> A,B;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;A&gt;&gt;B)&#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">1005</span>;i++) dp[i][<span class="number">0</span>]=dp[<span class="number">0</span>][i]=i;<span class="comment">//增加边界的情况，想一想为什么。</span></span><br><span class="line">        A=<span class="string">"A"</span>+A;B=<span class="string">"A"</span>+B;<span class="comment">// 增加边界</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;A[i];i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(j=<span class="number">1</span>;B[j];j++)&#123;</span><br><span class="line">                dp[i][j]=min(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])+<span class="number">1</span>;</span><br><span class="line">                dp[i][j]=min(dp[i][j],dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+(A[i]!=B[j]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;dp[A.size()<span class="number">-1</span>][B.size()<span class="number">-1</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Damerau-distance"><a href="#Damerau-distance" class="headerlink" title="Damerau distance"></a>Damerau distance</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>Damerau距离也被称作为D氏距离，他认为L式距离有一个不人性化的地方，我们在使用电脑写单词的时候很容易出现我们打字的失误，就是两个字母不小心敲反了，比如ea不小心敲成了ae，这个时候L氏距离给出的答案是2，这是十分不合理的。所以D氏距离新包含一种操作就是交换两个相邻字母。对于D氏距离支持4种操作。</p>
 <ul>
@@ -1367,26 +1373,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

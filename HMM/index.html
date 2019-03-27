@@ -433,12 +433,15 @@
 <li>状态序列对观察序列的转移(这是我们已知的)</li>
 </ul>
 <h2 id="隐马尔可夫链成立的三个假设（当然可以不需要理解）"><a href="#隐马尔可夫链成立的三个假设（当然可以不需要理解）" class="headerlink" title="隐马尔可夫链成立的三个假设（当然可以不需要理解）"></a>隐马尔可夫链成立的三个假设（当然可以不需要理解）</h2><ol>
-<li><p>状态构成一个隐马尔可夫链<br>$$<br>P(q_i|q_{i-1}q_{i-2}…q_1)=P(q_i|q_{i-1})<br>$$</p>
-</li>
-<li><p>不动性假设（状态与具体时间无关）<br>$$<br>P(q_{i+1}|q_i)=P(q_{j+1}|q_j)<br>$$</p>
-</li>
-<li><p>输出独立性假设<br>$$<br>P(o_1..o_i|q_1…q_i)=\prod_tP(o_t|q_t)<br>$$</p>
-</li>
+<li><p>状态构成一个隐马尔可夫链</p>
+<script type="math/tex; mode=display">
+P(q_i|q_{i-1}q_{i-2}...q_1)=P(q_i|q_{i-1})</script></li>
+<li><p>不动性假设（状态与具体时间无关）</p>
+<script type="math/tex; mode=display">
+P(q_{i+1}|q_i)=P(q_{j+1}|q_j)</script></li>
+<li><p>输出独立性假设</p>
+<script type="math/tex; mode=display">
+P(o_1..o_i|q_1...q_i)=\prod_tP(o_t|q_t)</script></li>
 </ol>
 <p>其实这里的隐马尔可夫链中的<strong>链</strong>就表示假设了是一阶的！我们假设满足上面的性质。</p>
 <h2 id="现在我们考虑一个场景"><a href="#现在我们考虑一个场景" class="headerlink" title="现在我们考虑一个场景"></a>现在我们考虑一个场景</h2><p>假如我们面对一堆<strong>过去</strong>的数据，过去的数据当中只有自然生长下的海藻的每天的状态。</p>
@@ -458,6 +461,7 @@
 <li>雨</li>
 </ul>
 <p>天气状态转移矩阵（后面简称为A）：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -488,8 +492,10 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><strong>注意</strong>：上表表示的是<strong>今天</strong>的天气分别是雨，阴，晴的情况下，<strong>明天</strong>的天气是雨，阴，晴的概率分布。</p>
 <p>天气对海藻干湿的影响(后面简称为B):</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -524,13 +530,17 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><strong>注意</strong>：上表表示的是<strong>今天</strong>的天气分别是雨，阴，晴的情况下，<strong>今天</strong>的海藻出现干，稍干，潮湿，湿润的概率分布。</p>
 <h3 id="建立模型"><a href="#建立模型" class="headerlink" title="建立模型"></a>建立模型</h3><p>我们的任务是根据观察序列去推测状态序列。</p>
 <p>首先我们根据之前的信息：构建<strong>状态集合</strong>$s$，<strong>状态转移矩阵</strong>$A$，<strong>初始状态概率分布</strong>$\pi$，<strong>观察集合</strong>$ss$，<strong>状态对观测的影响矩阵</strong>$B$</p>
 <p>对于我们这个题目而言，状态集合$s$为(晴，阴，雨)，观察集合$ss$为(干，稍干，潮湿，湿润)，<strong>请务必注意这个地方！</strong></p>
 <p>那么我们可以得到五元组模型:$(s,ss,\pi,A,B)$，通常我们将模型简写为三元组:$\lambda =(\pi,A,B)$。</p>
-<p>对于上述三元组，只有$\pi$是未知的，这个东西怎么统计出来呢？其实很简单，由于我们包含最近的数据，我们根据最近的天气可以统计出来每种天气出现的概率，那么这个分布就是$\pi$，公式表示为：<br>$$<br>\pi_i=P(q_1=s_i)<br>$$<br>当然这仅仅是对于这个任务是这样计算的，别的任务可能会不一样。上述公式表示的就是说第$i$种情况出现的概率</p>
+<p>对于上述三元组，只有$\pi$是未知的，这个东西怎么统计出来呢？其实很简单，由于我们包含最近的数据，我们根据最近的天气可以统计出来每种天气出现的概率，那么这个分布就是$\pi$，公式表示为：</p>
+<script type="math/tex; mode=display">
+\pi_i=P(q_1=s_i)</script><p>当然这仅仅是对于这个任务是这样计算的，别的任务可能会不一样。上述公式表示的就是说第$i$种情况出现的概率</p>
 <p>比如说统计后大概长成这个样子：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -549,9 +559,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>我们现在已知观察序列$O=o_1….o_n$，模型$\lambda =(\pi,A,B)$ 。现在我们需要求给定模型与观察序列的情况下求状态序列$Q$。有我们需要以下概率最大：<br>$$<br>P(O|Q,\lambda )<br>$$<br>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda ​$来说，希望找到一个状态序列$Q​$使得观察序列O发生的可能性最大。</p>
+</div>
+<h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>我们现在已知观察序列$O=o_1….o_n$，模型$\lambda =(\pi,A,B)$ 。现在我们需要求给定模型与观察序列的情况下求状态序列$Q$。有我们需要以下概率最大：</p>
+<script type="math/tex; mode=display">
+P(O|Q,\lambda )</script><p>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda ​$来说，希望找到一个状态序列$Q​$使得观察序列O发生的可能性最大。</p>
 <p>我们假设$Q=q_1…q_n$</p>
-<p>我们把上面的式子打开，有：<br>$$<br>P(O|Q,\lambda )=\pi_{q_1}A_{q_1q_2}A_{q_2q_3}…A_{q_{n-1}q_n}B_{q_1o_1}B_{q_2o_2}…B_{q_no_n}<br>$$<br>对上面的式子我们很简单的可以想到枚举每一种$Q$，对每一种都进行计算，之后输出使得$P(O|Q,\lambda )$最大的那个$Q$就可以了。但是这当然是不可以的，因为这个是指级别的，$n$大的话这个方法就凉了。</p>
+<p>我们把上面的式子打开，有：</p>
+<script type="math/tex; mode=display">
+P(O|Q,\lambda )=\pi_{q_1}A_{q_1q_2}A_{q_2q_3}...A_{q_{n-1}q_n}B_{q_1o_1}B_{q_2o_2}...B_{q_no_n}</script><p>对上面的式子我们很简单的可以想到枚举每一种$Q$，对每一种都进行计算，之后输出使得$P(O|Q,\lambda )$最大的那个$Q$就可以了。但是这当然是不可以的，因为这个是指级别的，$n$大的话这个方法就凉了。</p>
 <p>解释一下上面的公式：</p>
 <ul>
 <li>$\pi_{q_1}$表示最初天气为$q_1$成立的概率</li>
@@ -559,11 +574,14 @@
 <li>$B_{ij}$表示天气为$i$的情况下海藻状态为$j$的概率，也叫发射概率</li>
 </ul>
 <h3 id="viterbi算法"><a href="#viterbi算法" class="headerlink" title="viterbi算法"></a>viterbi算法</h3><p>维特比算法分为前向后向，但是我感觉会一种就行了，其实都是一样的。这里介绍一下<strong>前向算法</strong>。</p>
-<h5 id="前向算法思想："><a href="#前向算法思想：" class="headerlink" title="前向算法思想："></a>前向算法思想：</h5><p>假设我们已知了对于$o_1…o_{n-1}o_n$最优的状态序列肯定是$o_1…o_{n-1}$的一个序列转移过来的，等于说我们对当前的一层计算来说，对于每个节点只需要考虑前面一层的结果就可以了。即有<br>$$<br>dp_{iq_i}=\max_{k\in s} dp_{(i-1)k}A_{k(q_j)}B_{q_jo_i}<br>$$<br>$dp$表示计算的结果，$q_i$表示当前层的状态，$k$表示枚举前一层的状态，从观察状态集合中枚举。$max$表示存储后面式子的最大值。</p>
+<h5 id="前向算法思想："><a href="#前向算法思想：" class="headerlink" title="前向算法思想："></a>前向算法思想：</h5><p>假设我们已知了对于$o<em>1…o</em>{n-1}o<em>n$最优的状态序列肯定是$o_1…o</em>{n-1}$的一个序列转移过来的，等于说我们对当前的一层计算来说，对于每个节点只需要考虑前面一层的结果就可以了。即有</p>
+<script type="math/tex; mode=display">
+dp_{iq_i}=\max_{k\in s} dp_{(i-1)k}A_{k(q_j)}B_{q_jo_i}</script><p>$dp$表示计算的结果，$q_i$表示当前层的状态，$k$表示枚举前一层的状态，从观察状态集合中枚举。$max$表示存储后面式子的最大值。</p>
 <h5 id="算法流程："><a href="#算法流程：" class="headerlink" title="算法流程："></a>算法流程：</h5><p><img src="/HMM/sample-1-2.png" alt=""></p>
 <p>C++的代码，写起来很简单，每种语言都可以按照这个方式写。但是为了保证精度，我们一般是取$log$的，这份代码的结果应该会很差！</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">viterbi</span><span class="params">(<span class="keyword">int</span> O[],<span class="keyword">double</span> PI[],<span class="keyword">double</span> A[][],<span class="keyword">double</span> B[][])</span></span>&#123;<span class="comment">//传观察序列和模型</span></span><br><span class="line">    <span class="keyword">int</span> i,j,back;</span><br><span class="line">    <span class="keyword">int</span> path[][]；</span><br><span class="line">    <span class="keyword">double</span> dp[][],MX；</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//初始化</span></span><br><span class="line">        dp[<span class="number">1</span>][i]=PI[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">            MX=<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">for</span>(k=<span class="number">1</span>;k&lt;=n;k++)&#123;<span class="comment">//枚举前一层</span></span><br><span class="line">                <span class="keyword">if</span>(MX&lt;dp[i<span class="number">-1</span>][k]*A[k][j])&#123;</span><br><span class="line">                    MX=dp[i<span class="number">-1</span>][k]*A[k][j];<span class="comment">//找到最大的</span></span><br><span class="line">                    back=k;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            path[i][j]=back;<span class="comment">//用于回溯</span></span><br><span class="line">            dp[i][j]=MX*B[j][O[i]];<span class="comment">//计算结果存起来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="一个简单例子"><a href="#一个简单例子" class="headerlink" title="一个简单例子"></a>一个简单例子</h4><p>为了结果看起来比较正常，我们把初始分布$\pi$ 设的极端一点，同时我们再次召唤之前的表。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -582,7 +600,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>天气状态转移矩阵$A$：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -613,7 +633,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>天气对海藻干湿的影响$B$:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -648,16 +670,22 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p><img src="/HMM/sample-1.png" alt=""></p>
 <p>对于我们给定的观测序列：干，潮湿，湿润。我们计算的结果入上图所示。其中红色括号的结果就是表示结果是上一次的第几个节点过来的。</p>
 <p>到此为止，隐马尔可夫模型的这个例子就介绍完了，<strong>当然问题有其他变种</strong>，一般是在viterbi算法上动刀，不会解决的话可以留言评论。</p>
 <h4 id="A和B矩阵怎么求？"><a href="#A和B矩阵怎么求？" class="headerlink" title="A和B矩阵怎么求？"></a>A和B矩阵怎么求？</h4><p>我们大部分时候，其实只有训练数据和测试数据，没有这些转移矩阵，这个时候我们可以通过<strong>最大似然估计</strong>来求这些矩阵(<del><strong>看起来吓人</strong></del>)。就好比这一题我没有给出矩阵$A,B$的话怎么办？</p>
 <p>其实我们也可以做出来这个题目，因为我在题目中特意强调了我们还有一些最近的标注数据，这时候我们可以通过最近的数据把矩阵$A,B$给估计出来，做法如下。</p>
-<p>其实就是统计一下就行了，对于A矩阵：<br>$$<br>A_{ij}=\frac {total(i\&amp;j)}{total(i)}<br>$$<br>人话解释：天气状态为$i$的后面连接了天气状态为$j$的次数除以天气状态为$i$的出现总次数。</p>
-<p>对于B矩阵：<br>$$<br>B_{ij}=\frac {total(i\&amp;j)}{total(i)}<br>$$<br>人话解释：天气状态为$i$的对应海藻的状态为$j$的次数除以天气状态为$i$的出现的总次数。</p>
-<p>我们在求的时候一般加上松弛操作，即<br>$$<br>A_{ij}=\frac {total(i\&amp;j)+1}{total(i)+1}<br>$$</p>
-<p>$$<br>B_{ij}=\frac {total(i\&amp;j)+1}{total(i)+1}<br>$$</p>
-<h2 id="一个小项目"><a href="#一个小项目" class="headerlink" title="一个小项目"></a>一个小项目</h2><p>为了使本文有一点实用价值，我把我的代码放在<a href="https://github.com/caojiangxia/HMM-Sequence-labeling" target="_blank" rel="noopener">这里</a>。一个序列标注的小东西。</p>
+<p>其实就是统计一下就行了，对于A矩阵：</p>
+<script type="math/tex; mode=display">
+A_{ij}=\frac {total(i\&j)}{total(i)}</script><p>人话解释：天气状态为$i$的后面连接了天气状态为$j$的次数除以天气状态为$i$的出现总次数。</p>
+<p>对于B矩阵：</p>
+<script type="math/tex; mode=display">
+B_{ij}=\frac {total(i\&j)}{total(i)}</script><p>人话解释：天气状态为$i$的对应海藻的状态为$j$的次数除以天气状态为$i$的出现的总次数。</p>
+<p>我们在求的时候一般加上松弛操作，即</p>
+<script type="math/tex; mode=display">
+A_{ij}=\frac {total(i\&j)+1}{total(i)+1}</script><script type="math/tex; mode=display">
+B_{ij}=\frac {total(i\&j)+1}{total(i)+1}</script><h2 id="一个小项目"><a href="#一个小项目" class="headerlink" title="一个小项目"></a>一个小项目</h2><p>为了使本文有一点实用价值，我把我的代码放在<a href="https://github.com/caojiangxia/HMM-Sequence-labeling" target="_blank" rel="noopener">这里</a>。一个序列标注的小东西。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>国科大自然语言处理课件 胡玥</p>
 
       
@@ -1561,26 +1589,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
