@@ -551,7 +551,7 @@ PE_{2i+1}(p)=\cos(p/10000^{2i/d_{pos}})</script><p>这里的意思是将position
 \cos(a+b)=\cos(a)\cos(b)-\sin(a)\sin(b)</script><p>这使得位置为p+k的向量可能可以使用位置为p的向量线性表出。</p>
 <script type="math/tex; mode=display">
 PE_{2i}(p+k)=\sin((p+k)/10000^{2i/d_{pos}})=</script><script type="math/tex; mode=display">
-\sin(p/10000^{2i/d_{pos}})\cos(k/10000^{2i/d_{pos}})-\cos(p/10000^{2i/d_{pos}})\sin(k/10000^{2i/d_{pos}})</script><p>由于$k$是定值，而$\sin(p/10000^{2i/d<em>{pos}})$和$\cos(p/10000^{2i/d</em>{pos}})$确实是知道的，所以确实为线性表出提供了可能性吧。。</p>
+\sin(p/10000^{2i/d_{pos}})\cos(k/10000^{2i/d_{pos}})-\cos(p/10000^{2i/d_{pos}})\sin(k/10000^{2i/d_{pos}})</script><p>由于$k$是定值，而$\sin(p/10000^{2i/d_{pos}})$和$\cos(p/10000^{2i/d_{pos}})$确实是知道的，所以确实为线性表出提供了可能性吧。。</p>
 <p>我们在input输入的时候加入位置信息，同时我们在decoder的输入过程中也加入了位置信息。</p>
 <p><img src="/Attention/sample-4.png" alt=""></p>
 <h3 id="Position-wise-Feed-forward-Networks"><a href="#Position-wise-Feed-forward-Networks" class="headerlink" title="Position-wise Feed-forward Networks"></a>Position-wise Feed-forward Networks</h3><p>在进行了Attention操作之后，encoder和decoder中的每一层都包含了一个全连接前向网络，对每个position的向量分别进行相同的操作，包括两个线性变换和一个ReLU激活输出：</p>
@@ -1483,6 +1483,26 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

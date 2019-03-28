@@ -482,7 +482,7 @@
 <h2 id="松弛型"><a href="#松弛型" class="headerlink" title="松弛型"></a>松弛型</h2><p>我们上面介绍了标准型，现在介绍一下松弛型，其实也是一个很简单的东西，由于我们上面都是不等式，实在是太烦了，于是我们想要把不等式优化成等式，于是我们将标准型构造成下面的形式：</p>
 <p>​                                        $min$   $c^Tx$</p>
 <p>​                                        $s.t.$   </p>
-<p>​                                             $A<em>i*x+x</em>{i+n}=b_i$</p>
+<p>​                                             $A_i*x+x_{i+n}=b_i$</p>
 <p>​                                                     $x_i&gt;=0，i=1,2,3…,n+m$</p>
 <p>其中$m$表示约束的个数，由于之前的不等式都是$&gt;=$的情况，我们可以减去一个非负的变量使得等号成立。这就是松弛形。</p>
 <h2 id="单纯形"><a href="#单纯形" class="headerlink" title="单纯形"></a>单纯形</h2><p>现在介绍单纯形，单纯形其实就是从松弛型过来的，它是为了单纯形算法求解简便一些而存在的，因为它可以导出单纯形表，一般写成如下形式：</p>
@@ -543,7 +543,7 @@
 </tbody>
 </table>
 </div>
-<p>人话解释，第一行表示的是目标函数的系数，但是其中第0个位置表示的是当前目标函数取当前<strong>基础解</strong>作为解之后求得的值的相反数。后面的每一行表示的都是约束条件$b<em>i=a</em>{i1}x<em>1+a</em>{i2}x<em>2+…+a</em>{i(n+m)}x_{n+m}$</p>
+<p>人话解释，第一行表示的是目标函数的系数，但是其中第0个位置表示的是当前目标函数取当前<strong>基础解</strong>作为解之后求得的值的相反数。后面的每一行表示的都是约束条件$b_i=a_{i1}x_1+a_{i2}x_2+…+a_{i(n+m)}x_{n+m}$</p>
 <h2 id="求解步骤"><a href="#求解步骤" class="headerlink" title="求解步骤"></a>求解步骤</h2><p>我们在使用单纯形法进行求解的时候，首先找到第一个目标函数中系数为负的<strong>非基本变量</strong>$y$，将其增大（这个过程相当于我们在凸包上沿着边缘走到另一个顶点），但是我们怎么确定这个<strong>非基本变量</strong>$y$最大能增大多少呢？这个其实很简单，只需要令除当前变量的其他变量为0，剩下$b_i$和$y$，我们可以对每个包含$y$的约束条件进行计算约束。找到使其最紧(即在当前的约束条件中让$y$的最大取值最小)的那一个约束即可，再使用当前约束条件下的<strong>基本变量</strong>与其进行替换即可。由于我们每次可以使约束z向更小的方向迁移，这使得我们的算法不会陷入死循环。</p>
 <p>注意，假如对于非基本变量$y$不存在限制最紧的约束条件，那么该组线性规划无解，因为可以无限增大。</p>
 <p>再次注意我们的规则<strong>(Bland规则)</strong>：</p>
@@ -1518,6 +1518,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

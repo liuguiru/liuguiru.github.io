@@ -425,11 +425,23 @@
 <h2 id="本文定义一种更简单的hash方式-单hash"><a href="#本文定义一种更简单的hash方式-单hash" class="headerlink" title="本文定义一种更简单的hash方式-单hash"></a>本文定义一种更简单的hash方式-单hash</h2><script type="math/tex; mode=display">
 hash[i]=(hash[i-1]*p+s[i])\%mod</script><p>其中$p$是质数，$mod$是取模数，对于此种Hash方法，将$p$和$mod$尽量取大即可，这种情况下，冲突的概率是很低的。</p>
 <h3 id="当然也可以使用双hash使用二元组来表示结果"><a href="#当然也可以使用双hash使用二元组来表示结果" class="headerlink" title="当然也可以使用双hash使用二元组来表示结果"></a>当然也可以使用双hash使用二元组来表示结果</h3><script type="math/tex; mode=display">
-hash1[i]=(hash1[i-1]*p+s[i])\%mod1\\hash2[i]=(hash2[i-1]*p+s[i])\%mod2</script><p>我们仅仅使用两个不同的$mod$即可，最后结果使用一个二元组表示答案$<hash1[n],hash2[n]>$。这种方式冲突的概率几乎是0。</hash1[n],hash2[n]></p>
-<h2 id="我们如何获取子串的hash值"><a href="#我们如何获取子串的hash值" class="headerlink" title="我们如何获取子串的hash值"></a>我们如何获取子串的hash值</h2><p>如果我们存储了一个字符串的各个位置的hash值，那么我们可以$O(1)$的获取到子串的hash值。</p>
+\begin{equation}
+\begin{split}
+hash1[i]=(hash1[i-1]*p+s[i])\%mod1 \\
+hash2[i]=(hash2[i-1]*p+s[i])\%mod2
+\end{split}
+\end{equation}</script><p>我们仅仅使用两个不同的$mod$即可，最后结果使用一个二元组表示答案:</p>
+<script type="math/tex; mode=display">
+(hash1[n],hash2[n])</script><p>这种方式冲突的概率几乎是0。</p>
+<h2 id="我们如何获取子串的hash值"><a href="#我们如何获取子串的hash值" class="headerlink" title="我们如何获取子串的hash值"></a>我们如何获取子串的hash值</h2><p>如果我们存储了一个字符串的各个位置的hash值，那么我们可以$O(1)​$的获取到子串的hash值。</p>
 <p>我们可以举一个简单的例子：</p>
 <script type="math/tex; mode=display">
-hash[1]=s_1\\hash[2]=s_1*p+s_2\\hash[3]=s_1*p^2+s_2*p+s_3\\hash[4]=s_1*p^3+s_2*p^2+s_3*p+s_4</script><p>假如我们需要$s_3s_4$的hash值的话，我们其实可以通过$hash[4]$和$hash[2]$的值计算得到结果，我们其实可以很简单的发现值其实就是:</p>
+\begin{eqnarray}
+&& hash[1]=s_1 \\
+&& hash[2]=s_1*p+s_2 \\
+&& hash[3]=s_1*p^2+s_2*p+s_3 \\
+&& hash[4]=s_1*p^3+s_2*p^2+s_3*p+s_4
+\end{eqnarray}</script><p>假如我们需要$s_3s_4$的hash值的话，我们其实可以通过$hash[4]$和$hash[2]​$的值计算得到结果，我们其实可以很简单的发现值其实就是:</p>
 <script type="math/tex; mode=display">
 hash[4]-hash[2]*p^{4-3+1}</script><p>我们可以通过一个预处理把$p^x$都存储起来，需要的时候直接访问就行了。</p>
 <p>其实就是相当于求$l-r​$区间的值，结果就是:</p>

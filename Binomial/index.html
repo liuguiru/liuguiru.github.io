@@ -471,7 +471,7 @@
 <p>请注意这是一个递归过程。我们每次合并之后都需要再检查，其实这里本质上就是二进制的进位操作。由于最坏的情况下我们需要进位$\log n$次，所以这一步的复杂度<strong>最坏</strong>为$O(\log n)$。<strong>但是这一步均摊下来其实是很快的</strong>，因为其实二进制的进位操作并不会每次都是最坏情况，而且也不可能出每次都是最坏情况，这一步经过证明<del>我不会</del>，<strong>平均</strong>的时间复杂度为$O(1)$。</p>
 <h3 id="插入节点-Insert"><a href="#插入节点-Insert" class="headerlink" title="插入节点-Insert"></a>插入节点-Insert</h3><p>我们在插入一个节点的时候，想法也是非常简单的，我们首先将其视为$B_0$（也就是单个节点的树），并将其加入到森林中，之后我们使用上一步讲到的合并条件，该步复杂度与合并条件相同,时间复杂度为$O(1)$。</p>
 <h3 id="提取最小值-Top"><a href="#提取最小值-Top" class="headerlink" title="提取最小值-Top"></a>提取最小值-Top</h3><p>提取最小值，我们采用最简单的方法，对森林中每棵树的根节点进行一次遍历，找到根最小的节点的值返回即可。由于最多有$\lfloor \log n \rfloor +1$棵树，故时间复杂度为$O(\log n)​$。</p>
-<h3 id="删除最小值-Pop"><a href="#删除最小值-Pop" class="headerlink" title="删除最小值-Pop"></a>删除最小值-Pop</h3><p>首先我们通过上一步的方法，定位到最小值点在森林的哪一个树中，之后我们将根节点移除，那么此时它应该分裂成了一些更小的树，由于$B<em>k$这样的一棵树可以分裂为$B_0,B_1,B_2,…,B</em>{k-1}$这样的一些子树，由于$k$最大为$\log n$,故我们最多插入$\log n$次，每次插入的时间为$O(1)$，故该步的时间复杂度为$O(\log n+\log n)=O(\log n)$。</p>
+<h3 id="删除最小值-Pop"><a href="#删除最小值-Pop" class="headerlink" title="删除最小值-Pop"></a>删除最小值-Pop</h3><p>首先我们通过上一步的方法，定位到最小值点在森林的哪一个树中，之后我们将根节点移除，那么此时它应该分裂成了一些更小的树，由于$B_k$这样的一棵树可以分裂为$B_0,B_1,B_2,…,B_{k-1}$这样的一些子树，由于$k$最大为$\log n$,故我们最多插入$\log n$次，每次插入的时间为$O(1)$，故该步的时间复杂度为$O(\log n+\log n)=O(\log n)$。</p>
 <h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><div class="table-container">
 <table>
 <thead>
@@ -1408,6 +1408,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
