@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Nice-Problem,codeforces,">
 
 
 
@@ -86,16 +86,18 @@
 
 
 
-<meta name="description" content="一只NLP、ML萌新，欢迎探讨问题。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="caojiangxia">
-<meta property="og:url" content="https://caojiangxia.github.io/tags/LinearBase/index.html">
+<meta name="description" content="题意给定我们一个残缺的数组$A$，数组中的每个数要么为$-1$，要么小于等于$m$，我们可以使用$1-m$的数来填充原本为数组值为$-1$的位置。问我们有多少种不同的填法使得数组中任意相邻两个数不相同。 分析这个题目直接上并不好计算，但是我们可以经过一些处理来得到以下几种情况：  $-1,-1,-1,…,-1,-1,-1$ $a,-1,-1,-1,…,-1,-1$和$-1,-1,-1,…,-1,-">
+<meta name="keywords" content="Nice-Problem,codeforces">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相邻的数不同的方案数">
+<meta property="og:url" content="https://caojiangxia.github.io/DifferentWithNeighborhood/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta property="og:description" content="题意给定我们一个残缺的数组$A$，数组中的每个数要么为$-1$，要么小于等于$m$，我们可以使用$1-m$的数来填充原本为数组值为$-1$的位置。问我们有多少种不同的填法使得数组中任意相邻两个数不相同。 分析这个题目直接上并不好计算，但是我们可以经过一些处理来得到以下几种情况：  $-1,-1,-1,…,-1,-1,-1$ $a,-1,-1,-1,…,-1,-1$和$-1,-1,-1,…,-1,-">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-28T07:41:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="caojiangxia">
-<meta name="twitter:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta name="twitter:title" content="相邻的数不同的方案数">
+<meta name="twitter:description" content="题意给定我们一个残缺的数组$A$，数组中的每个数要么为$-1$，要么小于等于$m$，我们可以使用$1-m$的数来填充原本为数组值为$-1$的位置。问我们有多少种不同的填法使得数组中任意相邻两个数不相同。 分析这个题目直接上并不好计算，但是我们可以经过一些处理来得到以下几种情况：  $-1,-1,-1,…,-1,-1,-1$ $a,-1,-1,-1,…,-1,-1$和$-1,-1,-1,…,-1,-">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://caojiangxia.github.io/tags/LinearBase/">
+  <link rel="canonical" href="https://caojiangxia.github.io/DifferentWithNeighborhood/">
 
 
 
 
 
-  <title>Tag: LinearBase | caojiangxia</title>
+  <title>相邻的数不同的方案数 | caojiangxia</title>
   
 
 
@@ -150,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -286,52 +288,267 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>LinearBase<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/DifferentWithNeighborhood/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/LinearBase/" itemprop="url">
-              
-                <span itemprop="name">线性基</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">相邻的数不同的方案数</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-03T14:37:34+08:00" content="2019-02-03">
-          02-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-28T15:41:34+08:00">
+                2019-03-28
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/DifferentWithNeighborhood/" class="leancloud_visitors" data-flag-title="相邻的数不同的方案数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.1k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给定我们一个残缺的数组$A$，数组中的每个数要么为$-1$，要么小于等于$m$，我们可以使用$1-m$的数来填充原本为数组值为$-1$的位置。问我们有多少种不同的填法使得数组中任意相邻两个数不相同。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这个题目直接上并不好计算，但是我们可以经过一些处理来得到以下几种情况：</p>
+<ol>
+<li>$-1,-1,-1,…,-1,-1,-1$</li>
+<li>$a,-1,-1,-1,…,-1,-1$和$-1,-1,-1,…,-1,-1,a$</li>
+<li>$a,-1,-1,-1,…,-1,-1,-1,a$</li>
+<li>$a,-1,-1,-1,…,-1,-1,-1,b$且$a != b​$</li>
+</ol>
+<p>对于上面的四种情况我们分别进行考虑。</p>
+<p>对于第一种情况，假如$-1$的长度为$l$的话，我们的答案很简单：</p>
+<script type="math/tex; mode=display">
+m*(m-1)^{l-1}</script><p>对于第二种情况，假如$-1$的长度为$l$的话，我们的答案就更简单了：</p>
+<script type="math/tex; mode=display">
+(m-1)^{l}</script><p>但是对于第三种和第四种情况我们应该怎么计算呢？其实我们可以采用动态规划的思想来解决这两种情况。</p>
+<p>我们考虑第三种情况下,$-1$的长度为$i$的解为$SAME[i]$</p>
+<p>我们考虑第四种情况下,$-1$的长度为$i$的解为$DIFF[i]$</p>
+<p>那么对于第三种情况下我们可以这样分析。</p>
+<p>当$l$为奇数的时候，我们固定中间的那个$-1 $，则有递推式：</p>
+<script type="math/tex; mode=display">
+SAME[l]=SAME[l/2]^2+(m-1)*DIFF[l/2]^2</script><p>当$l$为偶数的时候，我们固定最左边的那个$-1$，则有递推式：</p>
+<script type="math/tex; mode=display">
+SAME[l]=(m-1)*DIFF(l-1)</script><p>相似的，那么对于第四种情况下我们可以这样分析：</p>
+<p>当$l$为奇数的时候，我们固定中间的那个$-1 $，则有递推式：</p>
+<script type="math/tex; mode=display">
+DIFF[l]=(m-2)*DIFF[l/2]^2+2*DIFF[l/2]*SAME[l/2]</script><p>当$l$为偶数的时候，我们固定最左边的那个$-1$，则有递推式：</p>
+<script type="math/tex; mode=display">
+DIFF[l]=(m-2)*DIFF(l-1)+SAME[l-1]</script><p>由于$l$最大等于$n$，所以我们上述的初始化的时间为$O(n)$。且我们在解的时候只需要统计$-1$的分段个数就好了，这部分的复杂度也是$O(n)$。</p>
+<p>所以这个问题我们可以通过$O(n)$的时间复杂度做完。</p>
+<h2 id="EduCF62E"><a href="#EduCF62E" class="headerlink" title="EduCF62E"></a><a href="https://codeforces.com/contest/1140/problem/E" target="_blank" rel="noopener">EduCF62E</a></h2><p>感兴趣的可以尝试做一下这个题目。以下是我的代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">DPDIFF</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; even,odd;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> DIFF[<span class="number">200005</span>],SAME[<span class="number">200005</span>],MOD=<span class="number">998244353</span>,m;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">qp</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> x,<span class="keyword">long</span> <span class="keyword">long</span> T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> res=<span class="number">1</span>,t=x;</span><br><span class="line">    <span class="keyword">while</span>(T)&#123;</span><br><span class="line">        <span class="keyword">if</span>(T&amp;<span class="number">1</span>)&#123;</span><br><span class="line">            res*=t;</span><br><span class="line">            res%=MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        t*=t;</span><br><span class="line">        t%=MOD;</span><br><span class="line">        T&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">ANS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; x)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; same,unsame,bound;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> res=<span class="number">1</span>,i,pre,cnt,t;</span><br><span class="line">    pre=<span class="number">-2</span>;cnt=<span class="number">0</span>;</span><br><span class="line">    same.clear();</span><br><span class="line">    unsame.clear();</span><br><span class="line">    bound.clear();</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;x.size();i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x[i]==<span class="number">-1</span>) cnt++;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&amp;&amp;x[i]==x[i<span class="number">-1</span>])&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt)&#123;</span><br><span class="line">                <span class="keyword">if</span>(pre==<span class="number">-2</span>)&#123;</span><br><span class="line">                    bound.push_back(cnt);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(pre==x[i])&#123;</span><br><span class="line">                    same.push_back(cnt);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    unsame.push_back(cnt);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            pre=x[i];</span><br><span class="line">            cnt=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cnt)&#123;</span><br><span class="line">        bound.push_back(cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(pre==<span class="number">-2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> (m*qp(m<span class="number">-1</span>,cnt<span class="number">-1</span>))%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t : bound)&#123;</span><br><span class="line">        res*=qp(m<span class="number">-1</span>,t);</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t : same)&#123;</span><br><span class="line">        res*=SAME[t];</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> t : unsame)&#123;</span><br><span class="line">        res*=DIFF[t];</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//cout&lt;&lt;res&lt;&lt;endl;</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">DPSAME</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(SAME[x]!=<span class="number">-1</span>) <span class="keyword">return</span> SAME[x];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(x%<span class="number">2</span>)&#123;</span><br><span class="line">        res+=(DPSAME(x/<span class="number">2</span>)*DPSAME(x/<span class="number">2</span>))%MOD;</span><br><span class="line">        res%=MOD;</span><br><span class="line">        res+=((((m<span class="number">-1</span>)*DPDIFF(x/<span class="number">2</span>))%MOD)*DPDIFF(x/<span class="number">2</span>))%MOD;</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        res=((m<span class="number">-1</span>)*DPDIFF(x<span class="number">-1</span>))%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> SAME[x]=res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">DPDIFF</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(DIFF[x]!=<span class="number">-1</span>) <span class="keyword">return</span> DIFF[x];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(x%<span class="number">2</span>)&#123;</span><br><span class="line">        res+=((((m<span class="number">-2</span>)*DPDIFF(x/<span class="number">2</span>))%MOD)*DPDIFF(x/<span class="number">2</span>))%MOD;</span><br><span class="line">        res%=MOD;</span><br><span class="line">        res+=(<span class="number">2L</span>L*((DPSAME(x/<span class="number">2</span>)*DPDIFF(x/<span class="number">2</span>))%MOD))%MOD;</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        res+=((m<span class="number">-2</span>)*DPDIFF(x<span class="number">-1</span>))%MOD;</span><br><span class="line">        res%=MOD;</span><br><span class="line">        res+=DPSAME(x<span class="number">-1</span>);</span><br><span class="line">        res%=MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DIFF[x]=res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(DIFF,<span class="number">-1</span>,<span class="keyword">sizeof</span>(DIFF));</span><br><span class="line">    <span class="built_in">memset</span>(SAME,<span class="number">-1</span>,<span class="keyword">sizeof</span>(SAME));</span><br><span class="line">    SAME[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    DIFF[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">200005</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(SAME[i]==<span class="number">-1</span>)&#123;</span><br><span class="line">            DPSAME(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">200005</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(DIFF[i]==<span class="number">-1</span>)&#123;</span><br><span class="line">            DPDIFF(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j,n,a,pre;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %lld"</span>,&amp;n,&amp;m);</span><br><span class="line">    init(n);</span><br><span class="line">    pre=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a);</span><br><span class="line">        <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;</span><br><span class="line">            even.push_back(a);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            odd.push_back(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,(ANS(even)*ANS(odd))%MOD);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nice-Problem/" rel="tag"># Nice-Problem</a>
+          
+            <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Hashsubstring/" rel="next" title="Hash的一些应用">
+                <i class="fa fa-chevron-left"></i> Hash的一些应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +556,13 @@
 
 
           
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
 
         </div>
         
@@ -358,8 +582,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -451,6 +684,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">1.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EduCF62E"><span class="nav-number">1.2.</span> <span class="nav-text">EduCF62E</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -587,6 +836,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -627,6 +880,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
