@@ -1,3 +1,4 @@
+https://caojiangxia.github.io/SimpleGame/
 https://caojiangxia.github.io/DifferentWithNeighborhood/
 https://caojiangxia.github.io/Hashsubstring/
 https://caojiangxia.github.io/KMP/
