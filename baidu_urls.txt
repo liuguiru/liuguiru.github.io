@@ -1,3 +1,4 @@
+https://caojiangxia.github.io/RedBlue/
 https://caojiangxia.github.io/FenwickTree/
 https://caojiangxia.github.io/CRF/
 https://caojiangxia.github.io/SimpleGame/

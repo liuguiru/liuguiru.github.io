@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  4.3k
+                  4.4k
                 </span>
               
 
@@ -534,10 +534,13 @@ P(y_1,y_2,...,y_n|X)=P(y_1|x_1)P(y_2|x_2,y_1)...P(y_n|x_n,y_{n-1})\tag{2.4}</scr
 <p>我们把上面的式子打开：</p>
 <script type="math/tex; mode=display">
 P(y_1|x_1)P(y_2|x_2,y_1)...P(y_n|x_n,y_{n-1})=P(y_1|x_1)P(y_2|x_2)P(y_2|y_1),...,P(y_n|x_n)P(y_n|y_{n-1})</script><p>这其实和隐马尔可夫模型的推导是一模一样的！但是唯一的不同点在于发射概率的不同，HMM是$P(x_i|y_i)​$，但是这里是$P(y_i|x_i)。​$</p>
-<p>传统的隐马尔可夫模型其中的$P(yi_|y_{i-1})$其实就是$A$矩阵对应的转移概率，$P(x_i|y_i)$对于的就是$B$矩阵的发射概率。在之前我们使用极大似然估计来统计$A,B$的值。关于这里的$A,B$，<a href="https://caojiangxia.github.io/HMM/">详细的信息请看本文</a>。而在神经网络中我们做了少许变换，<strong>其中$A$变成了我们要学习的参数矩阵</strong>，但是CRF中$B$矩阵和之前不一样了！<strong>但是幸运的时候我们可以使用上述的$x_1,x_2,…,x_n$的特征向量的矩阵替换原来的$B$达到一样的效果。</strong>换句话说，HMM里面的发射概率在这里换成了是我们通过神经网络取到的特征向量$x_i$。只有$A$矩阵是我们要学习的参数矩阵，$A$这个标签迁移矩阵其实学习起来参数并不多，就这个问题来说，迁移矩阵只有4*4=16个参数。特征函数也只有2*4*4=32个参数。</p>
+<p>传统的隐马尔可夫模型其中的$P(y_i|y_{i-1})$其实就是$A$矩阵对应的转移概率，$P(x_i|y_i)$对于的就是$B$矩阵的发射概率。在之前我们使用极大似然估计来统计$A,B$的值。关于这里的$A,B$，<a href="https://caojiangxia.github.io/HMM/">详细的信息请看本文</a>。而在神经网络中我们做了少许变换，<strong>其中$A$变成了我们要学习的参数矩阵</strong>，但是CRF中$B$矩阵和之前不一样了！<strong>但是幸运的时候我们可以使用上述的$x_1,x_2,…,x_n$的特征向量的矩阵替换原来的$B​$达到一样的效果。</strong>写成公式可以表示成下面的样子：</p>
+<script type="math/tex; mode=display">
+score(X,y)=\sum_{t=0}^{n}A_{y_t,y_{y+1}}+\sum_{t=0}^{n}B_{t,y_t}\\
+P(y|X)=\frac{exp(score(X,y))}{\sum_{y'}exp(score(X,y'))}\\</script><p>换句话说，HMM里面的发射概率在这里换成了是我们通过神经网络取到的特征向量$x_i$。只有$A$矩阵是我们要学习的参数矩阵，$A​$这个标签迁移矩阵其实学习起来参数并不多，就这个问题来说，迁移矩阵只有4*4=16个参数。特征函数也只有2*4*4=32个参数。</p>
 <p><img src="/CRF/sample-7.png" alt=""></p>
 <p>如果说你对隐马尔可夫模型熟悉的话，那么对这个图肯定是再熟悉不过了！这其实就是使用viterbi算法进行解码，找到最大概率的路径！对于分词任务来说，正确的答案一般都是唯一的，例如“电脑电源坏了”，分词结果应该是”电脑/电源/坏/了”，对应的答案就是bebess。也就是对应上面的一条路径。</p>
-<p>到此为止，我们应该可以发现，对于4tag任务来说，使用crf和传统的逐步softmax方法的最大的不同之处就是：<strong>前者将序列标注看成是$n$个$4$分类问题，后者将序列标注看成是$1$个$4^n$分类问题。</strong>同理我们可以扩展到k-tag任务。</p>
+<p>到此为止，我们应该可以发现，对于4tag任务来说，使用crf和传统的逐步softmax方法的最大的不同之处就是：<strong>前者将序列标注看成是$n​$个$4​$分类问题，后者将序列标注看成是$1​$个$4^n​$分类问题。</strong>同理我们可以扩展到k-tag任务。</p>
 <h3 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h3><p>为了训练crf模型，我们和之前的HMM模型一样，使用最大似然的思想，也就是说我们最小化损失函数：</p>
 <script type="math/tex; mode=display">
 -\log p(y_1,y_2,...,y_n|X)\tag{2.5}</script><p>现在我们再次召唤式$(1.5)​$：</p>
@@ -738,7 +741,7 @@ Z_{t+1}=Z_tG⊗H(y_{t+1}|x)\tag{2.8}</script><p>其中$Z_t=[Z_t^{(1)},…,Z_t^{(
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
