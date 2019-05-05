@@ -1,3 +1,5 @@
+https://caojiangxia.github.io/Guass/
+https://caojiangxia.github.io/kickstart2019B/
 https://caojiangxia.github.io/Mo-algorithm/
 https://caojiangxia.github.io/RedBlue/
 https://caojiangxia.github.io/FenwickTree/
