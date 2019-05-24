@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="BP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="BP算法这个算法是用来更新神经网络中的参数的，对于理解神经网络的运作可以说是至关重要。在我刚接触神经网络的时候，第一时间感觉神经网络是玄学，你就搭一个网络之后给一些训练数据，就能有好的效果了？？？这种过于智能的方法与我原本对算法的理解产生了极大的偏差。但是， 抱歉，BP算法是真的可以为所欲为。确实只需要搭一个网络结构，再给一些数据，它能更新参数，而且理论上两层的神经网络加上非线性激活函数就能够拟合">
+<meta name="keywords" content="BP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BPalgorithm-反向传播算法">
+<meta property="og:url" content="https://caojiangxia.github.io/BP/index.html">
+<meta property="og:site_name" content="caojiangxia">
+<meta property="og:description" content="BP算法这个算法是用来更新神经网络中的参数的，对于理解神经网络的运作可以说是至关重要。在我刚接触神经网络的时候，第一时间感觉神经网络是玄学，你就搭一个网络之后给一些训练数据，就能有好的效果了？？？这种过于智能的方法与我原本对算法的理解产生了极大的偏差。但是， 抱歉，BP算法是真的可以为所欲为。确实只需要搭一个网络结构，再给一些数据，它能更新参数，而且理论上两层的神经网络加上非线性激活函数就能够拟合">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/NN.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/delta.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/sample.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/normal2.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/normal3.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/normal.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/hard.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/hard2.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/hard3.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/hard4.png">
+<meta property="og:image" content="https://caojiangxia.github.io/BP/hard5.png">
+<meta property="og:updated_time" content="2019-05-24T09:34:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BPalgorithm-反向传播算法">
+<meta name="twitter:description" content="BP算法这个算法是用来更新神经网络中的参数的，对于理解神经网络的运作可以说是至关重要。在我刚接触神经网络的时候，第一时间感觉神经网络是玄学，你就搭一个网络之后给一些训练数据，就能有好的效果了？？？这种过于智能的方法与我原本对算法的理解产生了极大的偏差。但是， 抱歉，BP算法是真的可以为所欲为。确实只需要搭一个网络结构，再给一些数据，它能更新参数，而且理论上两层的神经网络加上非线性激活函数就能够拟合">
+<meta name="twitter:image" content="https://caojiangxia.github.io/BP/NN.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://caojiangxia.github.io/BP/">
+
+
+
+
+
+  <title>BPalgorithm-反向传播算法 | caojiangxia</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">caojiangxia</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/BP/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BPalgorithm-反向传播算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-24T17:34:23+08:00">
+                2019-05-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-05-24T17:34:23+08:00">
+                2019-05-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/BP/" class="leancloud_visitors" data-flag-title="BPalgorithm-反向传播算法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.5k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="BP算法"><a href="#BP算法" class="headerlink" title="BP算法"></a>BP算法</h1><p>这个算法是用来更新神经网络中的参数的，对于理解神经网络的运作可以说是至关重要。在我刚接触神经网络的时候，第一时间感觉神经网络是玄学，你就搭一个网络之后给一些训练数据，就能有好的效果了？？？这种过于智能的方法与我原本对算法的理解产生了极大的偏差。但是，</p>
+<p>抱歉，BP算法是真的可以为所欲为。确实只需要搭一个网络结构，再给一些数据，它能更新参数，而且理论上两层的神经网络加上非线性激活函数就能够拟合任何非线性函数。反向传播属于监督学习算法，通过调节各层的权重，使网络学会由“输入-输出对”组成的训练组。其调节过程按照从后向前的形式：</p>
+<ul>
+<li>首先修正：“输出层至最后一个隐含层”的连接权重</li>
+<li>再修正：“最后一个隐含层至倒数第二个隐含层”的连接权重</li>
+<li>…</li>
+<li>最后修正：“第一隐含层至输入层”的连接权重。</li>
+</ul>
+<p>本文将会结合自动化所模式识别课件中的一些图来介绍一下三层全连接网络的BP算法流程，力求给出一个简单的讲解。同时为了让本文有一些实际价值，最后将会给出一个简单的BP代码。</p>
+<h2 id="需要知道的知识"><a href="#需要知道的知识" class="headerlink" title="需要知道的知识"></a>需要知道的知识</h2><h3 id="链式法则"><a href="#链式法则" class="headerlink" title="链式法则"></a>链式法则</h3><p>链式法则用于复合函数求导，具体例子如下：</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+f(x)=g_1(g_2(g_3(...(g_n(x)))))</script><p>令</p>
+<script type="math/tex; mode=display">
+h_2(x)=g_2(g_3(...(g_n(x)))),\\
+h_3(x)=g_3(g_4(...(g_n(x)))),\\
+....</script><p>我们有：</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray*}
+\frac {\partial f(x)} {\partial x} & =& \frac {\partial g_1(h_2(x))} {\partial h_2} \frac {\partial h_2(x)} {\partial x}\\
+& = &\frac {\partial g_1(h_2(x))} {\partial h_2} \frac {\partial h_2(h_3(x))} {\partial h_3}\frac {\partial h_3(x)} {\partial x} \\
+&= &... \\
+&= &\frac {\partial g_1(h_2(x))} {\partial h_2} \frac {\partial h_2(h_3(x))} {\partial h_3}...\frac {\partial g_n(x)} {\partial x}
+\end{eqnarray*}</script><h3 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h3><blockquote>
+<p>tanh是一个常见的S型函数，也是双曲函数中的一个，tanh()为双曲正切。在数学中，双曲正切“tanh”是由双曲正弦和双曲余弦这两种基本双曲函数推导而来。</p>
+</blockquote>
+<p>公式如下：</p>
+<script type="math/tex; mode=display">
+\tanh x= \frac {\sinh x} {\cosh x}= \frac {e^x-e^{-x}} {e^x+e^{-x}}</script><p>请<strong>注意其导数形式</strong>：</p>
+<script type="math/tex; mode=display">
+\tanh' x=1- \tanh ^2 x</script><p>可以看到其导数的值可以用函数本身来表示，这是tanh在之前的神经网络中常用的原因之一，求导很简单。</p>
+<h3 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h3><blockquote>
+<p>Sigmoid函数是一个在生物学中常见的S型函数，也称为S型生长曲线。 在信息科学中，由于其单增以及反函数单增等性质，Sigmoid函数常被用作神经网络的阈值函数，将变量映射到0,1之间。</p>
+</blockquote>
+<p>公式如下：</p>
+<script type="math/tex; mode=display">
+S(x)=\frac 1 {1+e^{-x}}</script><p>请<strong>注意其导数形式</strong>：</p>
+<script type="math/tex; mode=display">
+S'(x)=\frac {e^{-x}} {(1+e^{-x})^2}=S(x)(1-S(x))</script><p>可以看到其导数的值可以用函数本身来表示，这是sigmoid在之前的神经网络中常用的原因之一，求导很简单。</p>
+<p><strong>所以我们后面的推导默认使用这两个激活函数啦！</strong></p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>下图是本文所使用的网络结构：</p>
+<p><img src="/BP/NN.png" alt=""></p>
+<p>其中我们规定以下参数：</p>
+<ul>
+<li>训练数据输入输出对： $\{x_i^k,t_i^k\}$ </li>
+<li>输出层结点的输出: $z_j^k$</li>
+<li>隐含层结点的输出：$y_h^k$</li>
+<li>输入层结点$i$至隐含层结点$h$的权重：$w_{ih}$</li>
+<li>隐含层结点$h$至输出层结点$j$的权重：$w_{hj}$</li>
+<li>上标 $k$ 表示训练对的序号，即第$k$个样本</li>
+</ul>
+<p>我们使用以下损失函数：</p>
+<script type="math/tex; mode=display">
+loss=\frac 1 2 \sum_{j=1}^c(t_j-z_j)^2</script><h3 id="首先进行前向传播计算中间值"><a href="#首先进行前向传播计算中间值" class="headerlink" title="首先进行前向传播计算中间值"></a>首先进行前向传播计算中间值</h3><ul>
+<li>对第$k$个样本，隐含层$h$结点的输入加权和为： $net_h^k=\sum_i w_{ih}x_i^k$</li>
+<li>隐含层中节点$h$激励后的值：$y_h^k=f(net_h^k)=f(\sum_i w_{ih}x_i^k)$</li>
+<li>输出层中节点$j$的输入加权和为：$net_j^k=\sum_hw_{hj}y_h^k=\sum_hw_{hj}f(\sum_i w_{ih}x_i^k)$</li>
+<li>激励后，输出层$z$的输出：$z_j^k=f(net_j^k)=f(\sum_hw_{hj}y_h^k)=f(\sum_hw_{hj}f(\sum_i w_{ih}x_i^k))$</li>
+</ul>
+<p>上面的公式虽然看起来很多，但是实际上只是展开了而已，建议手写一下。</p>
+<p>通过上述推导，我们已经将第$k$个样本进行了前向传播，我们所得到的输出$z$如下：</p>
+<script type="math/tex; mode=display">
+z_j^k=f(net_j^k)=f(\sum_hw_{hj}y_h^k)=f(\sum_hw_{hj}f(\sum_i w_{ih}x_i^k))</script><p>我们使用最小均方误差损失函数，有：</p>
+<script type="math/tex; mode=display">
+J(w)^k=\frac 1 2\sum_j(t_j^k-z_j^k)^2</script><p>将损失函数展开：</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray*}
+J(w)^k & = &\frac 1 2\sum_j(t_j^k-z_j^k)^2\\
+&=&\frac 1 2\sum_j(t_j^k-f(net_j^k))^2\\
+&=&\frac 1 2\sum_j(t_j^k-f(\sum_hw_{hj}y_h^k))^2\\
+&=&\frac 1 2\sum_j(t_j^k-f(\sum_hw_{hj}f(net_h^k)))^2\\
+&=&\frac 1 2\sum_j(t_j^k-f(\sum_hw_{hj}f(\sum_iw_{ih}x_i^k)))^2\\
+
+\end{eqnarray*}</script><h3 id="首先我们计算输出层到隐含层的增量"><a href="#首先我们计算输出层到隐含层的增量" class="headerlink" title="首先我们计算输出层到隐含层的增量"></a>首先我们计算输出层到隐含层的增量</h3><script type="math/tex; mode=display">
+\begin{eqnarray*}
+\Delta w_{hj}&=&- \eta \frac {\partial J(w)} {\partial w_{hj}} \\
+&=&- \eta \sum_k \frac {\partial J(w)^k} {\partial z_j^k} \frac {\partial z_j^k} {\partial w_{hj}}\\
+&=&\eta \sum_k (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial w_{hj}}\\
+&=&\eta \sum_k (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial net_{j}^k} \frac {\partial net_{j}^k} {\partial w_{hj}} \\
+&=&\eta \sum_k (t_j^k-z_j^k)f'(net_j^k)\frac {\partial net_{j}^k} {\partial w_{hj}}\\
+&=&\eta \sum_k (t_j^k-z_j^k)f'(net_j^k)y_h^k\\
+&=&\eta \sum_k (t_j^k-z_j^k)f'(net_j^k)y_h^k\\
+&=&\eta \sum_k \delta_j^k y_h^k\\
+\end{eqnarray*}</script><p>我们一步一步进行计算，可以得到上面的递推式，由于我们进过了一次前向传播，最后等式里面的所有值都是定值，于是我们可以算出准确的梯度值$\Delta w_{hj}$。</p>
+<p>为了使上式看起来简单，我们通常定义一个$\delta $规则，这里的定义如下：</p>
+<script type="math/tex; mode=display">
+\delta_j^k=\frac {\partial J(w)} {net_j^k}=(t_j^k-z_j^k)f'(net_j^k)=\Delta _j^kf'(net_j^k)</script><p><img src="/BP/delta.png" alt=""></p>
+<p>如图所示，我们可以理解$\delta_j^k$为，对于第$k$个样本来说：当前层第$j$个节点所收集到的<strong>误差信号</strong>（这里就是$(t_j^k-z_j^k)$）乘以当前第$j$个节点的<strong>加权和对激励函数的导数</strong>（这里就是$f’(net_j^k)$)，<strong>计算完了之后就将$\delta_j^k$作为传递给下一层的误差信号</strong>。</p>
+<p>之后隐藏层的第$h$个节点到输出层第$j$个节点的增量形式可以记作:</p>
+<script type="math/tex; mode=display">
+\Delta w_{hj}=\eta \sum_k \delta_j^k y_h^k</script><p>图解如下：</p>
+<p><img src="/BP/sample.png" alt=""></p>
+<p><img src="/BP/normal2.png" alt=""></p>
+<p><img src="/BP/normal3.png" alt=""></p>
+<p><strong>注意</strong>：这个时候我们就可以得到BP算法增量的的<strong>通解形式</strong>了:</p>
+<script type="math/tex; mode=display">
+\Delta w_{hj}^k=\eta \delta_j^k y_h^k</script><p><img src="/BP/normal.png" alt=""></p>
+<h3 id="之后我们计算输出层到输入层的增量"><a href="#之后我们计算输出层到输入层的增量" class="headerlink" title="之后我们计算输出层到输入层的增量"></a>之后我们计算输出层到输入层的增量</h3><p>请注意，<strong>这里由于$j$是不固定的</strong>，所以我们需要有$\sum_j$。</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray*}
+\Delta w_{ih}&=&- \eta \frac {\partial J(w)} {\partial w_{ih}} \\
+&=&- \eta \sum_k \sum_j \frac {\partial J(w)^k} {\partial z_j^k} \frac {\partial z_j^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial net_{j}^k} \frac {\partial net_{j}^k} {\partial w_{ih}} \\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)\frac {\partial net_{j}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)\frac {\partial net_{j}^k} {\partial y_h^k} \frac {\partial y_h^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)w_{hj} \frac {\partial y_h^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)w_{hj} \frac {\partial y_h^k} {\partial net_{h}^k} \frac  {\partial net_{h}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)w_{hj} f'(net_h^k) \frac  {\partial net_{h}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k)f'(net_j^k)w_{hj} f'(net_h^k) x_i\\
+&=&\eta \sum_k \sum_j \frac {\partial J(w)^k} {\partial net_h^k} \frac {\partial net_h^k} {w_{ih}}
+\end{eqnarray*}</script><p>这个递推过程太复杂了，我们通常使用$\delta$规则简化递推式，请注意以下的递推过程：</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray*}
+\Delta w_{ih}&=&- \eta \frac {\partial J(w)} {\partial w_{ih}} \\
+&=&- \eta \sum_k \sum_j \frac {\partial J(w)^k} {\partial z_j^k} \frac {\partial z_j^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j (t_j^k-z_j^k) \frac {\partial z_j^k} {\partial net_{j}^k} \frac {\partial net_{j}^k} {\partial w_{ih}} \\
+&=&\eta \sum_k \sum_j \delta_j^k \frac {\partial net_{j}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j \delta_j^k\frac {\partial net_{j}^k} {\partial y_h^k} \frac {\partial y_h^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j \delta_j^k w_{hj}\frac {\partial y_h^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j \delta_j^k w_{hj} \frac {\partial y_h^k} {\partial net_{h}^k} \frac  {\partial net_{h}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \sum_j \delta_j^k w_{hj} f'(net_h^k) \frac  {\partial net_{h}^k} {\partial w_{ih}}\\
+&=&\eta \sum_k \delta_h^k x_i\\
+\end{eqnarray*}</script><p><img src="/BP/hard.png" alt=""></p>
+<p><img src="/BP/hard2.png" alt=""></p>
+<p>于是我们可以得出下面的结论：</p>
+<p><img src="/BP/hard3.png" alt=""></p>
+<p>请注意这里的$\delta $ 和之前有一些不一样，这里的$\delta   $包含了边权$w_{hj}$。</p>
+<p><img src="/BP/hard4.png" alt=""></p>
+<p>来一个更加形象的例子来解释$\delta   $：</p>
+<p><img src="/BP/hard5.png" alt=""></p>
+<p>以下是本文最<strong>重要</strong>的两句话:</p>
+<ul>
+<li>我们在当前节点求收集到的损失$\delta $的时候，计算的是上一层收集到的损失$\delta $与边权乘积的加权和之后，再乘以当前节点的<strong>加权和对激励函数的导数</strong>。</li>
+<li>我们在更新某一条边权的时候，我们只需要考虑输出节点的收集到的损失$\delta$乘以当前节点的<strong>加权和的激励后的值</strong>即可。</li>
+</ul>
+<p>于是我们可以得到更加普通的求增量$\Delta$的形式：</p>
+<script type="math/tex; mode=display">
+\Delta w_{in\rightarrow o}=\eta \sum_k \delta_o^k y_{in}</script><p>其中$in$表示输入节点， $o$表示输出节点，$y_{in}$表示当前节点的加权和的激励值，$k$表示的是样本编号，$\eta$表示学习率。</p>
+<p>于是我们可以得到更加普通的收集损失$\delta    $的形式：</p>
+<script type="math/tex; mode=display">
+\delta_{in}^k=f'(net_{in}^k) \sum_o w_{in\rightarrow o}\delta_o^k</script><p>其中$in$表示输入节点， $o$表示输出节点，$net_{in}$表示当前节点的加权和，$k$表示的是样本编号，$\eta$表示学习率。</p>
+<p><strong>到此，BP算法在DNN上的推导我们已经结束了，如果读者理解了上面的两个式子，就说明对BP算法有了一定的了解啦！</strong></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>一份BP代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy as np</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">w0=[[ <span class="number">1.58</span>, <span class="number">2.32</span>, <span class="number">-5.8</span>], [ <span class="number">0.67</span>, <span class="number">1.58</span>, <span class="number">-4.78</span>], [ <span class="number">1.04</span>, <span class="number">1.01</span>, <span class="number">-3.63</span>],</span><br><span class="line">[<span class="number">-1.49</span>, <span class="number">2.18</span>, <span class="number">-3.39</span>], [<span class="number">-0.41</span>, <span class="number">1.21</span>, <span class="number">-4.73</span>], [<span class="number">1.39</span>, <span class="number">3.16</span>, <span class="number">2.87</span>],</span><br><span class="line">[ <span class="number">1.20</span>, <span class="number">1.40</span>, <span class="number">-1.89</span>], [<span class="number">-0.92</span>, <span class="number">1.44</span>, <span class="number">-3.22</span>], [ <span class="number">0.45</span>, <span class="number">1.33</span>, <span class="number">-4.38</span>],</span><br><span class="line">[<span class="number">-0.76</span>, <span class="number">0.84</span>, <span class="number">-1.96</span>]]</span><br><span class="line"></span><br><span class="line">w1=[[ <span class="number">0.21</span>, <span class="number">0.03</span>, <span class="number">-2.21</span>], [ <span class="number">0.37</span>, <span class="number">0.28</span>, <span class="number">-1.8</span>], [ <span class="number">0.18</span>, <span class="number">1.22</span>, <span class="number">0.16</span>],</span><br><span class="line">[<span class="number">-0.24</span>, <span class="number">0.93</span>, <span class="number">-1.01</span>], [<span class="number">-1.18</span>, <span class="number">0.39</span>, <span class="number">-0.39</span>], [<span class="number">0.74</span>, <span class="number">0.96</span>, <span class="number">-1.16</span>],</span><br><span class="line">[<span class="number">-0.38</span>, <span class="number">1.94</span>, <span class="number">-0.48</span>], [<span class="number">0.02</span>, <span class="number">0.72</span>, <span class="number">-0.17</span>], [ <span class="number">0.44</span>, <span class="number">1.31</span>, <span class="number">-0.14</span>],</span><br><span class="line">[ <span class="number">0.46</span>, <span class="number">1.49</span>, <span class="number">0.68</span>]]</span><br><span class="line"></span><br><span class="line">w2=[[<span class="number">-1.54</span>, <span class="number">1.17</span>, <span class="number">0.64</span>], [<span class="number">5.41</span>, <span class="number">3.45</span>, <span class="number">-1.33</span>], [ <span class="number">1.55</span>, <span class="number">0.99</span>, <span class="number">2.69</span>],</span><br><span class="line">[<span class="number">1.86</span>, <span class="number">3.19</span>, <span class="number">1.51</span>], [<span class="number">1.68</span>, <span class="number">1.79</span>, <span class="number">-0.87</span>], [<span class="number">3.51</span>, <span class="number">-0.22</span>, <span class="number">-1.39</span>],</span><br><span class="line">[<span class="number">1.40</span>, <span class="number">-0.44</span>, <span class="number">-0.92</span>], [<span class="number">0.44</span>, <span class="number">0.83</span>, <span class="number">1.97</span>], [ <span class="number">0.25</span>, <span class="number">0.68</span>, <span class="number">-0.99</span>],</span><br><span class="line">[ <span class="number">0.66</span>, <span class="number">-0.45</span>, <span class="number">0.08</span>]]</span><br><span class="line">learning_rate=<span class="number">0.1</span></span><br><span class="line">single=<span class="number">0</span></span><br><span class="line">layer_size=[<span class="number">3</span>,<span class="number">10</span>,<span class="number">3</span>]</span><br><span class="line">layer_function=[<span class="string">"tanh"</span>,<span class="string">"sigmoid"</span>]</span><br><span class="line">layer_arcfunction=[<span class="string">"arctanh"</span>,<span class="string">"arcsigmoid"</span>]</span><br><span class="line">layer=[]</span><br><span class="line">def <span class="built_in">tanh</span>(x):</span><br><span class="line">    <span class="keyword">return</span> math.<span class="built_in">tanh</span>(x)</span><br><span class="line">    #<span class="keyword">return</span> (math.<span class="built_in">exp</span>(x)-math.<span class="built_in">exp</span>(-x))/(math.<span class="built_in">exp</span>(x)+math.<span class="built_in">exp</span>(-x))</span><br><span class="line">def arctanh(x):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>-<span class="built_in">tanh</span>(x)*<span class="built_in">tanh</span>(x)</span><br><span class="line">def sigmoid(x):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>/(<span class="number">1</span>+math.<span class="built_in">exp</span>(-x))</span><br><span class="line">def arcsigmoid(x):</span><br><span class="line">    <span class="keyword">return</span> sigmoid(x)*(<span class="number">1</span>-sigmoid(x))</span><br><span class="line">def predict(train,test):</span><br><span class="line">    net=[]</span><br><span class="line">    fnet=[]</span><br><span class="line">    res=np.copy(train)</span><br><span class="line">    net.append(np.copy(train))</span><br><span class="line">    fnet.append(np.copy(train))</span><br><span class="line">    <span class="keyword">for</span> i in range(len(layer)):</span><br><span class="line">        res=np.dot(res,layer[i])#计算下一层的结果</span><br><span class="line">        net.append(np.copy(res))#将结果存起来</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">vector</span> in res:</span><br><span class="line">            <span class="keyword">for</span> j in range(len(<span class="built_in">vector</span>)):</span><br><span class="line">                <span class="built_in">vector</span>[j]=globals().get(layer_function[i])(<span class="built_in">vector</span>[j])#将每一层得到的结果激励</span><br><span class="line">        fnet.append(np.copy(res))#将激励后的结果存起来</span><br><span class="line">    fres=np.copy(fnet[<span class="number">-1</span>])</span><br><span class="line">    fres=np.subtract(test,fres)</span><br><span class="line">    fres=np.square(fres)</span><br><span class="line">    ans=fres.sum()#计算答案</span><br><span class="line">    res = np.copy(net[<span class="number">-1</span>])#最后一层的未激励后的结果</span><br><span class="line">    fres= np.copy(fnet[<span class="number">-1</span>])#最后一层激励后的结果</span><br><span class="line">    subfres=np.subtract(test,fres)#（t-z）的结果</span><br><span class="line">    delta=[]</span><br><span class="line">    update_layer = []</span><br><span class="line">    <span class="keyword">for</span> i in range(len(layer)):</span><br><span class="line">        delta.append(np.zeros((layer_size[i+<span class="number">1</span>],len(train))))#创建delta矩阵记录结果，这个非常关键的</span><br><span class="line">        update_layer.append(np.ones_like(layer[i]) - <span class="number">1</span>)#创建一个相同维度的更新权重的矩阵</span><br><span class="line">    deep=len(layer)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> j in range(layer_size[<span class="number">-1</span>]):#第几个节点</span><br><span class="line">        <span class="keyword">for</span> k in range(len(train)):#第几个样本</span><br><span class="line">            delta[deep][j][k]=globals().get(layer_arcfunction[deep])(res[k][j])*(subfres[k][j])#计算最后一层的误差，表示的是最后一层第j个节点第k个样本的误差</span><br><span class="line">    H=layer_size[<span class="number">-2</span>]#得到倒数第二层的节点数</span><br><span class="line">    J=layer_size[<span class="number">-1</span>]#得到倒数第一层的节点数</span><br><span class="line">    fres=fnet[<span class="number">-2</span>]#得到倒数第二层激励后的结果y^k_h</span><br><span class="line">    <span class="keyword">for</span> h in range(H):</span><br><span class="line">        <span class="keyword">for</span> j in range(J):</span><br><span class="line">            loss=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k in range(len(train)):</span><br><span class="line">                loss+=delta[deep][j][k]*fres[k][h]</span><br><span class="line">            update_layer[deep][h][j]=learning_rate*loss</span><br><span class="line">    deep-=<span class="number">1</span>#找下一层的</span><br><span class="line">    res = np.copy(net[<span class="number">-2</span>])#得到倒数第二层的未激励后的结果net^k_h</span><br><span class="line">    <span class="keyword">for</span> h in range(layer_size[<span class="number">-2</span>]):#第几个节点</span><br><span class="line">        <span class="keyword">for</span> k in range(len(train)):#第几个样本</span><br><span class="line">            loss=<span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> j in range(layer_size[<span class="number">-1</span>]):#计算误差。</span><br><span class="line">                loss+=delta[deep+<span class="number">1</span>][j][k]*layer[<span class="number">-1</span>][h][j]</span><br><span class="line">            delta[deep][h][k]=globals().get(layer_arcfunction[deep])(res[k][h])*loss#当前节点的倒数加权和的倒数乘以收集到的误差</span><br><span class="line">    I = layer_size[<span class="number">-3</span>]#得到倒数第三层的节点</span><br><span class="line">    H = layer_size[<span class="number">-2</span>]#得到倒数第二层的节点</span><br><span class="line">    fres = train#第一层的就得用train了</span><br><span class="line">    <span class="keyword">for</span> i in range(I):</span><br><span class="line">        <span class="keyword">for</span> h in range(H):</span><br><span class="line">            loss = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> k in range(len(train)):</span><br><span class="line">                loss += delta[deep][h][k] * fres[k][i]</span><br><span class="line">            update_layer[deep][i][h] = learning_rate * loss</span><br><span class="line">    <span class="keyword">for</span> i in range(len(layer)):</span><br><span class="line">        layer[i]=np.add(layer[i],update_layer[i])#更新权重</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">def learn(train,test,single):</span><br><span class="line">    cnt=<span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> single:#单个来更新</span><br><span class="line">        <span class="keyword">for</span> i in range(len(train)):</span><br><span class="line">            cnt+=predict(np.<span class="built_in">array</span>([train[i]]),np.<span class="built_in">array</span>([test[i]]))</span><br><span class="line">    <span class="keyword">else</span> :#批处理来更新</span><br><span class="line">        cnt += predict(train, test)</span><br><span class="line">    <span class="keyword">return</span> cnt</span><br><span class="line">if __name__ == '__main__':</span><br><span class="line">    train = w0 + w1 + w2#训练数据</span><br><span class="line">    test = []</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">10</span>):</span><br><span class="line">        test.append([<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">10</span>):</span><br><span class="line">        test.append([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">10</span>):</span><br><span class="line">        test.append([<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>])#训练数据的标签</span><br><span class="line">    train = np.<span class="built_in">array</span>(train)</span><br><span class="line">    test = np.<span class="built_in">array</span>(test)</span><br><span class="line">    np.random.seed(<span class="number">19980731</span>)#杨超越</span><br><span class="line">    <span class="keyword">for</span> i in range(len(layer_size)):</span><br><span class="line">        j=i+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(j==len(layer_size)):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        matrix=np.random.randn(layer_size[i],layer_size[j])#初始化权重向量</span><br><span class="line">        layer.append(matrix)</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">1000</span>):#训练轮数</span><br><span class="line">        print(<span class="string">"After "</span>,i,<span class="string">" single"</span> <span class="keyword">if</span> single <span class="keyword">else</span> <span class="string">" batch"</span>,<span class="string">"learning the loss:"</span>,learn(train,test,single))</span><br><span class="line">#<span class="number">0.713826927619</span> 训练<span class="number">1000</span>轮的总loss</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BP/" rel="tag"># BP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kickstart2019A/" rel="next" title="kickstart-2019 Round A">
+                <i class="fa fa-chevron-left"></i> kickstart-2019 Round A
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/lotus.jpg" alt="Kuroyukihime">
+            
+              <p class="site-author-name" itemprop="name">Kuroyukihime</p>
+              <p class="site-description motion-element" itemprop="description">一只NLP、ML萌新，欢迎探讨问题。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/caojiangxia" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://codeforces.com/profile/caojiangxia" target="_blank" title="codeforces">
+                      
+                        <i class="fa fa-fw fa-globe"></i>codeforces</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/yexiaohhjk" title="MrYx" target="_blank">MrYx</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BP算法"><span class="nav-number">1.</span> <span class="nav-text">BP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要知道的知识"><span class="nav-number">1.1.</span> <span class="nav-text">需要知道的知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链式法则"><span class="nav-number">1.1.1.</span> <span class="nav-text">链式法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh"><span class="nav-number">1.1.2.</span> <span class="nav-text">tanh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid"><span class="nav-number">1.1.3.</span> <span class="nav-text">sigmoid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">1.2.</span> <span class="nav-text">网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先进行前向传播计算中间值"><span class="nav-number">1.2.1.</span> <span class="nav-text">首先进行前向传播计算中间值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先我们计算输出层到隐含层的增量"><span class="nav-number">1.2.2.</span> <span class="nav-text">首先我们计算输出层到隐含层的增量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#之后我们计算输出层到输入层的增量"><span class="nav-number">1.2.3.</span> <span class="nav-text">之后我们计算输出层到输入层的增量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuroyukihime</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("T7KcjJJp64BnMKCS46V2ucUm-gzGzoHsz", "DOkoBoCTAtTujSpi8QoEaXPi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <div class="bg_content">
+  <canvas id="canvas"></canvas>
+  </div>
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>
+
