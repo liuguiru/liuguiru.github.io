@@ -531,7 +531,8 @@ J(w)^k & = &\frac 1 2\sum_j(t_j^k-z_j^k)^2\\
 \end{eqnarray*}</script><p>我们一步一步进行计算，可以得到上面的递推式，由于我们进过了一次前向传播，最后等式里面的所有值都是定值，于是我们可以算出准确的梯度值$\Delta w_{hj}$。</p>
 <p>为了使上式看起来简单，我们通常定义一个$\delta $规则，这里的定义如下：</p>
 <script type="math/tex; mode=display">
-\delta_j^k=\frac {\partial J(w)} {net_j^k}=(t_j^k-z_j^k)f'(net_j^k)=\Delta _j^kf'(net_j^k)</script><p><img src="/BP/delta.png" alt=""></p>
+\delta_j^k=\frac {\partial J(w)} {net_j^k}=(t_j^k-z_j^k)f'(net_j^k)=\Delta _j^kf'(net_j^k)</script><p><strong>在这里特别需要注意的是$\Delta _j^k$ 原本的形式应该是$-(t_j^k-z_j^k)$。但是负号和最初的$-\eta $抵消了。</strong></p>
+<p><img src="/BP/delta.png" alt=""></p>
 <p>如图所示，我们可以理解$\delta_j^k$为，对于第$k$个样本来说：当前层第$j$个节点所收集到的<strong>误差信号</strong>（这里就是$(t_j^k-z_j^k)$）乘以当前第$j$个节点的<strong>加权和对激励函数的导数</strong>（这里就是$f’(net_j^k)$)，<strong>计算完了之后就将$\delta_j^k$作为传递给下一层的误差信号</strong>。</p>
 <p>之后隐藏层的第$h$个节点到输出层第$j$个节点的增量形式可以记作:</p>
 <script type="math/tex; mode=display">
@@ -668,6 +669,10 @@ J(w)^k & = &\frac 1 2\sum_j(t_j^k-z_j^k)^2\\
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/kickstart2019C/" rel="prev" title="kickstart-2019 Round C">
+                kickstart-2019 Round C <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -747,7 +752,7 @@ J(w)^k & = &\frac 1 2\sum_j(t_j^k-z_j^k)^2\\
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
