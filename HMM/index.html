@@ -86,20 +86,20 @@
 
 
 
-<meta name="description" content="什么是隐马尔可夫模型？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序列的转移(">
+<meta name="description" content="什么是隐马尔可夫模型（HMM）？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序">
 <meta name="keywords" content="HMM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="隐马尔可夫模型详述">
+<meta property="og:title" content="HMM-隐马尔可夫模型详述">
 <meta property="og:url" content="https://caojiangxia.github.io/HMM/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="什么是隐马尔可夫模型？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序列的转移(">
+<meta property="og:description" content="什么是隐马尔可夫模型（HMM）？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://caojiangxia.github.io/HMM/sample-1-2.png">
 <meta property="og:image" content="https://caojiangxia.github.io/HMM/sample-1.png">
 <meta property="og:updated_time" content="2018-12-26T01:43:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="隐马尔可夫模型详述">
-<meta name="twitter:description" content="什么是隐马尔可夫模型？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序列的转移(">
+<meta name="twitter:title" content="HMM-隐马尔可夫模型详述">
+<meta name="twitter:description" content="什么是隐马尔可夫模型（HMM）？隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的状态序列，只知道转移的概率，即模型的状态转移过程是未知的，而观察事件的随机过程是状态转换过程的随机函数，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。 请记住上述提到的几个概念：  状态序列(这是我们需要去预测的) 观察序列(这是我们已知的) 状态序列的转移概率(这是我们已知的) 状态序列对观察序">
 <meta name="twitter:image" content="https://caojiangxia.github.io/HMM/sample-1-2.png">
 
 
@@ -136,7 +136,7 @@
 
 
 
-  <title>隐马尔可夫模型详述 | caojiangxia</title>
+  <title>HMM-隐马尔可夫模型详述 | caojiangxia</title>
   
 
 
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">隐马尔可夫模型详述</h1>
+          <h1 class="post-title" itemprop="name headline">HMM-隐马尔可夫模型详述</h1>
         
 
         <div class="post-meta">
@@ -386,7 +386,7 @@
 
           
           
-             <span id="/HMM/" class="leancloud_visitors" data-flag-title="隐马尔可夫模型详述">
+             <span id="/HMM/" class="leancloud_visitors" data-flag-title="HMM-隐马尔可夫模型详述">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,7 +436,7 @@
       
 
       
-        <h1 id="什么是隐马尔可夫模型？"><a href="#什么是隐马尔可夫模型？" class="headerlink" title="什么是隐马尔可夫模型？"></a>什么是隐马尔可夫模型？</h1><p>隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的<strong>状态序列</strong>，只知道<strong>转移的概率</strong>，即模型的状态转移过程是未知的，而<strong>观察事件</strong>的随机过程是<strong>状态转换过程的随机函数</strong>，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。</p>
+        <h1 id="什么是隐马尔可夫模型（HMM）？"><a href="#什么是隐马尔可夫模型（HMM）？" class="headerlink" title="什么是隐马尔可夫模型（HMM）？"></a>什么是隐马尔可夫模型（HMM）？</h1><p>隐马尔可夫模型实际上是一个双重的随机过程，我们不知道具体的<strong>状态序列</strong>，只知道<strong>转移的概率</strong>，即模型的状态转移过程是未知的，而<strong>观察事件</strong>的随机过程是<strong>状态转换过程的随机函数</strong>，即我们希望通过可见的事件变换去预测深藏在其背后的本质规律。</p>
 <p>请记住上述提到的几个概念：</p>
 <ul>
 <li>状态序列(这是我们需要去预测的)</li>
@@ -574,7 +574,7 @@ P(o_1..o_i|q_1...q_i)=\prod_tP(o_t|q_t)</script></li>
 </div>
 <h3 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h3><p>我们现在已知观察序列$O=o_1….o_n$，模型$\lambda =(\pi,A,B)$ 。现在我们需要求给定模型与观察序列的情况下求状态序列$Q$。有我们需要以下概率最大：</p>
 <script type="math/tex; mode=display">
-P(O|Q,\lambda )</script><p>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda ​$来说，希望找到一个状态序列$Q​$使得观察序列O发生的可能性最大。</p>
+P(O|Q,\lambda )</script><p>意思也很简单啊，就是我们求这个条件概率，当前模型$\lambda $来说，希望找到一个状态序列$Q$使得观察序列O发生的可能性最大。</p>
 <p>我们假设$Q=q_1…q_n$</p>
 <p>我们把上面的式子打开，有：</p>
 <script type="math/tex; mode=display">
@@ -582,7 +582,7 @@ P(O|Q,\lambda )=\pi_{q_1}A_{q_1q_2}A_{q_2q_3}...A_{q_{n-1}q_n}B_{q_1o_1}B_{q_2o_
 <p>解释一下上面的公式：</p>
 <ul>
 <li>$\pi_{q_1}$表示最初天气为$q_1$成立的概率</li>
-<li>$A_{ij}​$表示天气从$i​$到$j​$转移的概率</li>
+<li>$A_{ij}$表示天气从$i$到$j$转移的概率</li>
 <li>$B_{ij}$表示天气为$i$的情况下海藻状态为$j$的概率，也叫发射概率</li>
 </ul>
 <h3 id="viterbi算法"><a href="#viterbi算法" class="headerlink" title="viterbi算法"></a>viterbi算法</h3><p>维特比算法分为前向后向，但是我感觉会一种就行了，其实都是一样的。这里介绍一下<strong>前向算法</strong>。</p>
@@ -693,7 +693,7 @@ dp_{iq_i}=\max_{k\in s} dp_{(i-1)k}A_{k(q_j)}B_{q_jo_i}</script><p>$dp$表示计
 A_{ij}=\frac {total(i\&j)}{total(i)}</script><p>人话解释：天气状态为$i$的后面连接了天气状态为$j$的次数除以天气状态为$i$的出现总次数。</p>
 <p>对于B矩阵：</p>
 <script type="math/tex; mode=display">
-B_{ij}=\frac {total(i\&j)}{total(i)}</script><p>人话解释：天气状态为$i$的对应海藻的状态为$j$的次数除以天气状态为$i$的出现的总次数。</p>
+B_{ij}=\frac {total(i\&j)}{total(i)}</script><p>人话解释：海藻的状态为$i$天气状态为$j$的对应的次数除以海藻状态为$i$的出现的总次数。</p>
 <p>我们在求的时候一般加上松弛操作，即</p>
 <script type="math/tex; mode=display">
 A_{ij}=\frac {total(i\&j)+1}{total(i)+1}</script><script type="math/tex; mode=display">
@@ -944,7 +944,7 @@ B_{ij}=\frac {total(i\&j)+1}{total(i)+1}</script><h2 id="一个小项目"><a hre
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是隐马尔可夫模型？"><span class="nav-number">1.</span> <span class="nav-text">什么是隐马尔可夫模型？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫链成立的三个假设（当然可以不需要理解）"><span class="nav-number">1.1.</span> <span class="nav-text">隐马尔可夫链成立的三个假设（当然可以不需要理解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在我们考虑一个场景"><span class="nav-number">1.2.</span> <span class="nav-text">现在我们考虑一个场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">建立模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解过程"><span class="nav-number">1.2.2.</span> <span class="nav-text">求解过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viterbi算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">viterbi算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前向算法思想："><span class="nav-number">1.2.3.0.1.</span> <span class="nav-text">前向算法思想：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法流程："><span class="nav-number">1.2.3.0.2.</span> <span class="nav-text">算法流程：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单例子"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">一个简单例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A和B矩阵怎么求？"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">A和B矩阵怎么求？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个小项目"><span class="nav-number">1.3.</span> <span class="nav-text">一个小项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是隐马尔可夫模型（HMM）？"><span class="nav-number">1.</span> <span class="nav-text">什么是隐马尔可夫模型（HMM）？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫链成立的三个假设（当然可以不需要理解）"><span class="nav-number">1.1.</span> <span class="nav-text">隐马尔可夫链成立的三个假设（当然可以不需要理解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在我们考虑一个场景"><span class="nav-number">1.2.</span> <span class="nav-text">现在我们考虑一个场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">建立模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求解过程"><span class="nav-number">1.2.2.</span> <span class="nav-text">求解过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viterbi算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">viterbi算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前向算法思想："><span class="nav-number">1.2.3.0.1.</span> <span class="nav-text">前向算法思想：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法流程："><span class="nav-number">1.2.3.0.2.</span> <span class="nav-text">算法流程：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个简单例子"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">一个简单例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A和B矩阵怎么求？"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">A和B矩阵怎么求？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个小项目"><span class="nav-number">1.3.</span> <span class="nav-text">一个小项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
