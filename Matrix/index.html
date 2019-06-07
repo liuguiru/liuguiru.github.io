@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Math,">
 
 
 
@@ -86,16 +86,20 @@
 
 
 
-<meta name="description" content="一只NLP、ML萌新，欢迎探讨问题。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="caojiangxia">
-<meta property="og:url" content="https://caojiangxia.github.io/archives/2018/12/index.html">
+<meta name="description" content="矩阵的一些性质谈到矩阵，真是有点难受啊。。不过确实是没学好，在这里总结一下一些比较关键的性质 矩阵A的秩的十种定义 在行阶梯形式中，主元的个数 在行阶梯形式中，非零行的个数 在行阶梯形式中，基本列的个数（矩阵中主元所在的位置） 矩阵的列的极大无关组所包含列的个数 矩阵的行的极大无关组所包含列的个数 rank($A$)=dimR($A$) rank($A$)=dimR($A^T$) rank($A$">
+<meta name="keywords" content="Math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵">
+<meta property="og:url" content="https://caojiangxia.github.io/Matrix/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta property="og:description" content="矩阵的一些性质谈到矩阵，真是有点难受啊。。不过确实是没学好，在这里总结一下一些比较关键的性质 矩阵A的秩的十种定义 在行阶梯形式中，主元的个数 在行阶梯形式中，非零行的个数 在行阶梯形式中，基本列的个数（矩阵中主元所在的位置） 矩阵的列的极大无关组所包含列的个数 矩阵的行的极大无关组所包含列的个数 rank($A$)=dimR($A$) rank($A$)=dimR($A^T$) rank($A$">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://caojiangxia.github.io/Matrix/C:/blog/source/_posts/Matrix/LU.png">
+<meta property="og:updated_time" content="2019-06-04T13:11:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="caojiangxia">
-<meta name="twitter:description" content="一只NLP、ML萌新，欢迎探讨问题。">
+<meta name="twitter:title" content="矩阵">
+<meta name="twitter:description" content="矩阵的一些性质谈到矩阵，真是有点难受啊。。不过确实是没学好，在这里总结一下一些比较关键的性质 矩阵A的秩的十种定义 在行阶梯形式中，主元的个数 在行阶梯形式中，非零行的个数 在行阶梯形式中，基本列的个数（矩阵中主元所在的位置） 矩阵的列的极大无关组所包含列的个数 矩阵的行的极大无关组所包含列的个数 rank($A$)=dimR($A$) rank($A$)=dimR($A^T$) rank($A$">
+<meta name="twitter:image" content="https://caojiangxia.github.io/Matrix/C:/blog/source/_posts/Matrix/LU.png">
 
 
 
@@ -125,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://caojiangxia.github.io/archives/2018/12/">
+  <link rel="canonical" href="https://caojiangxia.github.io/Matrix/">
 
 
 
 
 
-  <title>Archive | caojiangxia</title>
+  <title>矩阵 | caojiangxia</title>
   
 
 
@@ -150,7 +154,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -286,176 +290,350 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 33 posts in total. Keep on posting.
-      </span>
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/Matrix/">
 
-      
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/lotus.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="caojiangxia">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">矩阵</h1>
         
 
-        
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-04T21:11:24+08:00">
+                2019-06-04
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2019-06-04T21:11:24+08:00">
+                2019-06-04
+              </time>
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/CF1091E/" itemprop="url">
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
               
-                <span itemprop="name">CF1091E-New Year and the Acquaintance Estimation</span>
+                <span class="post-meta-item-text">In</span>
               
-            </a>
-        
-      </h2>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-31T17:42:02+08:00" content="2018-12-31">
-          12-31
-        </time>
-      </div>
+                
+                
+              
+            </span>
+          
 
-    </header>
-  </article>
+          
+            
+          
 
+          
+          
+             <span id="/Matrix/" class="leancloud_visitors" data-flag-title="矩阵">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.3k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/HMM/" itemprop="url">
-              
-                <span itemprop="name">HMM-隐马尔可夫模型详述</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-26T09:43:34+08:00" content="2018-12-26">
-          12-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Attention/" itemprop="url">
-              
-                <span itemprop="name">transformer模型详解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-24T20:46:38+08:00" content="2018-12-24">
-          12-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="矩阵的一些性质"><a href="#矩阵的一些性质" class="headerlink" title="矩阵的一些性质"></a>矩阵的一些性质</h1><p>谈到矩阵，真是有点难受啊。。不过确实是没学好，在这里总结一下一些比较关键的性质</p>
+<h2 id="矩阵A的秩的十种定义"><a href="#矩阵A的秩的十种定义" class="headerlink" title="矩阵A的秩的十种定义"></a>矩阵A的秩的十种定义</h2><ul>
+<li>在行阶梯形式中，主元的个数</li>
+<li>在行阶梯形式中，非零行的个数</li>
+<li>在行阶梯形式中，基本列的个数（矩阵中主元所在的位置）</li>
+<li>矩阵的列的极大无关组所包含列的个数</li>
+<li>矩阵的行的极大无关组所包含列的个数</li>
+<li>rank($A$)=dimR($A$)</li>
+<li>rank($A$)=dimR($A^T$)</li>
+<li>rank($A$)=n-dimN($A$)，dimN表示矩阵零空间的维度</li>
+<li>rank($A$)=n-dimN($A^T$)</li>
+<li>A中最大非奇异子矩阵的大小。所谓非奇异就是$Ax=0$，$x$只有有唯一解零向量</li>
+</ul>
+<h2 id="矩阵的逆的性质"><a href="#矩阵的逆的性质" class="headerlink" title="矩阵的逆的性质"></a>矩阵的逆的性质</h2><ul>
+<li>$A^{-1}$存在，原矩阵$A$需为方阵，且其逆矩阵是唯一的。</li>
+<li>$rank(A)=n$，也就是秩为$n$</li>
+<li>$A$的行列式的值不为$0$</li>
+<li>$A$是非奇异阵</li>
+<li>两个可逆矩阵的乘积依然可逆。即可逆矩阵的乘积仍为可逆矩阵</li>
+<li>$A^T$的逆$(A^T)^{-1}=(A^{-1})^{T}$ （即转置的逆等于逆的转置）</li>
+<li>$(A^{-1})^{-1}=A$</li>
+</ul>
+<h3 id="逆的公式求法-sherman-morrison-formula"><a href="#逆的公式求法-sherman-morrison-formula" class="headerlink" title="逆的公式求法-sherman-morrison formula"></a>逆的公式求法-sherman-morrison formula</h3><ul>
+<li><p>$A$为一个$n\times n$的方阵，$c,d$均为$n\times 1$的行向量，且$1+d^TA^{-1}c\ne 0$，则有</p>
+<script type="math/tex; mode=display">
+（A+cd^T）^{-1}=A^{-1}-\frac {A^{-1}cd^TA^-1} {1+d^TA^{-1}c}</script></li>
+<li><p>$A$为一个$n\times n$的方阵，$C,D$均为$n\times k$的列向量，且$1+d^TA^{-1}c\ne 0$，则有</p>
+<script type="math/tex; mode=display">
+(A+CD^T)^{-1}=A^{-1}-A^{-1}C(I+D^TA^{-1}C)^{-1}D^TA^{-1}</script></li>
+</ul>
+<h2 id="LU分解"><a href="#LU分解" class="headerlink" title="LU分解"></a>LU分解</h2><p>可以将一个$n*n$矩阵分解为一个单位下三角矩阵和一个上三角矩阵的乘积</p>
+<script type="math/tex; mode=display">
+A=LU</script><p>其中L为一个下三角阵，U为上三角，由于主元可能是0，所以我们有加入一个P,确保能进行LU分解，具体如图所示</p>
+<p><img src="/Matrix/C:/blog\source\_posts\Matrix\LU.png" alt=""></p>
+<h2 id="向量空间的十个条件"><a href="#向量空间的十个条件" class="headerlink" title="向量空间的十个条件"></a>向量空间的十个条件</h2><ul>
+<li>加法的封闭性，对于$\forall x,y \in V$，有$x+y\in V$</li>
+<li>结合律，对于$\forall x,y,z \in V$，有$(x+y)+z=x+(y+z)$</li>
+<li>交换律，对于$\forall x,y \in V$，有$x+y=y+x$</li>
+<li>零元素，对于$\forall x \in V,\exists 0 \in V$，有$x+0=x$</li>
+<li>负元素，对于$\forall x\in V,\exists -x \in V$，有$x+(-x)=0$</li>
+<li>数乘封闭性，对于$\forall x \in V,a \in R$，有$ax \in V$</li>
+<li>数乘结合律，对于$\forall x \in V,a,b \in R$，有$a(bx)=(ab)x$</li>
+<li>数乘分配律，对于$\forall x,y \in V,a\in R$，有$a(x+y)=ax+ay$</li>
+<li>数乘分配律，对于$\forall x\in V,a,b\in R$，有$x(a+b)=ax+bx$</li>
+<li>单位元存在，对于$\forall x\in V$，有$1\cdot x=x$</li>
+</ul>
+<p>在证明的时候，只需要证明公理一和公理六即可。</p>
+<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>对于$A_{m\times n}$，有$Ax=b$不一定可解，但是$A^TAx=A^Tb$一定可解。且满足以下性质</p>
+<ul>
+<li>若$Ax=b$可解，则$Ax=b$与$A^TAx=A^Tb$同解</li>
+<li>若$Ax=b$可解且只有唯一解，则$Ax=b$与$A^TAx=A^Tb$同解且只有唯一解，且解为$x=(A^TA)^{-1}A^Tb$</li>
+<li>若$Ax=b$不可解时，我们采用$A^TAx=A^Tb$来代表$Ax=b$的近似解，于是我们有了<strong>最小二乘法</strong></li>
+</ul>
+<h2 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h2><ol>
+<li>定义从空间$U$到空间$V$的线性变换满足$\daleth(x+y)=\daleth(x)+\daleth(y)$且$\daleth(ax)=a\daleth(x)$，或者等价于$\daleth(ax+y)=a\daleth(x)+\daleth(y)$</li>
+<li>线性算子：将$u$变为$v$的线性函数</li>
+<li>零变换：$O(x)=0$,把空间$U$中的向量都变成$V$空间中的0向量</li>
+<li>恒等算子：$I(x)=x$，把空间$U$中的每一个向量都变为它自身</li>
+<li>$A\in R^{m\times n},x\in R^{n\times 1},\daleth(x)=Ax$是由$R^n$到$R^m$的线性变换，因为$A(ax+y)=aAx+Ay$。若$A$为一个方阵，则$\daleth$ 是作用在$R^n$上的线性<strong>算子</strong></li>
+<li>投影$P$将$V:(x,y,z)\in R^3$变为$xy$平面上的正交投影$(x,y,0)$，投影$P$是一个线性算子$R^3$,因为$u=(u_1,u_2,u_3),v=(v_1,v_2,v_3)$，有$P(au+v)=(au_1+v_1,au_2+v_2,au_3+v_3)$。</li>
+<li>若$B={u_1,u_2,u_3,…,u_n}$为一组基，则$v$可以表示为$v=a_1u_1….a_nu_n$。由于$a_i$是固定的，我们将$v$关于$B$的表示记作$[v]_B=(a_1,a_2,…,a_n)^T$。</li>
+<li>$S={e_1,…,e_n}$称为向量空间$R^n$的标准基。</li>
+</ol>
+<p><strong>任何一个线性变换都可以找到其对于的矩阵表达形式，但是反之不对。且线性算子不改变维度，线性变换改变维度</strong></p>
+<h2 id="不变子空间"><a href="#不变子空间" class="headerlink" title="不变子空间"></a>不变子空间</h2><p>定义:$\daleth $是作用在向量空间$V$的线性算子，对于$X\in V,\daleth (x)=\{ \daleth (x)|x\in X \}$，总有$\daleth(x)\in X$，于是有$\daleth$ 是作用在$X$中向量的严格算子，记作$\daleth_X$。</p>
+<h2 id="向量的模和内积"><a href="#向量的模和内积" class="headerlink" title="向量的模和内积"></a>向量的模和内积</h2><h3 id="向量的模，欧几里得模"><a href="#向量的模，欧几里得模" class="headerlink" title="向量的模，欧几里得模"></a>向量的模，欧几里得模</h3><p>定义$x_{n\times 1}=(x_1,…,x_n)^T$。于是有$||x||=\sqrt{\sum_{i=1}^{n}x_i^2}=\sqrt{x^Tx}$</p>
+<h3 id="标准内积"><a href="#标准内积" class="headerlink" title="标准内积"></a>标准内积</h3><p>实数空间中</p>
+<script type="math/tex; mode=display">
+x^Ty=\sum_{i=1}^nx_iy_i \in \mathbb{R^n}</script><p>复数空间中</p>
+<script type="math/tex; mode=display">
+x^Ty=\sum_{i=1}^nx_i^{-}y_i \in \mathbb{C^n}</script><p>同时模长满足柯西不等式CBS</p>
+<script type="math/tex; mode=display">
+||x\times y||<=||x||||y||</script><p>同时模长满足三角不等式</p>
+<script type="math/tex; mode=display">
+||x+y||<=||x||+||y||</script><h3 id="P模定义"><a href="#P模定义" class="headerlink" title="P模定义"></a>P模定义</h3><script type="math/tex; mode=display">
+P>=1 \quad ||x||_P=(\sum_{i=1}^n|x_i|^{P})^{\frac 1 P}</script><h2 id="矩阵的模"><a href="#矩阵的模" class="headerlink" title="矩阵的模"></a>矩阵的模</h2><h2 id="Frobenius矩阵模"><a href="#Frobenius矩阵模" class="headerlink" title="Frobenius矩阵模"></a>Frobenius矩阵模</h2><p>对于复数域矩阵A，有</p>
+<script type="math/tex; mode=display">
+||A||_F^2=\sum_{ij}|a_{ij}|^2=trace(A^*A)</script><h2 id="矩阵的模的性质"><a href="#矩阵的模的性质" class="headerlink" title="矩阵的模的性质"></a>矩阵的模的性质</h2><ol>
+<li>$||A||&gt;=0$且$||A||=0$表示$A=0$</li>
+<li>$||aA||=a||A||$</li>
+<li>$||A+B||=||A||+||B||$</li>
+<li>$||AB||=||A||||B||$</li>
+<li>$||A||=||A^T||$</li>
+</ol>
+<h2 id="酉矩阵与正交矩阵"><a href="#酉矩阵与正交矩阵" class="headerlink" title="酉矩阵与正交矩阵"></a>酉矩阵与正交矩阵</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>酉矩阵</strong>：对于复矩阵$U_{n\times n}$，它的行或列是$\mathbb{C}^{n\times n}$的标准正交基，所谓标准正交基就是模长为1，且两两做内积为0。</p>
+<p><strong>正交矩阵</strong>：对于实数矩阵$P_{n\times n}$，他的行或列是$\mathbb{R}^{n\times n}$的标准正交基，几何意义是经过变换后不改变长度的，仅仅将矩阵沿原点旋转。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>对于酉矩阵：$U^<em>U=I$且$U^{-1}=U^</em>$</p>
+<p>对于正交矩阵：$P^TP=I$且$P^{-1}=P^T$</p>
+<p>酉矩阵的行<strong>和</strong>列均为标准正交基时，酉矩阵才是正交矩阵</p>
+<p>正交矩阵一定是酉矩阵，但是反之不一定</p>
+<h2 id="QR分解"><a href="#QR分解" class="headerlink" title="QR分解"></a>QR分解</h2><p>由于正交矩阵的性质很好，于是我们就想把一个矩阵分解为一个正交矩阵乘一个矩阵的形式，这样好解方程。</p>
+<p>对于一个$A\in R^{m\times n}=(a_1,a_2,…,a_n)$的矩阵，正交化后有$(q_1,q_2,…,q_n)$</p>
+<p>具体可以通过householder，gram-shmit等方式得到QR分解，具体如下：</p>
+<script type="math/tex; mode=display">
+A=QR</script><p>其中$Q$为正交矩阵，$R$为上三角矩阵</p>
+<h2 id="基本投影的几何意义"><a href="#基本投影的几何意义" class="headerlink" title="基本投影的几何意义"></a>基本投影的几何意义</h2><ol>
+<li>向量$u\in C^{n\times 1}$，且$||u||=1$，则有$Q=I-uu^*$称作基本正交投影</li>
+<li>$(I-uu^*)x$表示$x$在$u^\perp$方向上的正交投影</li>
+<li>$uu^*x$表示$x$在由$\{u\}$张乘的一维空间的正交投影</li>
+<li>$u^*x$表示$x$在由$\{u\}$张乘的一维空间的正交投影的长度</li>
+</ol>
+<p>基本投影是不等距的，既不是酉矩阵也不是正交矩阵。因为等距矩阵是非奇异的，基本投影是奇异的。</p>
+<p>非零向量$u\in \mathbb{C}^n$，在$span\{u\}$上的正交投影和$u^\perp $的正交投影分别为$P_u=\frac {uu^<em>}{u</em>u},P_{u^\perp}=I-\frac {uu^<em>}{u^</em>u}$</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/Simplex/" itemprop="url">
-              
-                <span itemprop="name">Simplex-单纯形算法介绍</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-18T23:57:27+08:00" content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果你喜欢这篇文章，可以支持我继续更新呀！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+	<div>
+	
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:19px;">感谢您的阅读，欢迎在评论区纠错。如需转载，请注明本文出处，谢谢。</div>
+    
+</div>
+	  
+	</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Math/" rel="tag"># Math</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kickstart2019C/" rel="next" title="kickstart-2019 Round C">
+                <i class="fa fa-chevron-left"></i> kickstart-2019 Round C
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -463,6 +641,13 @@
 
 
           
+
+  
+  <div id="gitalk-container"></div>
+  
+  
+  
+
 
         </div>
         
@@ -482,8 +667,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -575,6 +769,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵的一些性质"><span class="nav-number">1.</span> <span class="nav-text">矩阵的一些性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵A的秩的十种定义"><span class="nav-number">1.1.</span> <span class="nav-text">矩阵A的秩的十种定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的逆的性质"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵的逆的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逆的公式求法-sherman-morrison-formula"><span class="nav-number">1.2.1.</span> <span class="nav-text">逆的公式求法-sherman-morrison formula</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LU分解"><span class="nav-number">1.3.</span> <span class="nav-text">LU分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量空间的十个条件"><span class="nav-number">1.4.</span> <span class="nav-text">向量空间的十个条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小二乘法"><span class="nav-number">1.5.</span> <span class="nav-text">最小二乘法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性变换"><span class="nav-number">1.6.</span> <span class="nav-text">线性变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不变子空间"><span class="nav-number">1.7.</span> <span class="nav-text">不变子空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向量的模和内积"><span class="nav-number">1.8.</span> <span class="nav-text">向量的模和内积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#向量的模，欧几里得模"><span class="nav-number">1.8.1.</span> <span class="nav-text">向量的模，欧几里得模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准内积"><span class="nav-number">1.8.2.</span> <span class="nav-text">标准内积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P模定义"><span class="nav-number">1.8.3.</span> <span class="nav-text">P模定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的模"><span class="nav-number">1.9.</span> <span class="nav-text">矩阵的模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Frobenius矩阵模"><span class="nav-number">1.10.</span> <span class="nav-text">Frobenius矩阵模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的模的性质"><span class="nav-number">1.11.</span> <span class="nav-text">矩阵的模的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#酉矩阵与正交矩阵"><span class="nav-number">1.12.</span> <span class="nav-text">酉矩阵与正交矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.12.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">1.12.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QR分解"><span class="nav-number">1.13.</span> <span class="nav-text">QR分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本投影的几何意义"><span class="nav-number">1.14.</span> <span class="nav-text">基本投影的几何意义</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -711,6 +921,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -751,6 +965,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'b967c8770c5b69549da3',
+          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
+          repo: 'caojiangxia.github.io',
+          owner: 'caojiangxia',
+          admin: ['caojiangxia'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
