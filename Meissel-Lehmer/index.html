@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Heap,">
+  <meta name="keywords" content="Meissel-Lehmer,">
 
 
 
@@ -86,25 +86,18 @@
 
 
 
-<meta name="description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
-<meta name="keywords" content="Heap">
+<meta name="description" content="Meissel-Lehmer算法这个算法是用来统计小于等于$n$的素数有多少个的算法。 算法来自于这篇论文，算法的细节，我并不清楚，在这里也只是mark一下这个算法，有空的时候再来研究，算法的时间复杂度是$O(n^{\frac 2 3})$。其实现的代码如下，扩大$N$可以计算到1e12级别： 1234567891011121314151617181920212223242526272829303">
+<meta name="keywords" content="Meissel-Lehmer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Binomial堆">
-<meta property="og:url" content="https://caojiangxia.github.io/Binomial/index.html">
+<meta property="og:title" content="Meissel-Lehmer算法">
+<meta property="og:url" content="https://caojiangxia.github.io/Meissel-Lehmer/index.html">
 <meta property="og:site_name" content="caojiangxia">
-<meta property="og:description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
+<meta property="og:description" content="Meissel-Lehmer算法这个算法是用来统计小于等于$n$的素数有多少个的算法。 算法来自于这篇论文，算法的细节，我并不清楚，在这里也只是mark一下这个算法，有空的时候再来研究，算法的时间复杂度是$O(n^{\frac 2 3})$。其实现的代码如下，扩大$N$可以计算到1e12级别： 1234567891011121314151617181920212223242526272829303">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-1-1.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-1-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-1-3.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-1-4.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-1-5.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Binomial/sample-2-1.png">
-<meta property="og:updated_time" content="2019-01-03T04:10:41.000Z">
+<meta property="og:updated_time" content="2019-06-11T14:40:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Binomial堆">
-<meta name="twitter:description" content="Binomial 堆是什么？首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。 二叉堆首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质  树高$\lceil \log n \rceil$ 插入节点时间复杂度$O(\log n)$ 访问根节点(优先级最高的节点)时间复杂度$O(1)$ 删除根节点时间复杂度$O(\log n)$ 合并">
-<meta name="twitter:image" content="https://caojiangxia.github.io/Binomial/sample-1-1.png">
+<meta name="twitter:title" content="Meissel-Lehmer算法">
+<meta name="twitter:description" content="Meissel-Lehmer算法这个算法是用来统计小于等于$n$的素数有多少个的算法。 算法来自于这篇论文，算法的细节，我并不清楚，在这里也只是mark一下这个算法，有空的时候再来研究，算法的时间复杂度是$O(n^{\frac 2 3})$。其实现的代码如下，扩大$N$可以计算到1e12级别： 1234567891011121314151617181920212223242526272829303">
 
 
 
@@ -134,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://caojiangxia.github.io/Binomial/">
+  <link rel="canonical" href="https://caojiangxia.github.io/Meissel-Lehmer/">
 
 
 
 
 
-  <title>Binomial堆 | caojiangxia</title>
+  <title>Meissel-Lehmer算法 | caojiangxia</title>
   
 
 
@@ -309,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/Binomial/">
+    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/Meissel-Lehmer/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kuroyukihime">
@@ -326,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Binomial堆</h1>
+          <h1 class="post-title" itemprop="name headline">Meissel-Lehmer算法</h1>
         
 
         <div class="post-meta">
@@ -338,8 +331,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-03T12:10:41+08:00">
-                2019-01-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T22:40:12+08:00">
+                2019-06-11
               </time>
             
 
@@ -354,8 +347,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2019-01-03T12:10:41+08:00">
-                2019-01-03
+              <time title="Post modified" itemprop="dateModified" datetime="2019-06-11T22:40:12+08:00">
+                2019-06-11
               </time>
             
           </span>
@@ -390,7 +383,7 @@
 
           
           
-             <span id="/Binomial/" class="leancloud_visitors" data-flag-title="Binomial堆">
+             <span id="/Meissel-Lehmer/" class="leancloud_visitors" data-flag-title="Meissel-Lehmer算法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -415,7 +408,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  671
                 </span>
               
 
@@ -440,84 +433,10 @@
       
 
       
-        <h1 id="Binomial-堆是什么？"><a href="#Binomial-堆是什么？" class="headerlink" title="Binomial 堆是什么？"></a>Binomial 堆是什么？</h1><p>首先我们知道Binomial这个单词的意思是二项式，但是为什么取个名字呢？也许读完本文你就明白了。</p>
-<h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><p>首先我们回顾一下二叉堆，对于节点数为$n$的它，具有下面几个基本性质</p>
-<ul>
-<li>树高$\lceil \log n \rceil$</li>
-<li>插入节点时间复杂度$O(\log n)$</li>
-<li>访问根节点(优先级最高的节点)时间复杂度$O(1)$</li>
-<li>删除根节点时间复杂度$O(\log n)$</li>
-<li>合并两棵树时间复杂度：<ul>
-<li>自底向上合并时间复杂度为$O(n)$</li>
-<li>自顶向下合并时间复杂度为$O(n\log n)$</li>
-</ul>
-</li>
-</ul>
-<p>虽然说二叉堆具有查找上极其优良的性质，但是在<strong>合并</strong>的时候（<del>虽然一般情况下用不到合并这个操作</del>），时间复杂度却没有达到$O(\log n)$级别。这就使得有些人在想，我们可不可以<strong>放松</strong>一下访问根节点的时间到$O(\log n)$，但是<strong>加速</strong>合并两棵树呢？于是Binomial 堆就被提出来了，同时比预想的更加强大！</p>
-<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>由于我们要加速合并，那么肯定是有<strong>好几棵树</strong>同时存在才需要合并，所以<strong>Binomial 堆的本质思想就与二叉堆有很大不同</strong>。Binomial 堆是由<strong>森林</strong>构成的，而二叉堆是<strong>一棵树</strong>。所以这也导致了<strong>合并</strong>这个需求在Binomial  堆中是如此的重要。</p>
-<p>但是Binomial 又是什么意思呢？直观上我们只知道Binomial 表示$2^0,2^1,2^2,…,2^n$这样的数目。但是这和森林有什么关系呢？实际上这恰恰是Binomial 堆的精髓所在，它表示的是森林中每棵树的节点数为$2^k$这么多，同时我们也称当前这棵树为$B_k$。本文中介绍<strong>小根Binomial 堆</strong>，如果不懂什么是小根，<a href="https://caojiangxia.github.io/2019/01/02/heap/#more">那么请移步我的另一篇文章</a>。</p>
-<p>Binomial 堆简单的例子，表示的是0阶，1阶，2阶，3阶，4阶，5阶树的结构：</p>
-<p><img src="/Binomial/sample-1-1.png" alt=""></p>
-<p><img src="/Binomial/sample-1-2.png" alt=""></p>
-<p><img src="/Binomial/sample-1-3.png" alt=""></p>
-<p><img src="/Binomial/sample-1-4.png" alt=""></p>
-<p><strong>一般的结构形式</strong>：</p>
-<p><img src="/Binomial/sample-1-5.png" alt=""></p>
-<p><strong>注意:</strong></p>
-<p>通过上面的描述，我们可以对每棵数得到几个很明显的性质：</p>
-<ul>
-<li>$|B_k|=2^k$</li>
-<li>$height(B_k)=k$</li>
-<li>$degree(B_k)=k$</li>
-<li>对于一棵树的每一个节点来说，其第$i$个儿子的度为$i-1$</li>
-</ul>
-<p>对于总节点为$n$的Binomial 堆而言，其具有以下几个性质：</p>
-<ul>
-<li>最多有$\lfloor \log n \rfloor +1$棵树，很明显，其实就是n在二进制下有多少个1就有多少棵数</li>
-<li>树高最高为$\log n$，因为二进制下最高位一定为$\log n$位</li>
-</ul>
-<p><strong>也许这里会有疑惑，但是请务必仔细想想为什么会有这种性质。</strong></p>
-<h3 id="合并条件-Union"><a href="#合并条件-Union" class="headerlink" title="合并条件-Union"></a>合并条件-Union</h3><p>我们规定Binomial 堆中不允许出现结构相同的两棵数，换句话说，假如森林中出现了阶数相同的两棵树，我们需要进行合并。我们合并的方式也很简单，将根节点的值更大的树作为儿子连上根节点的值更小的树。</p>
-<p>一个简单的例子：</p>
-<p><img src="/Binomial/sample-2-1.png" alt=""></p>
-<p>请注意这是一个递归过程。我们每次合并之后都需要再检查，其实这里本质上就是二进制的进位操作。由于最坏的情况下我们需要进位$\log n$次，所以这一步的复杂度<strong>最坏</strong>为$O(\log n)$。<strong>但是这一步均摊下来其实是很快的</strong>，因为其实二进制的进位操作并不会每次都是最坏情况，而且也不可能出每次都是最坏情况，这一步经过证明<del>我不会</del>，<strong>平均</strong>的时间复杂度为$O(1)$。</p>
-<h3 id="插入节点-Insert"><a href="#插入节点-Insert" class="headerlink" title="插入节点-Insert"></a>插入节点-Insert</h3><p>我们在插入一个节点的时候，想法也是非常简单的，我们首先将其视为$B_0$（也就是单个节点的树），并将其加入到森林中，之后我们使用上一步讲到的合并条件，该步复杂度与合并条件相同,时间复杂度为$O(1)$。</p>
-<h3 id="提取最小值-Top"><a href="#提取最小值-Top" class="headerlink" title="提取最小值-Top"></a>提取最小值-Top</h3><p>提取最小值，我们采用最简单的方法，对森林中每棵树的根节点进行一次遍历，找到根最小的节点的值返回即可。由于最多有$\lfloor \log n \rfloor +1$棵树，故时间复杂度为$O(\log n)​$。</p>
-<h3 id="删除最小值-Pop"><a href="#删除最小值-Pop" class="headerlink" title="删除最小值-Pop"></a>删除最小值-Pop</h3><p>首先我们通过上一步的方法，定位到最小值点在森林的哪一个树中，之后我们将根节点移除，那么此时它应该分裂成了一些更小的树，由于$B_k$这样的一棵树可以分裂为$B_0,B_1,B_2,…,B_{k-1}$这样的一些子树，由于$k$最大为$\log n$,故我们最多插入$\log n$次，每次插入的时间为$O(1)$，故该步的时间复杂度为$O(\log n+\log n)=O(\log n)$。</p>
-<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>二叉树</th>
-<th>Binomial</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Union</td>
-<td>O(n)</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>Insert</td>
-<td>O(log n)</td>
-<td>O(1)</td>
-</tr>
-<tr>
-<td>Top</td>
-<td>O(1)</td>
-<td>O(log n)</td>
-</tr>
-<tr>
-<td>Pop</td>
-<td>O(log n)</td>
-<td>O(log n)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://bioinfo.ict.ac.cn/~dbu/AlgorithmCourses/Lectures/Lec7-Heap.pdf" target="_blank" rel="noopener">国科大-算法设计-卜东波</a></p>
+        <h1 id="Meissel-Lehmer算法"><a href="#Meissel-Lehmer算法" class="headerlink" title="Meissel-Lehmer算法"></a>Meissel-Lehmer算法</h1><p>这个算法是用来统计小于等于$n$的素数有多少个的算法。</p>
+<p><a href="http://www.ams.org/journals/mcom/1985-44-170/S0025-5718-1985-0777285-5/S0025-5718-1985-0777285-5.pdf" target="_blank" rel="noopener">算法来自于这篇论文</a>，算法的细节，我并不清楚，在这里也只是mark一下这个算法，有空的时候再来研究，算法的时间复杂度是$O(n^{\frac 2 3})$。其实现的代码如下，扩大$N$可以计算到1e12级别：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">9e3</span>;<span class="comment">//通过知道前面的n^1/3的质数可以推断后面n^2/3的质数所以可以适当减小</span></span><br><span class="line"><span class="keyword">bool</span> np[N];</span><br><span class="line"><span class="keyword">int</span> prime[N], pi[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getprime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    np[<span class="number">0</span>] = np[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">    pi[<span class="number">0</span>] = pi[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!np[i]) prime[++cnt] = i;</span><br><span class="line">        pi[i] = cnt;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= cnt &amp;&amp; i * prime[j] &lt; N; ++j) &#123;</span><br><span class="line">            np[i * prime[j]] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(i % prime[j] == <span class="number">0</span>)   <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">2</span>;<span class="comment">//为了减小内存可以不过是质数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> PM = <span class="number">2</span> * <span class="number">3</span> * <span class="number">5</span> ;<span class="comment">//为了减小内存可以不过要按质数减小如去掉17</span></span><br><span class="line"><span class="keyword">int</span> phi[PM + <span class="number">1</span>][M + <span class="number">1</span>], sz[M + <span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    getprime();</span><br><span class="line">    sz[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= PM; ++i)  phi[i][<span class="number">0</span>] = i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= M; ++i) &#123;</span><br><span class="line">        sz[i] = prime[i] * sz[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= PM; ++j) phi[j][i] = phi[j][i - <span class="number">1</span>] - phi[j / prime[i]][i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqrt2</span><span class="params">(LL x)</span> </span>&#123;</span><br><span class="line">    LL r = (LL)<span class="built_in">sqrt</span>(x - <span class="number">0.1</span>);</span><br><span class="line">    <span class="keyword">while</span>(r * r &lt;= x)   ++r;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">int</span>(r - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sqrt3</span><span class="params">(LL x)</span> </span>&#123;</span><br><span class="line">    LL r = (LL)cbrt(x - <span class="number">0.1</span>);</span><br><span class="line">    <span class="keyword">while</span>(r * r * r &lt;= x)   ++r;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">int</span>(r - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">getphi</span><span class="params">(LL x, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s == <span class="number">0</span>)  <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">if</span>(s &lt;= M)  <span class="keyword">return</span> phi[x % sz[s]][s] + (x / sz[s]) * phi[sz[s]][s];</span><br><span class="line">    <span class="keyword">if</span>(x &lt;= prime[s]*prime[s])   <span class="keyword">return</span> pi[x] - s + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(x &lt;= prime[s]*prime[s]*prime[s] &amp;&amp; x &lt; N) &#123;</span><br><span class="line">        <span class="keyword">int</span> s2x = pi[sqrt2(x)];</span><br><span class="line">        LL ans = pi[x] - (s2x + s - <span class="number">2</span>) * (s2x - s + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = s + <span class="number">1</span>; i &lt;= s2x; ++i) ans += pi[x / prime[i]];</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> getphi(x, s - <span class="number">1</span>) - getphi(x / prime[s], s - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">getpi</span><span class="params">(LL x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; N)   <span class="keyword">return</span> pi[x];</span><br><span class="line">    LL ans = getphi(x, pi[sqrt3(x)]) + pi[sqrt3(x)] - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = pi[sqrt3(x)] + <span class="number">1</span>, ed = pi[sqrt2(x)]; i &lt;= ed; ++i) ans -= getpi(x / prime[i]) - i + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">lehmer_pi</span><span class="params">(LL x)</span> </span>&#123;<span class="comment">//小于等于n的素数有多少个</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; N)   <span class="keyword">return</span> pi[x];</span><br><span class="line">    <span class="keyword">int</span> a = (<span class="keyword">int</span>)lehmer_pi(sqrt2(sqrt2(x)));</span><br><span class="line">    <span class="keyword">int</span> b = (<span class="keyword">int</span>)lehmer_pi(sqrt2(x));</span><br><span class="line">    <span class="keyword">int</span> c = (<span class="keyword">int</span>)lehmer_pi(sqrt3(x));</span><br><span class="line">    LL sum = getphi(x, a) +(LL)(b + a - <span class="number">2</span>) * (b - a + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = a + <span class="number">1</span>; i &lt;= b; i++) &#123;</span><br><span class="line">        LL w = x / prime[i];</span><br><span class="line">        sum -= lehmer_pi(w);</span><br><span class="line">        <span class="keyword">if</span> (i &gt; c) <span class="keyword">continue</span>;</span><br><span class="line">        LL lim = lehmer_pi(sqrt2(w));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= lim; j++) sum -= lehmer_pi(w / prime[j]) - (j - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    LL n;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n)!=EOF) &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;lehmer_pi(n)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="国际惯例"><a href="#国际惯例" class="headerlink" title="国际惯例"></a>国际惯例</h2><p><a href="https://blog.csdn.net/qq_37785469/article/details/72848488" target="_blank" rel="noopener">https://blog.csdn.net/qq_37785469/article/details/72848488</a></p>
 
       
     </div>
@@ -572,7 +491,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Heap/" rel="tag"># Heap</a>
+            <a href="/tags/Meissel-Lehmer/" rel="tag"># Meissel-Lehmer</a>
           
         </div>
       
@@ -585,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/PQueue/" rel="next" title="二叉堆">
-                <i class="fa fa-chevron-left"></i> 二叉堆
+              <a href="/kickstart2018G/" rel="next" title="kickstart-2018 Round G">
+                <i class="fa fa-chevron-left"></i> kickstart-2018 Round G
               </a>
             
           </div>
@@ -594,10 +513,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/QuickSort/" rel="prev" title="浅谈QuickSort">
-                浅谈QuickSort <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -763,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Binomial-堆是什么？"><span class="nav-number">1.</span> <span class="nav-text">Binomial 堆是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉堆"><span class="nav-number">1.1.</span> <span class="nav-text">二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想"><span class="nav-number">1.2.</span> <span class="nav-text">思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#合并条件-Union"><span class="nav-number">1.2.1.</span> <span class="nav-text">合并条件-Union</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入节点-Insert"><span class="nav-number">1.2.2.</span> <span class="nav-text">插入节点-Insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取最小值-Top"><span class="nav-number">1.2.3.</span> <span class="nav-text">提取最小值-Top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除最小值-Pop"><span class="nav-number">1.2.4.</span> <span class="nav-text">删除最小值-Pop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比"><span class="nav-number">1.2.5.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Meissel-Lehmer算法"><span class="nav-number">1.</span> <span class="nav-text">Meissel-Lehmer算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#国际惯例"><span class="nav-number">1.1.</span> <span class="nav-text">国际惯例</span></a></li></ol></li></ol></div>
             
 
           </div>
