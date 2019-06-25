@@ -90,40 +90,40 @@
 <meta name="keywords" content="attention">
 <meta property="og:type" content="article">
 <meta property="og:title" content="transformer模型详解">
-<meta property="og:url" content="https://caojiangxia.github.io/Attention/index.html">
-<meta property="og:site_name" content="caojiangxia">
+<meta property="og:url" content="https://liuguiru.github.io/Attention/index.html">
+<meta property="og:site_name" content="liuguiru">
 <meta property="og:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/main.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/small.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/small-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/small-3.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/small-4.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/formula.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/Scaled-Attention.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-1.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-3.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-4.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-5.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-1-6.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-2-1.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-2-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-3-1.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-3-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-3-3.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-3-4.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-4.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-3-5.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-5.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/sample-5-2.png">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/slide.gif">
-<meta property="og:image" content="https://caojiangxia.github.io/Attention/slide-2.gif">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/main.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/small.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/small-2.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/small-3.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/small-4.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/formula.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/Scaled-Attention.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-1.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-2.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-3.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-4.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-5.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-1-6.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-2-1.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-2-2.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-3-1.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-3-2.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-3-3.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-3-4.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-4.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-3-5.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-5.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/sample-5-2.png">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/slide.gif">
+<meta property="og:image" content="https://liuguiru.github.io/Attention/slide-2.gif">
 <meta property="og:updated_time" content="2018-12-24T12:46:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="transformer模型详解">
 <meta name="twitter:description" content="背景目前深度学习中用于做NLP的方法，大多都是首先将句子进行分句，之后将每个单词使用与训练好的词向量进行表示(其实这就是一种迁移学习？)，通过这一步我们把一个句子转化为向量的序列。这样的好处是我们可以把一个句子使用一个向量模型来表示，即每个句子我们都对应一个矩阵$x=(x_1,x_2,…x_n)$其中$x_i$表示第$i$个词的词向量，通常我们记为行向量，假如预训练好的向量维度为$d$,也就是说一">
-<meta name="twitter:image" content="https://caojiangxia.github.io/Attention/main.png">
+<meta name="twitter:image" content="https://liuguiru.github.io/Attention/main.png">
 
 
 
@@ -153,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="https://caojiangxia.github.io/Attention/">
+  <link rel="canonical" href="https://liuguiru.github.io/Attention/">
 
 
 
 
 
-  <title>transformer模型详解 | caojiangxia</title>
+  <title>transformer模型详解 | liuguiru</title>
   
 
 
@@ -189,7 +189,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">caojiangxia</span>
+        <span class="site-title">liuguiru</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -328,16 +328,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://caojiangxia.github.io/Attention/">
+    <link itemprop="mainEntityOfPage" href="https://liuguiru.github.io/Attention/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kuroyukihime">
+      <meta itemprop="name" content="liuguiru">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/lotus.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="caojiangxia">
+      <meta itemprop="name" content="liuguiru">
     </span>
 
     
@@ -408,17 +408,6 @@
           
 
           
-          
-             <span id="/Attention/" class="leancloud_visitors" data-flag-title="transformer模型详解">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -613,14 +602,14 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Kuroyukihime WeChat Pay">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="liuguiru WeChat Pay">
         <p>WeChat Pay</p>
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="Kuroyukihime Alipay">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="liuguiru Alipay">
         <p>Alipay</p>
       </div>
     
@@ -702,9 +691,6 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
           
 
   
-  <div id="gitalk-container"></div>
-  
-  
   
 
 
@@ -740,10 +726,10 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/lotus.jpg" alt="Kuroyukihime">
+              <img class="site-author-image" itemprop="image" src="/images/lotus.jpg" alt="liuguiru">
             
-              <p class="site-author-name" itemprop="name">Kuroyukihime</p>
-              <p class="site-description motion-element" itemprop="description">一只NLP、ML萌新，欢迎探讨问题。</p>
+              <p class="site-author-name" itemprop="name">liuguiru</p>
+              <p class="site-description motion-element" itemprop="description">BNU的一只小仙女呀</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -862,7 +848,7 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Kuroyukihime</span>
+  <span class="author" itemprop="copyrightHolder">liuguiru</span>
 
   
 </div>
@@ -1024,21 +1010,6 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
 
 
 
-
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-   <script type="text/javascript">
-        var gitalk = new Gitalk({
-          clientID: 'b967c8770c5b69549da3',
-          clientSecret: '293646df8ac641b88e8540434b7b21b205e46024',
-          repo: 'caojiangxia.github.io',
-          owner: 'caojiangxia',
-          admin: ['caojiangxia'],
-          id: location.pathname,
-          distractionFreeMode: 'true'
-        })
-        gitalk.render('gitalk-container')           
-       </script>
 
   
 
@@ -1364,113 +1335,6 @@ output=LayerNorm(x+Sublayer(x))</script><p>但是这也带来一个小问题，�
 
 
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("T7KcjJJp64BnMKCS46V2ucUm-gzGzoHsz", "DOkoBoCTAtTujSpi8QoEaXPi");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
   
 
