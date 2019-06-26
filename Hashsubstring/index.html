@@ -570,6 +570,9 @@ hash[r]-hash[l-1]*p^{r-l+1}</script><p>由于我们之前每次对hash值取mod,
           
 
   
+  <div id="gitalk-container"></div>
+  
+  
   
 
 
@@ -889,6 +892,21 @@ hash[r]-hash[l-1]*p^{r-l+1}</script><p>由于我们之前每次对hash值取mod,
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: 'a87c6e42b48d4598770b',
+          clientSecret: '5889c68a157d7e3f0c014460dacb3292c65b5021',
+          repo: 'liuguiru.github.io',
+          owner: 'liuguiru',
+          admin: ['liuguiru'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
